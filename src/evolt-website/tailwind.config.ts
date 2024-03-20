@@ -12,7 +12,7 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "login-page-bg": "url('../../public/assets/img/loginBackground.png')",
+        "login-page-bg": "url('/assets/img/loginBackground.svg')",
       },
       colors: {
         'palette-1': '#322C39',
