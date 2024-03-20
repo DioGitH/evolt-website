@@ -1,7 +1,7 @@
 export default function LoginForm(){
     return(
         <div>
-            <div className="container min-w-[320px] sm:w-6/12 md:w-5/12 lg:w-4/12 xl:w-3/12 mt-20 mr-20 font-robotoMono">
+            <div className="container min-w-[320px] sm:w-6/12 md:w-5/12 lg:w-4/12 xl:w-3/12 mt-[3em] mr-[23em] font-robotoMono">
                 <div className="flex justify-end">
                     <div className="text-5xl text-black tracking-widest">WELCOME</div>
                 </div>
