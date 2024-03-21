@@ -18,6 +18,7 @@ const config: Config = {
         'palette-1': '#322C39',
         'palette-2': '#609FA1',
         'palette-3': '#EFEEEC',
+        'pallete-4': '#C82C6D',
       },
       fontFamily: {
         robotoMono: ['Roboto Mono'],
