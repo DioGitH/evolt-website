@@ -22,6 +22,7 @@ const config: Config = {
       },
       fontFamily: {
         robotoMono: ['Roboto Mono'],
+        montserrat: ['Montserrat'],
       },
     },
   },
