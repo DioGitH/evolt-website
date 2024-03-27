@@ -36,7 +36,7 @@ export default function DetailModal({itemId, time, username, image}:any) {
                         <div className="fixed inset-0 bg-black/25" />
                     </Transition.Child>
 
-                    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" aria-hidden="true">
+                    <div className="fixed inset-0 bg-black/30 " aria-hidden="true">
                         <div className="flex min-h-full items-center justify-center p-4 text-center">
                             <Transition.Child
                                 as={Fragment}
@@ -47,21 +47,28 @@ export default function DetailModal({itemId, time, username, image}:any) {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-md backdrop-blur-xl p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg font-medium leading-6 text-gray-900"
+                                        className="text-lg font-medium leading-6 text-palette-2 w-full"
                                     >
                                         Detail Log
                                     </Dialog.Title>
-                                    <div className="mt-2 text-palette-1">
-                                        <tr>{itemId}</tr>
+                                    
+                                    <div className="grid justify-center text-center h-fit p-5 m-4 rounded-md text-palette-3">
+                                        <div className='image w-full rounded-lg overflow-hidden mb-5'>
+                                            <img src="/assets/img/dummyDetail.jpeg" alt="" className='image max-w-48 h-fit' />
+                                        </div>
+                                        <TextDetail date={time} username={username}/>
+                                        <div className='grid justify-center'>
+                                            
+                                        </div>
                                     </div>
 
                                     <div className="mt-4 flex justify-end">
                                         <button
                                             type="button"
-                                            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                            className="inline-flex justify-center rounded-md border border-transparent bg-pallete-4 bg-opacity-60 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                             onClick={closeModal}
                                         >
                                             Kembali
@@ -74,5 +81,18 @@ export default function DetailModal({itemId, time, username, image}:any) {
                 </Dialog>
             </Transition>
         </>
+    )
+}
+
+export function TextDetail({date, username}:any){
+    return(
+        <div className='grid'>
+            <div className="font-semibold">
+                {date}
+            </div>
+            <div className="font-semibold">
+                {username}
+            </div>
+        </div>
     )
 }
