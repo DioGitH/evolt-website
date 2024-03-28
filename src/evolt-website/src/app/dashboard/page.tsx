@@ -24,64 +24,57 @@ const dummy = [
 export default function Dashboard(){
     return(
         <div>
-            <div className="relative font-montserrat min-h-[150vh] bg-slate-200">
-                <div className="container sticky top-0 w-full z-20">
-                    <Navbar/>
-                </div>
-                <div className="container mx-auto ">
-                    {/* Dashboard */}
-                    <div className="absolute h-[50vh] w-full bg-palette-1">
+            {/* Dashboard */}
+            <div className="absolute h-[50vh] w-full bg-palette-1">
 
+            </div>
+            <div className="grid h-fit w-full">
+                <div className="z-10 text-5xl text-palette-3 mt-10 ml-5 h-fit w-fit">
+                    Dashboard
+                    <hr className="border-t-2 border-pallete-4 my-1" />
+
+                    <div className="text-3xl text-palette-3 h-fit w-fit">
+                        Hi, User
                     </div>
-                    <div className="grid h-fit w-full">
-                        <div className="z-10 text-5xl text-palette-3 mt-10 ml-5 h-fit w-fit">
-                            Dashboard
-                            <hr className="border-t-2 border-pallete-4 my-1" />
+                </div>
 
-                            <div className="text-3xl text-palette-3 h-fit w-fit">
-                                Hi, User
-                            </div>
-                        </div>
+                <div className="grid h-fit">
 
-                        <div className="grid h-fit">
-
-                            {/* Ringkasan */}
-                            <div className="flex justify-center">
-                                <div className="grid grid-cols-3 gap-5 h-fit w-full ml-5 mr-5 mt-5">
-                                    <CardInformation 
-                                        nameVar="Doors" 
-                                        jumlah={dummy.length}
-                                        svg='<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="logo text-palette-3 group-hover:text-palette-1" viewBox="0 0 16 16">
+                    {/* Ringkasan */}
+                    <div className="flex justify-center">
+                        <div className="grid grid-cols-3 gap-5 h-fit w-full ml-5 mr-5 mt-5">
+                            <CardInformation
+                                nameVar="Doors"
+                                jumlah={dummy.length}
+                                svg='<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="logo text-palette-3 group-hover:text-palette-1" viewBox="0 0 16 16">
                                                 <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
                                                 <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z" />
                                             </svg>' />
-                                    <CardInformation 
-                                        nameVar="Users" 
-                                        jumlah={dummy.length} 
-                                        svg='<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                            <CardInformation
+                                nameVar="Users"
+                                jumlah={dummy.length}
+                                svg='<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                                                 </svg>
                                             ' />
-                                    <CardInformation 
-                                        nameVar="Logs" 
-                                        jumlah={dummy.length} 
-                                        svg='<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                            <CardInformation
+                                nameVar="Logs"
+                                jumlah={dummy.length}
+                                svg='<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                                                 </svg>
                                             ' />
-                                </div>
-                            </div>
                         </div>
-                        <LogTable data={dummy} itemsPerPage={5}/>
-                        
                     </div>
                 </div>
+                <LogTable data={dummy} itemsPerPage={5} />
+
             </div>
         </div>
     )
 }
 
-export function LogTable({data, itemsPerPage}:any){
+function LogTable({data, itemsPerPage}:any){
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
 
@@ -108,7 +101,7 @@ export function LogTable({data, itemsPerPage}:any){
                     </div>
                     <button type="submit" className="p-2.5 ms-2 text-sm font-medium text-white bg-pallete-4 rounded-lg border ">
                         <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                         </svg>
                         <span className="sr-only">Search</span>
                     </button>
@@ -149,9 +142,9 @@ export function LogTable({data, itemsPerPage}:any){
                         className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg border border-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         type="button">
                         <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"
                                 aria-hidden="true" className="w-4 h-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
                             </svg>
                         </span>
                     </button>
@@ -165,9 +158,9 @@ export function LogTable({data, itemsPerPage}:any){
                         className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg border border-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         type="button">
                         <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"
                                 aria-hidden="true" className="w-4 h-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
                             </svg>
                         </span>
                     </button>
@@ -177,7 +170,7 @@ export function LogTable({data, itemsPerPage}:any){
     )
 }
 
-export function CardInformation({nameVar, jumlah, svg}: any){
+function CardInformation({nameVar, jumlah, svg}: any){
     return(
        <div className="group">
             <div className="flex h-fit bg-palette-3 drop-shadow-[2px_4px_4px_rgba(0,0,0,0.25)] rounded-md  text-palette-1 transition ease-out  hover:-translate-y-0.5 hover:scale-105 group-hover:bg-pallete-4 hover:text-palette-3 duration-500">
@@ -199,4 +192,3 @@ export function CardInformation({nameVar, jumlah, svg}: any){
        </div>
     )
 }
-
