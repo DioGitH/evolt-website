@@ -10,7 +10,7 @@ const formatDt = Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit
 
 const dummy = [
     { id: 1, username: "Maulidio", email: "maulidio@example.com", pin: "1234", profil: "path/to/img1.jpg", detailId: 1, additionalDetailId: 101 },
-    { id: 2, username: "JohnDoe", email: "john@example.com", pin: "5678", profil: "path/to/img2.jpg", detailId: 2, additionalDetailId: 102 },
+    { id: 2, username: "Raden", email: "Raden@example.com", pin: "5678", profil: "path/to/img2.jpg", detailId: 2, additionalDetailId: 102 },
     // Tambahkan data dummy lainnya sesuai kebutuhan
 ];
 
