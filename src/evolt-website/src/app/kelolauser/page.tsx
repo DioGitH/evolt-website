@@ -11,7 +11,8 @@ const formatDt = Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit
 const dummy = [
     { id: 1, username: "Maulidio", email: "maulidio@example.com", pin: "1234", profil: "path/to/img1.jpg", detailId: 1, additionalDetailId: 101 },
     { id: 2, username: "Raden", email: "Raden@example.com", pin: "5678", profil: "path/to/img2.jpg", detailId: 2, additionalDetailId: 102 },
-    // Tambahkan data dummy lainnya sesuai kebutuhan
+    { id: 3, username: "Maulidio", email: "maulidio@example.com", pin: "1234", profil: "path/to/img1.jpg", detailId: 1, additionalDetailId: 103 },
+    { id: 4, username: "Raden", email: "Raden@example.com", pin: "5678", profil: "path/to/img2.jpg", detailId: 2, additionalDetailId: 104 },
 ];
 
 export default function Dashboard(){
@@ -59,7 +60,7 @@ function LogTable({data, itemsPerPage}:any){
 
             <div className="grid justify-between ml-5 mt-2">
     <form className="flex items-center max-w-md justify-between flex"> {/* Tambahkan kelas 'flex' */}
-        <label htmlFor="simple-search" className="sr-only">Search</label>
+        {/* <label htmlFor="simple-search" className="sr-only">Search</label>
         <div className="relative lg:w-72 sm:w-32">
             <input type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by username..." required />
         </div>
@@ -68,18 +69,18 @@ function LogTable({data, itemsPerPage}:any){
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
             </svg>
             <span className="sr-only">Search</span>
-        </button>
+        </button> */}
     </form>
 </div>
-<div className="flex justify-end"> {/* Menggunakan kelas 'justify-end' untuk menempatkan tombol di ujung kanan */}
-    <button type="button" className="p-2.5 pl-10 pr-5 text-sm font-medium text-white bg-pallete-4 rounded-lg border mr-5"> {/* Menambahkan kelas 'mr-2' untuk margin-right */}
-        <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m8 4 4 4-4 4m0-7a7 7 0 1 1 0 14 7 7 0 0 1 0-14Z" />
-        </svg>
-        <span className="sr-only">Tambah User</span>
-        Tambah User
-    </button>
+<div className="flex justify-end">
+<button type="submit" className="flex items-center p-2.5 ms-2 me-5 text-sm font-medium text-white bg-pallete-4 rounded-lg border">
+    <svg className="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+    </svg>
+    <span className="sr-only">Tambah User</span> Tambah User
+</button>
 </div>
+
 
 
 
