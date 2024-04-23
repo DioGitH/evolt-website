@@ -1,8 +1,12 @@
 "use client";
 import DetailModal from "@/components/detailModal";
-import TambahPintu from "@/components/tambahPintu";
 import Navbar from "@/components/navbar";
 import React, { useState } from "react";
+import {
+  ButtonDelete,
+  ButtonEdit,
+  ButtonTambahPintu,
+} from "@/components/button";
 
 const dummy = [
   {
@@ -124,42 +128,8 @@ function LogTable({ data, itemsPerPage }: any) {
         Data Pintu
       </div>
 
-      <div className="grid justify-start ml-5 mt-2">
-        <form className="flex items-center max-w-md mx-auto">
-          <label htmlFor="simple-search" className="sr-only">
-            Search
-          </label>
-          <div className="relative lg:w-72 sm:w-32">
-            <input
-              type="text"
-              id="simple-search"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search by username..."
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="p-2.5 ms-2 text-sm font-medium text-white bg-pallete-4 rounded-lg border "
-          >
-            <svg
-              className="w-4 h-4"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
-            <span className="sr-only">Search</span>
-          </button>
-        </form>
+      <div className="flex justify-end mr-5 mt-0">
+        <ButtonTambahPintu />
       </div>
 
       <div className="mx-5 mt-2 mb-5 text-center bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.25)] rounded-md overflow-hidden">
@@ -187,13 +157,10 @@ function LogTable({ data, itemsPerPage }: any) {
                   <td>{namaPintu}</td>
                   <td>{deskripsi}</td>
                   <td>
-                    {/* <DetailModal
-                      itemId={itemId}
-                      time={time}
-                      username={username}
-                      image={image}
-                      detailId={detailId}
-                    /> */}
+                    <div className="flex justify-center gap-4">
+                      <ButtonDelete />
+                      <ButtonEdit />
+                    </div>
                   </td>
                 </tr>
               )
