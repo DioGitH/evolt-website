@@ -14,7 +14,7 @@ export default function DeleteUserModal({itemId, time, username, image}:any) {
 
     return (
         <>
-            <button type="button" onClick={openModal} className="flex items-center text-sm font-medium text-white bg-pallete-4 rounded-lg px-2">
+            <button type="button" onClick={openModal} className="flex items-center m-2 text-sm font-medium text-white bg-pallete-4 rounded-lg px-2">
                 <img className="h w-auto m-1" src="/assets/img/deleteButton.svg" />
                 <span className="sr-only">Delete</span> Delete
             </button>

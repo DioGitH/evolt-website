@@ -15,23 +15,19 @@ const dummy = [
     { id: 4, username: "Raden", email: "Raden@example.com", pin: "5678", profil: "path/to/img2.jpg", detailId: 2, additionalDetailId: 104 },
 ];
 
-export default function Dashboard(){
-    return(
-        <div>
-            {/* Dashboard */}
-            <div className="absolute h-[50vh] w-full bg-palette-1">
-
-            </div>
-            <div className="grid h-fit w-full">
-                <div className="z-10 text-5xl text-palette-3 mt-10 ml-5 h-fit w-fit">
-                    Data User
-                    <hr className="border-t-2 border-pallete-4 my-1" />
-                </div>
-                <LogTable data={dummy} itemsPerPage={5} />
-            </div>
+export default function Dashboard() {
+    return (
+      <div>
+        <div className="grid h-fit">
+          {/* Navbar */}
+          <Navbar />
         </div>
-    )
-}
+        <div className="justify-center items-center gap-y-12">
+          <LogTable data={dummy} itemsPerPage={5} />
+        </div>
+      </div>
+    );
+  }
 
 function LogTable({data, itemsPerPage}:any){
     const [currentPage, setCurrentPage] = useState(1);
@@ -55,7 +51,7 @@ function LogTable({data, itemsPerPage}:any){
     return(
         <div className="text-center text-palette-1 mt-5  ml-5 mr-5 bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.20)] rounded-md">
             <div className="h-fit w-full pt-2 pb-1 text-2xl font-medium">
-                Kelola User
+                Data User
             </div>
 
             <div className="grid justify-between ml-5 mt-2">
@@ -112,7 +108,7 @@ function LogTable({data, itemsPerPage}:any){
                     <button
                         onClick={() => goToPage(currentPage > 1 ? currentPage - 1 : 1)}
                         disabled={currentPage === 1}
-                        className="pagination-button"
+                        className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg border border-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         type="button">
                         <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"
@@ -128,7 +124,7 @@ function LogTable({data, itemsPerPage}:any){
                     <button
                         onClick={() => goToPage(currentPage < totalPages ? currentPage + 1 : totalPages)}
                         disabled={currentPage === totalPages}
-                        className="pagination-button"
+                        className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg border border-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                         type="button">
                         <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"

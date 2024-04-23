@@ -14,7 +14,7 @@ export default function AddUserModal() {
 
     return (
         <>
-            <button type="button" onClick={openModal} className="flex items-center p-2.5 ms-2 me-5 text-sm font-medium text-white bg-pallete-4 rounded-lg px-2 py-1" style={{ boxShadow: '3px 3px 5px rgba(0, 0, 0, 0.4)' }}>
+            <button type="button" onClick={openModal} className="flex items-center p-2.5 ms-2 m-5 text-sm font-medium text-white bg-pallete-4 rounded-lg px-2 py-1" style={{ boxShadow: '3px 3px 5px rgba(0, 0, 0, 0.4)' }}>
                 <img className="h w-auto m-1" src="/assets/img/addUserIcon.svg" />
                 <span className="sr-only">Tambah User</span> Tambah User
             </button>

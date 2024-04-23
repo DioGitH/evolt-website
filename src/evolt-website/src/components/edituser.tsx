@@ -22,7 +22,7 @@ export default function EditUserModal() {
 
     return (
         <>
-           <button type="button" onClick={openModal} className="flex items-center me-3 text-sm font-medium text-white bg-pallete-4 rounded-lg px-2">
+           <button type="button" onClick={openModal} className="flex items-center m-2 text-sm font-medium text-white bg-pallete-4 rounded-lg px-2">
                 <img className="h w-auto m-1" src="/assets/img/editButton.svg" />
                 <span className="sr-only">Edit</span> Edit
             </button>
