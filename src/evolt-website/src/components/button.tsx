@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
 export function ButtonEdit() {
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
@@ -11,6 +11,7 @@ export function ButtonEdit() {
   function openModal() {
     setIsOpen(true);
   }
+
   return (
     <>
       <button
@@ -53,21 +54,43 @@ export function ButtonEdit() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-md backdrop-blur-xl p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-md p-8 align-middle shadow-xl transition-all bg-palette-3">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-palette-2 w-full"
+                    className="className=text-lg font-medium leading-6 text-black w-full text-center"
                   >
                     Update Pintu
                   </Dialog.Title>
-
-                  <div className="mt-4 flex justify-end">
+                  <div className="grid justify-center h-fit p-2 rounded-md text-palette-3"></div>
+                  <div className="max-w-screen mx-auto mb-2">
+                    <label htmlFor="username" className="block mb-1 text-sm font-medium text-gray-700 text-left">
+                      Nama Pintu
+                    </label>
+                    <input
+                      type="text"
+                      id="namapintu"
+                      name="namapintu"
+                      className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+                    />
+                  </div>
+                  <div className="max-w-screen mx-auto mb-2">
+                    <label htmlFor="namapintu" className="block mb-1 text-sm font-medium text-gray-700 text-left">
+                      Deskripsi
+                    </label>
+                    <input
+                      type="text"
+                      id="deskripsi"
+                      name="deskripsi"
+                      className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+                    />
+                  </div>
+                  <div className="flex justify-center">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-pallete-4 bg-opacity-60 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border bg-pallete-4 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      Kembali
+                      Simpan
                     </button>
                   </div>
                 </Dialog.Panel>
@@ -79,9 +102,8 @@ export function ButtonEdit() {
     </>
   );
 }
-
 export function ButtonDelete(props: any) {
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
@@ -90,69 +112,87 @@ export function ButtonDelete(props: any) {
   function openModal() {
     setIsOpen(true);
   }
+
   return (
     <>
       <button
+        type="button"
+        onClick={openModal}
+        className="text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
-        type="button"
-        onClick={openModal}
-        className="text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
       >
         <div>
-          <img className="h w-auto" src="/assets/img/deleteButton.svg" />
+          <img className="h w-auto" src="/assets/img/deleteButton.svg" alt="Delete Icon" />
         </div>
         <div>Delete</div>
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black/25" />
-          </Transition.Child>
+        <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={closeModal}>
+          <div className="min-h-screen flex items-center justify-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0 bg-black/25" />
+            </Transition.Child>
 
-          <div className="fixed inset-0 bg-black/30 " aria-hidden="true">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-md backdrop-blur-xl p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-palette-2 w-full"
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <div className="fixed inset-0">
+                <div className="flex min-h-full items-center justify-center p-4 text-center">
+                  <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
                   >
-                    Delete
-                  </Dialog.Title>
-
-                  <div className="mt-4 flex justify-end">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-pallete-4 bg-opacity-60 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Kembali
-                    </button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
+                    <Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-md p-8 align-middle shadow-xl transition-all bg-palette-3">
+                      <Dialog.Title className="text-lg font-medium leading-6 text-black w-full text-center">
+                        Apakah kamu yakin <br /> DELETE data ini ?
+                      </Dialog.Title>
+                      <div className="flex justify-center mt-6">
+                        <button
+                          type="button"
+                          className="inline-flex justify-center rounded-md bg-palette-2 px-8 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 m-3"
+                          onClick={closeModal}
+                          style={{ boxShadow: '3px 3px 5px rgba(0, 0, 0, 0.6)' }}
+                        >
+                          Yes
+                        </button>
+                        <button
+                          type="button"
+                          className="inline-flex justify-center rounded-md bg-pallete-4 px-8 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 m-3"
+                          onClick={closeModal}
+                          style={{ boxShadow: '3px 3px 5px rgba(0, 0, 0, 0.6)' }}
+                        >
+                          No
+                        </button>
+                      </div>
+                    </Dialog.Panel>
+                  </Transition.Child>
+                </div>
+              </div>
+            </Transition.Child>
           </div>
         </Dialog>
       </Transition>
@@ -161,7 +201,7 @@ export function ButtonDelete(props: any) {
 }
 
 export function ButtonTambahPintu(props: any) {
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
@@ -170,6 +210,7 @@ export function ButtonTambahPintu(props: any) {
   function openModal() {
     setIsOpen(true);
   }
+
   return (
     <>
       <button
@@ -188,44 +229,46 @@ export function ButtonTambahPintu(props: any) {
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
+          <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
             <div className="fixed inset-0 bg-black/25" />
           </Transition.Child>
-
           <div className="fixed inset-0 bg-black/30 " aria-hidden="true">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-md backdrop-blur-xl p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-palette-2 w-full"
-                  >
+              <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
+                <Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-md p-8 align-middle shadow-xl transition-all bg-palette-3">
+                  <Dialog.Title as="h3"className="text-lg font-medium leading-6 text-black w-full text-center">
                     Tambah Pintu
                   </Dialog.Title>
-
-                  <div className="mt-4 flex justify-end">
+                  <div className="grid justify-center h-fit p-2 rounded-md text-palette-3"></div>
+                  <div className="max-w-screen mx-auto mb-2">
+                    <label htmlFor="namapintu" className="block mb-1 text-sm font-medium text-gray-700 text-left">
+                      Nama Pintu
+                    </label>
+                    <input
+                      type="text"
+                      id="namapintu"
+                      name="namapintu"
+                      className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+                    />
+                  </div>
+                  <div className="max-w-screen mx-auto mb-2">
+                    <label htmlFor="namapintu" className="block mb-1 text-sm font-medium text-gray-700 text-left">
+                      Deskripsi
+                    </label>
+                    <input
+                      type="text"
+                      id="deskrpsi"
+                      name="desk"
+                      className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+                    />
+                  </div>
+                  <div className="flex justify-center">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-pallete-4 bg-opacity-60 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border bg-pallete-4 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      Kembali
+                      Simpan
                     </button>
                   </div>
                 </Dialog.Panel>
