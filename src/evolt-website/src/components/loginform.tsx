@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function LoginForm(){
     return(
         <div>
@@ -43,9 +45,9 @@ export function TextBox({fill}:any){
 
 export function ButtonLogin(){
     return(
-        <div className="text-palette-3 bg-palette-1 w-fit py-1 rounded-lg text-sm px-2.5">
-            Login
-        </div>
+        <button className="text-palette-3 bg-palette-1 w-fit py-1 rounded-lg text-sm px-2.5">
+            <Link href='/dashboard'>Login</Link>
+        </button>
     )
 }
 
