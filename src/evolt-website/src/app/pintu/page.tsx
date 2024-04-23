@@ -250,7 +250,6 @@ function tambahPintu({nameVar, jumlah, svg}: any){
           </div>
      </div>
   )
-
   function UpdatePintu({nameVar, jumlah, svg}: any){
   return(
      <div className="Update Pintu">
@@ -296,5 +295,4 @@ function DeletePintu({nameVar, jumlah, svg}: any){
  }
 }
 }
-
 
