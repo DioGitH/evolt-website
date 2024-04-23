@@ -192,3 +192,4 @@ function CardInformation({nameVar, jumlah, svg}: any){
        </div>
     )
 }
+
