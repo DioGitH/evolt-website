@@ -70,7 +70,7 @@ export default function AddUserModal() {
 
                                             <div className="max-w-screen mx-auto mb-2">
                                                 <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700 text-left">
-                                                    Email
+                                                    EMAIL
                                                 </label>
                                                 <input
                                                 type="text"
@@ -82,7 +82,7 @@ export default function AddUserModal() {
 
                                             <div className="max-w-screen mx-auto mb-2">
                                                 <label htmlFor="pin" className="block mb-1 text-sm font-medium text-gray-700 text-left">
-                                                    Pin
+                                                    PIN
                                                 </label>
                                                 <input
                                                 type="text"

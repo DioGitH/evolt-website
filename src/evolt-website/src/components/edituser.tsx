@@ -1,7 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
+import React, { useRef } from 'react';
 
-export default function DetailModal({itemId, time, username, image}:any) {
+export default function EditUserModal() {
     let [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
@@ -12,14 +13,17 @@ export default function DetailModal({itemId, time, username, image}:any) {
         setIsOpen(true)
     }
 
+    const fileInputRef = useRef(null);
+
+    const handleImageClick = () => {
+        fileInputRef.current.click();
+    };
+
     return (
         <>
-            <button
-                type="button"
-                onClick={openModal}
-                className="text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
-            >
-                Edit
+           <button type="button" onClick={openModal} className="flex items-center me-3 text-sm font-medium text-white bg-pallete-4 rounded-lg border px-2">
+                <img className="h w-auto m-1" src="/assets/img/editButton.svg" />
+                <span className="sr-only">Edit</span> Edit
             </button>
 
             <Transition appear show={isOpen} as={Fragment}>
@@ -37,7 +41,7 @@ export default function DetailModal({itemId, time, username, image}:any) {
                     </Transition.Child>
 
                     <div className="fixed inset-0 bg-black/30 " aria-hidden="true">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                    <div className="flex min-h-full items-center justify-center text-center">
                             <Transition.Child
                                 as={Fragment}
                                 enter="ease-out duration-300"
@@ -47,31 +51,59 @@ export default function DetailModal({itemId, time, username, image}:any) {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-md backdrop-blur-xl p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-md p-8 align-middle shadow-xl transition-all bg-palette-3">
                                     <Dialog.Title
-                                        as="h3"
-                                        className="text-lg font-medium leading-6 text-palette-2 w-full"
+                                        className="text-lg font-medium leading-6 text-black w-full text-center"
                                     >
-                                        Detail Log
+                                        Update User
                                     </Dialog.Title>
                                     
-                                    <div className="grid justify-center text-center h-fit p-5 m-4 rounded-md text-palette-3">
-                                        <div className='image w-full rounded-lg overflow-hidden mb-5'>
-                                            <img src="/assets/img/dummyDetail.jpeg" alt="" className='image max-w-48 h-fit' />
+                                    <div className="grid justify-center h-fit p-2 rounded-md text-palette-3">
+                                        <div className="image w-full rounded-lg overflow-hidden mb-2 flex justify-center">
+                                            <img src="/assets/img/userEditIcon.svg" alt="" className="max-w-16 h-fit" onClick={handleImageClick} />
+                                            <input
+                                                ref={fileInputRef}
+                                                type="file"
+                                                id="photo"
+                                                name="photo"
+                                                accept=".jpg, .jpeg, .png, .svg"
+                                                className="hidden"
+                                            />
                                         </div>
-                                        <TextDetail date={time} username={username}/>
-                                        <div className='grid justify-center'>
-                                            
+                                        <div>
+                                            <div className="max-w-screen mx-auto mb-2">
+                                                <label htmlFor="username" className="block mb-1 text-sm font-medium text-gray-700 text-left">
+                                                    USERNAME
+                                                </label>
+                                                <input
+                                                type="text"
+                                                id="username"
+                                                name="username"
+                                                className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+                                                />
+                                            </div>
+
+                                            <div className="max-w-screen mx-auto mb-2">
+                                                <label htmlFor="pin" className="block mb-1 text-sm font-medium text-gray-700 text-left">
+                                                    PIN
+                                                </label>
+                                                <input
+                                                type="text"
+                                                id="pin"
+                                                name="pin"
+                                                className="w-full bg-palette-2 text-gray-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div className="mt-4 flex justify-end">
+                                    <div className="flex justify-center">
                                         <button
                                             type="button"
-                                            className="inline-flex justify-center rounded-md border border-transparent bg-pallete-4 bg-opacity-60 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                            className="inline-flex justify-center rounded-md border bg-pallete-4 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                             onClick={closeModal}
                                         >
-                                            Kembali
+                                            Simpan
                                         </button>
                                     </div>
                                 </Dialog.Panel>

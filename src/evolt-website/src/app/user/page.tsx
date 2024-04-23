@@ -96,9 +96,10 @@ function LogTable({data, itemsPerPage}:any){
                                 <td>{pin}</td>
                                 <td>{profil}</td>
                                 <td>
-                                    <EditUser itemId={id} username={username} email={email} pin={pin} profil={profil} detailId={detailId} />
-                                    {' '}
-                                    <DeleteUser itemId={id} username={username} email={email} pin={pin} profil={profil} detailId={detailId} />
+                                    <div className="flex">
+                                        <EditUser/>
+                                        <DeleteUser itemId={id} username={username} email={email} pin={pin} profil={profil} detailId={detailId} />
+                                    </div>
                                 </td>
                             </tr>
                         )}

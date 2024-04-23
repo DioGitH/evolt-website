@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 
-export default function DetailModal({itemId, time, username, image}:any) {
+export default function DeleteUserModal({itemId, time, username, image}:any) {
     let [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
@@ -14,12 +14,9 @@ export default function DetailModal({itemId, time, username, image}:any) {
 
     return (
         <>
-            <button
-                type="button"
-                onClick={openModal}
-                className="text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
-            >
-                Delete
+            <button type="button" onClick={openModal} className="flex items-center text-sm font-medium text-white bg-pallete-4 rounded-lg border px-2">
+                <img className="h w-auto m-1" src="/assets/img/deleteButton.svg" />
+                <span className="sr-only">Delete</span> Delete
             </button>
 
             <Transition appear show={isOpen} as={Fragment}>
