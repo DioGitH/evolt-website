@@ -1,6 +1,5 @@
 "use client";
 import DetailModal from "@/components/detailModal";
-import Navbar from "@/components/navbar";
 import React, { useState } from 'react';
 
 const timestamp = Date.now()

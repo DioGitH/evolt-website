@@ -4,9 +4,9 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: false },
-  { name: "Kelola User", href: "#", current: false },
-  { name: "Kelola Pintu", href: "#", current: true },
+  { name: "Dashboard", href: "/dashboard", current: true },
+  { name: "Kelola User", href: "/kelolauser", current: false },
+  { name: "Kelola Pintu", href: "/pintu", current: false },
 ];
 
 function classNames(...classes: any) {
@@ -14,6 +14,7 @@ function classNames(...classes: any) {
 }
 
 export default function Navbar() {
+
   return (
     <Disclosure as="nav" className="navbar bg-palette-1">
       {({ open }: any) => (
@@ -48,11 +49,12 @@ export default function Navbar() {
                         href={item.href}
                         className={classNames(
                           item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            ? "underline"
+                            : "hover:bg-gray-700 hover:text-white",
                           "rounded-md px-3 py-2 text-sm font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
+                        style={{ color: item.current ? "#C82C6D" : "#EFEEEC" }}
                       >
                         {item.name}
                       </a>
@@ -87,7 +89,7 @@ export default function Navbar() {
                       <Menu.Item>
                         {({ active }: any) => (
                           <a
-                            href="#"
+                            href="/"
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"

@@ -5,8 +5,8 @@ import DashboardPintu from "./pintu/page";
 
 export default function Home() {
   return (
-    <DashboardPintu />
+    <LoginPage />
     // <Dashboard />
-    // <LoginPage />
+    // <DashboardPintu />
   );
 }
