@@ -159,8 +159,8 @@ function LogTable({ data, itemsPerPage }: any) {
                   <td>{deskripsi}</td>
                   <td>
                     <div className="flex justify-center gap-4">
-                      <ButtonDelete />
                       <ButtonEdit />
+                      <ButtonDelete />
                     </div>
                   </td>
                 </tr>
