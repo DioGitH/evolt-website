@@ -1,5 +1,6 @@
 "use client";
 import DetailModal from "@/components/detailModal";
+import DeletePintu from "@/components/deleteuser"
 import Navbar from "@/components/navbar";
 import React, { useState } from "react";
 import {
@@ -229,72 +230,3 @@ function LogTable({ data, itemsPerPage }: any) {
     </div>
   );
 }
-function tambahPintu({nameVar, jumlah, svg}: any){
-  return(
-     <div className="Tambah Pintu">
-          <div className="flex h-fit bg-palette-3 drop-shadow-[2px_4px_4px_rgba(0,0,0,0.25)] rounded-md  text-palette-1 transition ease-out  hover:-translate-y-0.5 hover:scale-105 group-hover:bg-pallete-4 hover:text-palette-3 duration-500">
-              <div className="absolute right-3 top-2 bottom-2 grid place-content-center">
-                  <div className="logo bg-pallete-4 p-3 rounded-md group-hover:bg-palette-3 transition ease-out duration-500 group-hover:text-palette-1 text-palette-3">
-                      {svg && <div dangerouslySetInnerHTML={{ __html:svg }}></div>}
-                  </div>
-              </div>
-              <div className="grid">
-                  <div className="text text-2xl font-semibold ml-[20px] mt-2">
-                      {jumlah}
-                  </div>
-
-                  <div className="text text-md flex justify-start ml-[20px] font-medium -mt-1 mb-2">
-                      {nameVar}
-                  </div>
-              </div>
-          </div>
-     </div>
-  )
-
-  function UpdatePintu({nameVar, jumlah, svg}: any){
-  return(
-     <div className="Update Pintu">
-          <div className="flex h-fit bg-palette-3 drop-shadow-[2px_4px_4px_rgba(0,0,0,0.25)] rounded-md  text-palette-1 transition ease-out  hover:-translate-y-0.5 hover:scale-105 group-hover:bg-pallete-4 hover:text-palette-3 duration-500">
-              <div className="absolute right-3 top-2 bottom-2 grid place-content-center">
-                  <div className="logo bg-pallete-4 p-3 rounded-md group-hover:bg-palette-3 transition ease-out duration-500 group-hover:text-palette-1 text-palette-3">
-                      {svg && <div dangerouslySetInnerHTML={{ __html:svg }}></div>}
-                  </div>
-              </div>
-              <div className="grid">
-                  <div className="text text-2xl font-semibold ml-[20px] mt-2">
-                      {jumlah}
-                  </div>
-
-                  <div className="text text-md flex justify-start ml-[20px] font-medium -mt-1 mb-2">
-                      {nameVar}
-                  </div>
-              </div>
-          </div>
-     </div>
-)
-function DeletePintu({nameVar, jumlah, svg}: any){
-  return(
-     <div className="Delete Pintu">
-          <div className="flex h-fit bg-palette-3 drop-shadow-[2px_4px_4px_rgba(0,0,0,0.25)] rounded-md  text-palette-1 transition ease-out  hover:-translate-y-0.5 hover:scale-105 group-hover:bg-pallete-4 hover:text-palette-3 duration-500">
-              <div className="absolute right-3 top-2 bottom-2 grid place-content-center">
-                  <div className="logo bg-pallete-4 p-3 rounded-md group-hover:bg-palette-3 transition ease-out duration-500 group-hover:text-palette-1 text-palette-3">
-                      {svg && <div dangerouslySetInnerHTML={{ __html:svg }}></div>}
-                  </div>
-              </div>
-              <div className="grid">
-                  <div className="text text-2xl font-semibold ml-[20px] mt-2">
-                      {jumlah}
-                  </div>
-
-                  <div className="text text-md flex justify-start ml-[20px] font-medium -mt-1 mb-2">
-                      {nameVar}
-                  </div>
-              </div>
-          </div>
-     </div>
-  )
- }
-}
-}
-
-
