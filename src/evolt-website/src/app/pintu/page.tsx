@@ -7,7 +7,7 @@ import {
   ButtonDelete,
   ButtonEdit,
   ButtonTambahPintu,
-} from "@/components/button";
+} from "@/components/buttonHalamanPintu";
 
 const dummy = [
   {
