@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-export default function DetailModal({ itemId, time, username, pintu }: any) {
+export default function DetailPintu({ itemId, time, username, pintu }: any) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -52,7 +52,7 @@ export default function DetailModal({ itemId, time, username, pintu }: any) {
                     as="h3"
                     className="text-lg font-medium leading-6 text-palette-2 w-full"
                   >
-                    Detail Log
+                    Detail User
                   </Dialog.Title>
 
                   <div className="grid justify-center text-center h-fit p-5 m-4 rounded-md text-palette-3">
