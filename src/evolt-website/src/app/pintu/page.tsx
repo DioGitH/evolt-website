@@ -1,6 +1,6 @@
 "use client";
 import DetailModal from "@/components/detailModal";
-import DeletePintu from "@/components/deleteuser"
+import DeletePintu from "@/components/deleteuser";
 import Navbar from "@/components/navbar";
 import React, { useState } from "react";
 import {
@@ -8,6 +8,7 @@ import {
   ButtonEdit,
   ButtonTambahPintu,
 } from "@/components/buttonHalamanPintu";
+import DetailPintu from "@/components/detailPintu";
 
 const dummy = [
   {
@@ -161,6 +162,7 @@ function LogTable({ data, itemsPerPage }: any) {
                     <div className="flex justify-center gap-4">
                       <ButtonEdit />
                       <ButtonDelete />
+                      <DetailPintu />
                     </div>
                   </td>
                 </tr>
