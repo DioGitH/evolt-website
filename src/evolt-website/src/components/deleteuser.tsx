@@ -1,12 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import axios from "axios";
 
-export default function DeleteUserModal({
-  itemId,
-  time,
-  username,
-  image,
-}: any) {
+export default function DeleteUserModal({idUser}: any) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -16,6 +12,16 @@ export default function DeleteUserModal({
   function openModal() {
     setIsOpen(true);
   }
+
+  const deleteUser = async () => {
+
+    //sending
+    await axios.delete(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users/${idUser}`);
+
+    //refresh data
+    window.location.reload();
+
+}
 
   return (
     <>
@@ -66,9 +72,9 @@ export default function DeleteUserModal({
 
                   <div className="flex justify-center">
                     <button
-                      type="button"
+                      type="submit"
                       className="inline-flex m-3 justify-center rounded-md bg-palette-2 px-8 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
+                      onClick={deleteUser}
                       style={{ boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.6)" }}
                     >
                       Yes

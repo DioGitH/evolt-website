@@ -161,7 +161,7 @@ function LogTable({ data, itemsPerPage }: any) {
                         photo_profile={photo_profile}
                       />
                       <EditUser idUser={id_user}/>
-                      <DeleteUser />
+                      <DeleteUser idUser={id_user}/>
                     </div>
                   </td>
                 </tr>
