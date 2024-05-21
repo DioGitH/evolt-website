@@ -43,7 +43,7 @@ export default function AddUserModal() {
       setPhotoProfile(imageData);
   }
 
-  //method "storePost"
+  //method "storeUser"
   const storeUser = async (e: any) => {
       e.preventDefault();
 

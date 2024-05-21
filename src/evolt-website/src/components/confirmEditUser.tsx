@@ -15,9 +15,9 @@ export default function ConfirmEditUserModal() {
     return (
         <>
             <button
-                type="button"
+                type="submit"
                 className="inline-flex justify-center rounded-md bg-pallete-4 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                onClick={openModal}
+                // onClick={openModal}
                 style={{ boxShadow: '3px 3px 5px rgba(0, 0, 0, 0.6)' }}
             >
                 Simpan
@@ -57,7 +57,7 @@ export default function ConfirmEditUserModal() {
 
                                     <div className="flex justify-center">
                                         <button
-                                            type="button"
+                                            type="submit"
                                             className="inline-flex m-3 justify-center rounded-md bg-palette-2 px-8 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                             onClick={closeModal}
                                             style={{ boxShadow: '3px 3px 5px rgba(0, 0, 0, 0.6)' }}
