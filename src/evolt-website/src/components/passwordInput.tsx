@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
-const PasswordInput = () => {
+const PasswordInput = ({ pin, setPin }: any) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [password, setPassword] = useState("");
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -13,11 +12,11 @@ const PasswordInput = () => {
     const numericValue = inputValue.replace(/\D/g, ""); // Menghapus karakter non-angka
 
     // Mengatur state password hanya jika nilai input numerik
-    setPassword(numericValue);
+    setPin(numericValue);
 
     // Memotong nilai input menjadi 6 karakter jika lebih dari 6
     if (numericValue.length > 6) {
-      setPassword(numericValue.slice(0, 6));
+      setPin(numericValue.slice(0, 6));
     }
   };
 
@@ -34,10 +33,12 @@ const PasswordInput = () => {
           type={passwordVisible ? "text" : "password"}
           id="pin"
           name="pin"
-          value={password}
+          value={pin}
           onChange={handleInputChange}
-          className="w-full bg-palette-2 text-gray-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+          className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
           maxLength={6}
+          placeholder="Masukkan Pin"
+          required
         />
 
         <button
