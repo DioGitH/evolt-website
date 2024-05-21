@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-export default function DetailUser({ itemId, time, username, pintu }: any) {
+export default function DetailModal({ itemId, email, username, pin }: any) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -16,16 +16,11 @@ export default function DetailUser({ itemId, time, username, pintu }: any) {
     <>
       <button
         type="button"
-        style={{
-          display: "flex",
-          gap: 4,
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
         onClick={openModal}
-        className="text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
+        className="flex items-center text-xs text-white bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-32"
       >
-        Detail
+        <img className="h w-auto m-1" src="/assets/img/detailButton.svg" />
+        <span className="sr-only"></span>Detail
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -69,7 +64,7 @@ export default function DetailUser({ itemId, time, username, pintu }: any) {
                         className="image max-w-48 h-fit"
                       />
                     </div>
-                    <TextDetail date={time} username={username} pintu={pintu} />
+                    <TextDetail email={email} username={username} pin={pin} />
                     <div className="grid justify-center"></div>
                   </div>
 
@@ -92,12 +87,12 @@ export default function DetailUser({ itemId, time, username, pintu }: any) {
   );
 }
 
-export function TextDetail({ date, username, pintu }: any) {
+export function TextDetail({ email, username, pin }: any) {
   return (
     <div className="grid">
-      <div className="font-semibold">{date}</div>
+      <div className="font-semibold">{email}</div>
       <div className="font-semibold">{username}</div>
-      <div className="font-semibold">{pintu}</div>
+      <div className="font-semibold">{pin}</div>
     </div>
   );
 }

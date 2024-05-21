@@ -138,10 +138,16 @@ function LogTable({ data, itemsPerPage }: any) {
                   <td>{email}</td>
                   <td>{pin}</td>
                   <td>
-                    <div className="flex">
+                    <div className="flex justify-center gap-4">
+                      <DetailUser
+                        itemId={id}
+                        email={email}
+                        username={username}
+                        pin={pin}
+                        detailId={detailId}
+                      />
                       <EditUser />
                       <DeleteUser />
-                      <DetailUser />
                     </div>
                   </td>
                 </tr>
