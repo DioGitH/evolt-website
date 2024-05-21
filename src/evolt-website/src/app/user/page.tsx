@@ -5,6 +5,16 @@ import DetailUser from "@/components/detailUser";
 import EditUser from "@/components/edituser";
 import Navbar from "@/components/navbar";
 import React, { useState } from "react";
+import axios from "axios";
+
+async function getServerSideProps() {
+
+  //http request
+  const req  = await axios.get(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users`)
+  const users  = await req.data.data
+
+  return users
+}
 
 const timestamp = Date.now();
 const formatDt = Intl.DateTimeFormat("en-US", {
@@ -50,7 +60,10 @@ const dummy = [
   },
 ];
 
-export default function Dashboard() {
+export default async function Dashboard() {
+
+  const userData = await getServerSideProps();
+
   return (
     <div>
       <div className="grid h-fit">
@@ -58,7 +71,7 @@ export default function Dashboard() {
         <Navbar />
       </div>
       <div className="justify-center items-center gap-y-12">
-        <LogTable data={dummy} itemsPerPage={5} />
+        <LogTable data={userData} itemsPerPage={5} />
       </div>
     </div>
   );
@@ -122,29 +135,30 @@ function LogTable({ data, itemsPerPage }: any) {
           <tbody className="">
             {getCurrentPageData().map(
               (
-                { id, username, email, pin, detailId, additionalDetailId }: any,
+                { id_user, username, email, pin, detailId, photo_profile,additionalDetailId }: any,
                 index: any
               ) => (
                 <tr
-                  key={id}
+                  key={id_user}
                   className={
                     index % 2 === 0
                       ? "bg-[#332D39] bg-opacity-20"
                       : "bg-[#FFFFFF]"
                   }
                 >
-                  <td>{id}</td>
+                  <td>{id_user}</td>
                   <td>{username}</td>
                   <td>{email}</td>
                   <td>{pin}</td>
                   <td>
                     <div className="flex justify-center gap-4">
                       <DetailUser
-                        itemId={id}
+                        itemId={id_user}
                         email={email}
                         username={username}
                         pin={pin}
                         detailId={detailId}
+                        photo_profile={photo_profile}
                       />
                       <EditUser />
                       <DeleteUser />
