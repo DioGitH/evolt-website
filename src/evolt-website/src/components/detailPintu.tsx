@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-export default function DetailPintu({ itemId, time, username, pintu }: any) {
+export default function DetailPintu({ itemId, user, pintu }: any) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -17,9 +17,10 @@ export default function DetailPintu({ itemId, time, username, pintu }: any) {
       <button
         type="button"
         onClick={openModal}
-        className="text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
+        className="flex items-center text-xs text-white bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-32"
       >
-        Detail
+        <img className="h w-auto m-1" src="/assets/img/detailButton.svg" />
+        <span className="sr-only"></span>Detail
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -52,18 +53,18 @@ export default function DetailPintu({ itemId, time, username, pintu }: any) {
                     as="h3"
                     className="text-lg font-medium leading-6 text-palette-2 w-full"
                   >
-                    Detail User
+                    <div>Detail {pintu}</div>
                   </Dialog.Title>
 
                   <div className="grid justify-center text-center h-fit p-5 m-4 rounded-md text-palette-3">
                     <div className="image w-full rounded-lg overflow-hidden mb-5">
-                      <img
+                      {/* <img
                         src="/assets/img/dummyDetail.jpeg"
                         alt=""
                         className="image max-w-48 h-fit"
-                      />
+                      /> */}
                     </div>
-                    <TextDetail date={time} username={username} pintu={pintu} />
+                    <TextDetail pintu={pintu} user={user} />
                     <div className="grid justify-center"></div>
                   </div>
 
@@ -86,12 +87,21 @@ export default function DetailPintu({ itemId, time, username, pintu }: any) {
   );
 }
 
-export function TextDetail({ date, username, pintu }: any) {
+export function TextDetail({ user, pintu }: any) {
   return (
+    // <div className="grid">
+    //   {/* <div className="font-semibold">{pintu}</div> */}
+    //   {/* <div className="font-semibold">{user}</div>
+    //    */}
+
+    // </div>
     <div className="grid">
-      <div className="font-semibold">{date}</div>
-      <div className="font-semibold">{username}</div>
-      <div className="font-semibold">{pintu}</div>
+      {user.map((item: any, index: any) => (
+        <div key={index} className="font-semibold">
+          {item}
+          <br />
+        </div>
+      ))}
     </div>
   );
 }

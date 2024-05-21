@@ -14,13 +14,16 @@ export default function DetailModal({ itemId, time, username, pintu }: any) {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={openModal}
-        className="text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
-      >
-        Detail
-      </button>
+      <div className="flex justify-center items-center h-full">
+        <button
+          type="button"
+          onClick={openModal}
+          className="flex items-center text-xs text-white bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-32"
+        >
+          <img className="h w-auto m-1" src="/assets/img/detailButton.svg" />
+          <span className="sr-only"></span>Detail
+        </button>
+      </div>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>

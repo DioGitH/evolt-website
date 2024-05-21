@@ -23,9 +23,15 @@ export default function EditUserModal() {
   return (
     <>
       <button
+        style={{
+          display: "flex",
+          gap: 4,
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
         type="button"
         onClick={openModal}
-        className="flex items-center m-2 text-sm font-medium text-white bg-pallete-4 rounded-lg px-2"
+        className="text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
       >
         <img className="h w-auto m-1" src="/assets/img/editButton.svg" />
         <span className="sr-only">Edit</span> Edit

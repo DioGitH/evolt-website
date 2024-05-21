@@ -14,86 +14,42 @@ const dummy = [
   {
     itemId: 1,
     namaPintu: "PintuKu",
+    listUser: ["Maulidio", "Farhan"],
     deskripsi:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
     detailId: 1,
   },
   {
     itemId: 2,
-    namaPintu: "PintuKu",
+    namaPintu: "PintuPintu",
+    listUser: ["Raden", "Farhan"],
     deskripsi:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
     detailId: 2,
   },
   {
     itemId: 3,
-    namaPintu: "PintuKu",
+    namaPintu: "PintuNya",
+    listUser: ["Maulidio", "Trisinus"],
     deskripsi:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
     detailId: 3,
   },
   {
     itemId: 4,
-    namaPintu: "PintuKu",
+    namaPintu: "PintuMu",
+    listUser: ["Nopal", "Raden"],
     deskripsi:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
     detailId: 4,
   },
   {
     itemId: 5,
-    namaPintu: "PintuKu",
+    namaPintu: "PintuAjaib",
+    listUser: ["Nopal", "Farhan"],
     deskripsi:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 1,
-  },
-  {
-    itemId: 6,
-    namaPintu: "PintuKu",
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 2,
-  },
-  {
-    itemId: 7,
-    namaPintu: "PintuKu",
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 3,
-  },
-  {
-    itemId: 8,
-    namaPintu: "PintuKu",
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 4,
-  },
-  {
-    itemId: 9,
-    namaPintu: "PintuKu",
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 1,
-  },
-  {
-    itemId: 10,
-    namaPintu: "PintuKu",
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 2,
-  },
-  {
-    itemId: 11,
-    namaPintu: "PintuKu",
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 3,
-  },
-  {
-    itemId: 12,
-    namaPintu: "PintuKu",
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 4,
+    detailId: 5,
   },
 ];
 
@@ -146,7 +102,17 @@ function LogTable({ data, itemsPerPage }: any) {
           </thead>
           <tbody className="">
             {getCurrentPageData().map(
-              ({ itemId, namaPintu, deskripsi, detailId }: any, index: any) => (
+              (
+                {
+                  itemId,
+                  namaPintu,
+                  listUser,
+                  deskripsi,
+                  detailId,
+                  additionalDetailId,
+                }: any,
+                index: any
+              ) => (
                 <tr
                   key={itemId}
                   className={
@@ -160,9 +126,13 @@ function LogTable({ data, itemsPerPage }: any) {
                   <td>{deskripsi}</td>
                   <td>
                     <div className="flex justify-center gap-4">
+                      <DetailPintu
+                        pintu={namaPintu}
+                        user={listUser}
+                        detailId={detailId}
+                      />
                       <ButtonEdit />
                       <ButtonDelete />
-                      <DetailPintu />
                     </div>
                   </td>
                 </tr>
