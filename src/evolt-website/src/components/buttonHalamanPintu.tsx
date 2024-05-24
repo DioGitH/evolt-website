@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition, Menu } from "@headlessui/react";
 import { ListUser } from "./dataUser";
+import axios from "axios";
 
 export function ButtonEdit() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,9 +14,9 @@ export function ButtonEdit() {
     setIsOpen(true);
   }
 
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
+  // function classNames(...classes) {
+  //   return classes.filter(Boolean).join(" ");
+  // }
 
   return (
     <>
@@ -234,6 +235,30 @@ export function ButtonDelete(props: any) {
 
 export function ButtonTambahPintu(props: any) {
   const [isOpen, setIsOpen] = useState(false);
+  const [doorName, setDoorName] = useState("");
+  const [doorDescription, setDoorDescription] = useState("");
+  const [doorStatus, setDoorStatus] = useState("close");
+
+  const saveDoor = async(e:any) =>{
+    e.preventDefault();
+    try{
+      const response = await axios.post('http://localhost:8000/api/doors',{
+        door_name: doorName,
+        door_description: doorDescription,
+        door_status: doorStatus
+      })
+
+      if (response.data.success) {
+        setDoorName("");
+        setDoorDescription("");
+        setDoorStatus("close");
+        closeModal();
+        alert('Data berhasil disimpan!');
+      }
+    } catch(error){
+      console.log(error);
+    }
+  }
 
   function closeModal() {
     setIsOpen(false);
@@ -290,53 +315,59 @@ export function ButtonTambahPintu(props: any) {
                   >
                     Tambah Pintu
                   </Dialog.Title>
-                  <div className="grid justify-center h-fit p-2 rounded-md text-palette-3"></div>
-                  <div className="max-w-screen mx-auto mb-2">
-                    <label
-                      htmlFor="namapintu"
-                      className="block mb-1 text-sm font-medium text-gray-700 text-left"
-                    >
-                      Nama Pintu
-                    </label>
-                    <input
-                      type="text"
-                      id="namapintu"
-                      name="namapintu"
-                      className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
-                    />
-                  </div>
-                  <div className="max-w-screen mx-auto mb-2">
-                    <label
-                      htmlFor="namapintu"
-                      className="block mb-1 text-sm font-medium text-gray-700 text-left"
-                    >
-                      Deskripsi
-                    </label>
-                    <input
-                      type="text"
-                      id="deskrpsi"
-                      name="desk"
-                      className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
-                    />
-                  </div>
-                  <div className="max-w-screen mx-auto mb-2">
-                    <label
-                      htmlFor="namapintu"
-                      className="block mb-1 text-sm font-medium text-gray-700 text-left"
-                    >
-                      User Akses
-                    </label>
-                    <ListUser />
-                  </div>
-                  <div className="flex justify-center">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border bg-pallete-4 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Simpan
-                    </button>
-                  </div>
+                  <form onSubmit={saveDoor}>
+                    <div className="grid justify-center h-fit p-2 rounded-md text-palette-3"></div>
+                    <div className="max-w-screen mx-auto mb-2">
+                      <label
+                        htmlFor="namapintu"
+                        className="block mb-1 text-sm font-medium text-gray-700 text-left"
+                      >
+                        Nama Pintu
+                      </label>
+                      <input
+                        type="text"
+                        id="namapintu"
+                        name="namapintu"
+                        value={doorName}
+                        onChange={(e)=> setDoorName(e.target.value)}
+                        className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+                      />
+                    </div>
+                    <div className="max-w-screen mx-auto mb-2">
+                      <label
+                        htmlFor="namapintu"
+                        className="block mb-1 text-sm font-medium text-gray-700 text-left"
+                      >
+                        Deskripsi
+                      </label>
+                      <input
+                        type="text"
+                        id="deskrpsi"
+                        name="desk"
+                        value={doorDescription}
+                        onChange={(e) => setDoorDescription(e.target.value)}
+                        className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+                      />
+                    </div>
+                    <div className="max-w-screen mx-auto mb-2">
+                      <label
+                        htmlFor="namapintu"
+                        className="block mb-1 text-sm font-medium text-gray-700 text-left"
+                      >
+                        User Akses
+                      </label>
+                      <ListUser />
+                    </div>
+                    <div className="flex justify-center">
+                      <button
+                        type="submit"
+                        className="inline-flex justify-center rounded-md border bg-pallete-4 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModal}
+                      >
+                        Simpan
+                      </button>
+                    </div>
+                  </form>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
