@@ -135,7 +135,7 @@ function LogTable({ itemsPerPage }: any) {
                       : "bg-[#FFFFFF]"
                   }
                 >
-                  <td>{door.id}</td>
+                  <td>{door.id_door}</td>
                   <td>{door.door_name}</td>
                   <td>{door.door_description}</td>
                   <td>{door.door_status}</td>
