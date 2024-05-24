@@ -10,12 +10,15 @@ class Door extends Model
     use HasFactory;
     protected $table = 'doors';
     public $timestamps = false;
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_door';
 
     protected $fillable = [
-        'id',
         'door_name',
         'door_description',
         'door_status',
     ];
+
+    public function users(){
+        return $this->belongsToMany(User::class, 'doors_users', 'id_door', 'id_user');
+    }
 }

@@ -71,39 +71,36 @@ export default function Dashboard() {
         <Navbar />
       </div>
       <div className="justify-center items-center gap-y-12">
-        <LogTable data={dummy} itemsPerPage={5} />
+        <LogTable itemsPerPage={5} />
       </div>
     </div>
   );
 }
 
-function LogTable({ data, itemsPerPage }: any) {
+function LogTable({ itemsPerPage }: any) {
   const [doors, setDoors] = useState([]);
-  
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const getCurrentPageData = () => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return data.slice(startIndex, endIndex);
-  };
+  const fetchDoors = async (page:any) =>{
+    try{
+      const response = await fetch(`http://localhost:8000/api/doors?page=${page}`);
+      const result = await response.json();
+      setDoors(result.data.data);
+      setTotalPages(result.data.last_page);
+      setCurrentPage(result.data.current_page);
+    } catch (error){
+      console.error("Failed ", error);
+    }
+
+  }
 
   const goToPage = (page: any) => {
-    setCurrentPage(page);
-  };
-
-  const getDoors = async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/api/doors');
-      setDoors(response.data.data.data);
-    } catch (error) {
-      console.error("There was an error fetching the doors data!", error);
-    }
+    fetchDoors(page);
   };
 
   useEffect(() => {
-    getDoors();
+    fetchDoors(currentPage);
   }, []);
 
   return (

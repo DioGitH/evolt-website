@@ -15,26 +15,32 @@ class DoorSeeder extends Seeder
     {
         $doors = [
             [
-                'id' => 1,
                 'door_name' => 'Door 1',
                 'door_description' => 'lorem ipsum dolor sit amet',
                 'door_status' => 'close',
             ],
             [
-                'id' => 2,
                 'door_name' => 'Door 2',
                 'door_description' => 'lorem ipsum dolor sit amet',
                 'door_status' => 'close',
             ],
             [
-                'id' => 3,
                 'door_name' => 'Door 3',
                 'door_description' => 'lorem ipsum dolor sit amet',
                 'door_status' => 'close',
             ],
             [
-                'id' => 4,
                 'door_name' => 'Door 4',
+                'door_description' => 'lorem ipsum dolor sit amet',
+                'door_status' => 'close',
+            ],
+            [
+                'door_name' => 'Door 5',
+                'door_description' => 'lorem ipsum dolor sit amet',
+                'door_status' => 'close',
+            ],
+            [
+                'door_name' => 'Door 6',
                 'door_description' => 'lorem ipsum dolor sit amet',
                 'door_status' => 'close',
             ],
