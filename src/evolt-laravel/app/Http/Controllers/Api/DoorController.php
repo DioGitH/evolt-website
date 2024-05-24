@@ -10,7 +10,7 @@ use App\Models\Door;
 class DoorController extends Controller
 {
     public function index(){
-        $doors = Door::latest()->paginate(5);
+        $doors = Door::paginate(5);
 
         return new DoorResource(true, "Data Pintu", $doors);
     }

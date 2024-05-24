@@ -2,13 +2,14 @@
 import DetailModal from "@/components/detailModal";
 import DeletePintu from "@/components/deleteuser";
 import Navbar from "@/components/navbar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ButtonDelete,
   ButtonEdit,
   ButtonTambahPintu,
 } from "@/components/buttonHalamanPintu";
 import DetailPintu from "@/components/detailPintu";
+import axios from "axios";
 
 const dummy = [
   {
@@ -51,9 +52,18 @@ const dummy = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
     detailId: 5,
   },
+  {
+    itemId: 6,
+    namaPintu: "PintuAjaib",
+    listUser: ["Nopal", "Farhan"],
+    deskripsi:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
+    detailId: 5,
+  },
 ];
 
 export default function Dashboard() {
+
   return (
     <div>
       <div className="grid h-fit">
@@ -68,6 +78,8 @@ export default function Dashboard() {
 }
 
 function LogTable({ data, itemsPerPage }: any) {
+  const [doors, setDoors] = useState([]);
+  
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
@@ -80,6 +92,20 @@ function LogTable({ data, itemsPerPage }: any) {
   const goToPage = (page: any) => {
     setCurrentPage(page);
   };
+
+  const getDoors = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/doors');
+      setDoors(response.data.data.data);
+    } catch (error) {
+      console.error("There was an error fetching the doors data!", error);
+    }
+  };
+
+  useEffect(() => {
+    getDoors();
+  }, []);
+
   return (
     <div className="text-center text-palette-1 mt-5  ml-5 mr-5 bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.20)] rounded-md">
       <div className="h-fit w-full pt-2 pb-1 text-2xl font-medium">
@@ -97,40 +123,32 @@ function LogTable({ data, itemsPerPage }: any) {
               <th className="py-3">ID Pintu</th>
               <th>Nama Pintu</th>
               <th>Deskripsi</th>
+              <th>Status</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody className="">
-            {getCurrentPageData().map(
-              (
-                {
-                  itemId,
-                  namaPintu,
-                  listUser,
-                  deskripsi,
-                  detailId,
-                  additionalDetailId,
-                }: any,
-                index: any
-              ) => (
+            {doors.map(
+              (door:any, index) => (
                 <tr
-                  key={itemId}
+                  key={door.id}
                   className={
                     index % 2 === 0
                       ? "bg-[#332D39] bg-opacity-20"
                       : "bg-[#FFFFFF]"
                   }
                 >
-                  <td>{itemId}</td>
-                  <td>{namaPintu}</td>
-                  <td>{deskripsi}</td>
+                  <td>{door.id}</td>
+                  <td>{door.door_name}</td>
+                  <td>{door.door_description}</td>
+                  <td>{door.door_status}</td>
                   <td>
                     <div className="flex justify-center gap-4">
-                      <DetailPintu
+                      {/* <DetailPintu
                         pintu={namaPintu}
                         user={listUser}
                         detailId={detailId}
-                      />
+                      /> */}
                       <ButtonEdit />
                       <ButtonDelete />
                     </div>
