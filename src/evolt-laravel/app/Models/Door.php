@@ -21,4 +21,13 @@ class Door extends Model
     public function users(){
         return $this->belongsToMany(User::class, 'doors_users', 'id_door', 'id_user');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($door) {
+            $door->users()->detach();
+        });
+    }
 }

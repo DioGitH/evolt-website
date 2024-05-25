@@ -16,6 +16,13 @@ class DoorController extends Controller
         return new DoorResource(true, "Data Pintu", $doors);
     }
 
+    public function getById($id){
+        $door = Door::with('users')->find($id);
+
+        return new DoorResource(true, "Data Pintu", $door);
+
+    }
+
     public function store(Request $request)
     {
         //define validation rules
