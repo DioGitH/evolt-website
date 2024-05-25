@@ -1,9 +1,70 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition, Menu } from "@headlessui/react";
 import { ListUser } from "./dataUser";
+import axios from "axios";
 
-export function ButtonEdit() {
+export function ButtonEdit({id_door, onUpdateSuccess}:any) {
   const [isOpen, setIsOpen] = useState(false);
+  const [doorName, setDoorName] = useState("");
+  const [doorDescription, setDoorDescription] = useState("");
+  const [doorStatus, setDoorStatus] = useState("close");
+  const [users, setUsers] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState([]);
+
+  const getDoorById = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/api/doors/get/${id_door}`);
+      if (response.data.success) {
+        const { id_door, door_name, door_description, door_status, users } = response.data.data;
+        setDoorName(door_name);
+        setDoorDescription(door_description);
+        setDoorStatus(door_status);
+        setSelectedUsers(users.map(user=> user.id_user));
+        // console.log(selected_users);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getUsers = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/users');
+      if (response.data.success) {
+        setUsers(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleCheckboxChange = (selectedUsers: any) => {
+    setSelectedUsers(selectedUsers);
+  }
+
+  const updateDoor = async (e: any) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(`http://localhost:8000/api/doors/${id_door}`, {
+        door_name: doorName,
+        door_description: doorDescription,
+        door_status: doorStatus,
+        id_user: selectedUsers,
+      })
+
+      if (response.data.success) {
+        setDoorName("");
+        setDoorDescription("");
+        setSelectedUsers([]);
+        setDoorStatus("close");
+        onUpdateSuccess();
+        closeModal();
+        alert('Data berhasil disimpan!');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function closeModal() {
     setIsOpen(false);
@@ -13,9 +74,10 @@ export function ButtonEdit() {
     setIsOpen(true);
   }
 
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
+  useEffect(() => {
+    getUsers();
+    getDoorById();
+  }, [id_door]);
 
   return (
     <>
@@ -66,53 +128,59 @@ export function ButtonEdit() {
                   >
                     Update Pintu
                   </Dialog.Title>
-                  <div className="max-w-screen mx-auto mb-2">
-                    <label
-                      htmlFor="username"
-                      className="block mb-1 text-sm font-medium text-gray-700 text-left"
-                    >
-                      Nama Pintu
-                    </label>
-                    <input
-                      type="text"
-                      id="namapintu"
-                      name="namapintu"
-                      className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
-                    />
-                  </div>
-                  <div className="max-w-screen mx-auto mb-2">
-                    <label
-                      htmlFor="namapintu"
-                      className="block mb-1 text-sm font-medium text-gray-700 text-left"
-                    >
-                      Deskripsi
-                    </label>
-                    <input
-                      type="text"
-                      id="deskripsi"
-                      name="deskripsi"
-                      className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
-                    />
-                  </div>
-                  <div className="max-w-screen mx-auto mb-2">
-                    <label
-                      htmlFor="namapintu"
-                      className="block mb-1 text-sm font-medium text-gray-700 text-left"
-                    >
-                      User Akses
-                    </label>
-                    <ListUser />
-                  </div>
+                  <form onSubmit={updateDoor}>
+                    <div className="max-w-screen mx-auto mb-2">
+                      <label
+                        htmlFor="namapintu"
+                        className="block mb-1 text-sm font-medium text-gray-700 text-left"
+                      >
+                        Nama Pintu
+                      </label>
+                      <input
+                        type="text"
+                        id="namapintu"
+                        name="namapintu"
+                        value={doorName}
+                        onChange={(e) => setDoorName(e.target.value)}
+                        className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+                      />
+                    </div>
+                    <div className="max-w-screen mx-auto mb-2">
+                      <label
+                        htmlFor="deskripsi"
+                        className="block mb-1 text-sm font-medium text-gray-700 text-left"
+                      >
+                        Deskripsi
+                      </label>
+                      <input
+                        type="text"
+                        id="deskripsi"
+                        name="deskripsi"
+                        value={doorDescription}
+                        onChange={(e) => setDoorDescription(e.target.value)}
+                        className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+                      />
+                    </div>
+                    <div className="max-w-screen mx-auto mb-2">
+                      <label
+                        htmlFor="userakses"
+                        className="block mb-1 text-sm font-medium text-gray-700 text-left"
+                      >
+                        User Akses
+                      </label>
+                      <ListUser users={users} selectedUsers={selectedUsers} onCheckboxChange={handleCheckboxChange} />
+                    </div>
 
-                  <div className="flex justify-center">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border bg-pallete-4 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Simpan
-                    </button>
-                  </div>
+                    <div className="flex justify-center">
+                      <button
+                        type="submit"
+                        className="inline-flex justify-center rounded-md border bg-pallete-4 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModal}
+                      >
+                        Simpan
+                      </button>
+                    </div>
+                  </form>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -122,8 +190,22 @@ export function ButtonEdit() {
     </>
   );
 }
-export function ButtonDelete(props: any) {
+export function ButtonDelete({id_door, onDeleteSuccess}: any) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const deleteUser = async () => {
+    try {
+      await axios.delete(`http://localhost:8000/api/doors/${id_door}`);
+      onDeleteSuccess(); 
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleDelete(){
+    deleteUser();
+    closeModal();
+  }
 
   function closeModal() {
     setIsOpen(false);
@@ -202,7 +284,8 @@ export function ButtonDelete(props: any) {
                         <button
                           type="button"
                           className="inline-flex justify-center rounded-md bg-palette-2 px-8 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 m-3"
-                          onClick={closeModal}
+                          onClick={handleDelete}
+                          
                           style={{
                             boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.6)",
                           }}
@@ -232,8 +315,52 @@ export function ButtonDelete(props: any) {
   );
 }
 
-export function ButtonTambahPintu(props: any) {
+export function ButtonTambahPintu({onAddSuccess}: any) {
   const [isOpen, setIsOpen] = useState(false);
+  const [doorName, setDoorName] = useState("");
+  const [doorDescription, setDoorDescription] = useState("");
+  const [doorStatus, setDoorStatus] = useState("close");
+  const [users, setUsers] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState([]);
+
+  const handleCheckboxChange = (selectedUsers:any) => {
+    setSelectedUsers(selectedUsers);
+  }
+
+  const saveDoor = async(e:any) =>{
+    e.preventDefault();
+    try{
+      const response = await axios.post('http://localhost:8000/api/doors',{
+        door_name: doorName,
+        door_description: doorDescription,
+        door_status: doorStatus,
+        id_user: selectedUsers,
+      })
+
+      if (response.data.success) {
+        setDoorName("");
+        setDoorDescription("");
+        setSelectedUsers([]);
+        setDoorStatus("close");
+        onAddSuccess();
+        closeModal();
+        alert('Data berhasil disimpan!');
+      }
+    } catch(error){
+      console.log(error);
+    }
+  }
+
+  const getUsers = async()=>{
+    try{
+      const response = await axios.get('http://localhost:8000/api/users');
+      if (response.data.success){
+        setUsers(response.data.data);
+      }
+    } catch(error){
+      console.log(error);
+    }
+  }
 
   function closeModal() {
     setIsOpen(false);
@@ -242,6 +369,10 @@ export function ButtonTambahPintu(props: any) {
   function openModal() {
     setIsOpen(true);
   }
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <>
@@ -290,53 +421,59 @@ export function ButtonTambahPintu(props: any) {
                   >
                     Tambah Pintu
                   </Dialog.Title>
-                  <div className="grid justify-center h-fit p-2 rounded-md text-palette-3"></div>
-                  <div className="max-w-screen mx-auto mb-2">
-                    <label
-                      htmlFor="namapintu"
-                      className="block mb-1 text-sm font-medium text-gray-700 text-left"
-                    >
-                      Nama Pintu
-                    </label>
-                    <input
-                      type="text"
-                      id="namapintu"
-                      name="namapintu"
-                      className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
-                    />
-                  </div>
-                  <div className="max-w-screen mx-auto mb-2">
-                    <label
-                      htmlFor="namapintu"
-                      className="block mb-1 text-sm font-medium text-gray-700 text-left"
-                    >
-                      Deskripsi
-                    </label>
-                    <input
-                      type="text"
-                      id="deskrpsi"
-                      name="desk"
-                      className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
-                    />
-                  </div>
-                  <div className="max-w-screen mx-auto mb-2">
-                    <label
-                      htmlFor="namapintu"
-                      className="block mb-1 text-sm font-medium text-gray-700 text-left"
-                    >
-                      User Akses
-                    </label>
-                    <ListUser />
-                  </div>
-                  <div className="flex justify-center">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border bg-pallete-4 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Simpan
-                    </button>
-                  </div>
+                  <form onSubmit={saveDoor}>
+                    <div className="grid justify-center h-fit p-2 rounded-md text-palette-3"></div>
+                    <div className="max-w-screen mx-auto mb-2">
+                      <label
+                        htmlFor="namapintu"
+                        className="block mb-1 text-sm font-medium text-gray-700 text-left"
+                      >
+                        Nama Pintu
+                      </label>
+                      <input
+                        type="text"
+                        id="namapintu"
+                        name="namapintu"
+                        value={doorName}
+                        onChange={(e)=> setDoorName(e.target.value)}
+                        className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+                      />
+                    </div>
+                    <div className="max-w-screen mx-auto mb-2">
+                      <label
+                        htmlFor="namapintu"
+                        className="block mb-1 text-sm font-medium text-gray-700 text-left"
+                      >
+                        Deskripsi
+                      </label>
+                      <input
+                        type="text"
+                        id="deskrpsi"
+                        name="desk"
+                        value={doorDescription}
+                        onChange={(e) => setDoorDescription(e.target.value)}
+                        className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+                      />
+                    </div>
+                    <div className="max-w-screen mx-auto mb-2">
+                      <label
+                        htmlFor="namapintu"
+                        className="block mb-1 text-sm font-medium text-gray-700 text-left"
+                      >
+                        User Akses
+                      </label>
+                      <ListUser users={users} selectedUsers={selectedUsers} onCheckboxChange={handleCheckboxChange}/>
+                    </div>
+                    <div className="flex justify-center">
+                      <button
+                        type="submit"
+                        className="inline-flex justify-center rounded-md border bg-pallete-4 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModal}
+                      >
+                        Simpan
+                      </button>
+                    </div>
+                  </form>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

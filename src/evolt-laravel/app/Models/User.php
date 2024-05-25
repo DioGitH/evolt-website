@@ -47,4 +47,9 @@ class User extends Authenticatable
             // 'password' => 'hashed',
         ];
     }
+
+    public function doors()
+    {
+        return $this->belongsToMany(Door::class, 'doors_users', 'id_user', 'id_door');
+    }
 }

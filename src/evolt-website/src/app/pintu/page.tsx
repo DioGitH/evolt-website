@@ -2,58 +2,17 @@
 import DetailModal from "@/components/detailModal";
 import DeletePintu from "@/components/deleteuser";
 import Navbar from "@/components/navbar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ButtonDelete,
   ButtonEdit,
   ButtonTambahPintu,
 } from "@/components/buttonHalamanPintu";
 import DetailPintu from "@/components/detailPintu";
-
-const dummy = [
-  {
-    itemId: 1,
-    namaPintu: "PintuKu",
-    listUser: ["Maulidio", "Farhan"],
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 1,
-  },
-  {
-    itemId: 2,
-    namaPintu: "PintuPintu",
-    listUser: ["Raden", "Farhan"],
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 2,
-  },
-  {
-    itemId: 3,
-    namaPintu: "PintuNya",
-    listUser: ["Maulidio", "Trisinus"],
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 3,
-  },
-  {
-    itemId: 4,
-    namaPintu: "PintuMu",
-    listUser: ["Nopal", "Raden"],
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 4,
-  },
-  {
-    itemId: 5,
-    namaPintu: "PintuAjaib",
-    listUser: ["Nopal", "Farhan"],
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 5,
-  },
-];
+import axios from "axios";
 
 export default function Dashboard() {
+
   return (
     <div>
       <div className="grid h-fit">
@@ -61,25 +20,38 @@ export default function Dashboard() {
         <Navbar />
       </div>
       <div className="justify-center items-center gap-y-12">
-        <LogTable data={dummy} itemsPerPage={5} />
+        <LogTable itemsPerPage={5} />
       </div>
     </div>
   );
 }
 
-function LogTable({ data, itemsPerPage }: any) {
+function LogTable({ itemsPerPage }: any) {
+  const [doors, setDoors] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const getCurrentPageData = () => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return data.slice(startIndex, endIndex);
-  };
+  const fetchDoors = async (page:any) =>{
+    try{
+      const response = await fetch(`http://localhost:8000/api/doors?page=${page}`);
+      const result = await response.json();
+      setDoors(result.data.data);
+      setTotalPages(result.data.last_page);
+      setCurrentPage(result.data.current_page);
+    } catch (error){
+      console.error("Failed ", error);
+    }
+
+  }
 
   const goToPage = (page: any) => {
-    setCurrentPage(page);
+    fetchDoors(page);
   };
+
+  useEffect(() => {
+    fetchDoors(currentPage);
+  }, []);
+
   return (
     <div className="text-center text-palette-1 mt-5  ml-5 mr-5 bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.20)] rounded-md">
       <div className="h-fit w-full pt-2 pb-1 text-2xl font-medium">
@@ -87,7 +59,7 @@ function LogTable({ data, itemsPerPage }: any) {
       </div>
 
       <div className="flex justify-end mr-5 mt-0">
-        <ButtonTambahPintu />
+        <ButtonTambahPintu onAddSuccess={() => fetchDoors(currentPage)} />
       </div>
 
       <div className="mx-5 mt-2 mb-5 text-center bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.25)] rounded-md overflow-hidden">
@@ -97,42 +69,34 @@ function LogTable({ data, itemsPerPage }: any) {
               <th className="py-3">ID Pintu</th>
               <th>Nama Pintu</th>
               <th>Deskripsi</th>
+              <th>Status</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody className="">
-            {getCurrentPageData().map(
-              (
-                {
-                  itemId,
-                  namaPintu,
-                  listUser,
-                  deskripsi,
-                  detailId,
-                  additionalDetailId,
-                }: any,
-                index: any
-              ) => (
+            {doors.map(
+              (door:any, index) => (
                 <tr
-                  key={itemId}
+                  key={door.id}
                   className={
                     index % 2 === 0
                       ? "bg-[#332D39] bg-opacity-20"
                       : "bg-[#FFFFFF]"
                   }
                 >
-                  <td>{itemId}</td>
-                  <td>{namaPintu}</td>
-                  <td>{deskripsi}</td>
+                  <td>{door.id_door}</td>
+                  <td>{door.door_name}</td>
+                  <td>{door.door_description}</td>
+                  <td>{door.door_status}</td>
                   <td>
                     <div className="flex justify-center gap-4">
-                      <DetailPintu
-                        pintu={namaPintu}
+                      {/* <DetailPintu
+                        pintu={door.door_name}
                         user={listUser}
                         detailId={detailId}
-                      />
-                      <ButtonEdit />
-                      <ButtonDelete />
+                      /> */}
+                      <ButtonEdit id_door={door.id_door} onUpdateSuccess={() => fetchDoors(currentPage)} />
+                      <ButtonDelete id_door={door.id_door} onDeleteSuccess={() => fetchDoors(currentPage)} />
                     </div>
                   </td>
                 </tr>
