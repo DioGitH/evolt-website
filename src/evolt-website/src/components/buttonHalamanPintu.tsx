@@ -42,6 +42,29 @@ export function ButtonEdit({id_door}:any) {
     setSelectedUsers(selectedUsers);
   }
 
+  const updateDoor = async (e: any) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(`http://localhost:8000/api/doors/${id_door}`, {
+        door_name: doorName,
+        door_description: doorDescription,
+        door_status: doorStatus,
+        id_user: selectedUsers,
+      })
+
+      if (response.data.success) {
+        setDoorName("");
+        setDoorDescription("");
+        setSelectedUsers([]);
+        setDoorStatus("close");
+        closeModal();
+        alert('Data berhasil disimpan!');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   function closeModal() {
     setIsOpen(false);
   }
@@ -104,7 +127,7 @@ export function ButtonEdit({id_door}:any) {
                   >
                     Update Pintu
                   </Dialog.Title>
-                  <form action="">
+                  <form onSubmit={updateDoor}>
                     <div className="max-w-screen mx-auto mb-2">
                       <label
                         htmlFor="namapintu"
@@ -149,7 +172,7 @@ export function ButtonEdit({id_door}:any) {
 
                     <div className="flex justify-center">
                       <button
-                        type="button"
+                        type="submit"
                         className="inline-flex justify-center rounded-md border bg-pallete-4 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         onClick={closeModal}
                       >
