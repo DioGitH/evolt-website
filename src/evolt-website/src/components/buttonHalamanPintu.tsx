@@ -3,7 +3,7 @@ import { Dialog, Transition, Menu } from "@headlessui/react";
 import { ListUser } from "./dataUser";
 import axios from "axios";
 
-export function ButtonEdit({id_door}:any) {
+export function ButtonEdit({id_door, onUpdateSuccess}:any) {
   const [isOpen, setIsOpen] = useState(false);
   const [doorName, setDoorName] = useState("");
   const [doorDescription, setDoorDescription] = useState("");
@@ -57,6 +57,7 @@ export function ButtonEdit({id_door}:any) {
         setDoorDescription("");
         setSelectedUsers([]);
         setDoorStatus("close");
+        onUpdateSuccess();
         closeModal();
         alert('Data berhasil disimpan!');
       }
@@ -189,12 +190,13 @@ export function ButtonEdit({id_door}:any) {
     </>
   );
 }
-export function ButtonDelete({id_door}: any) {
+export function ButtonDelete({id_door, onDeleteSuccess}: any) {
   const [isOpen, setIsOpen] = useState(false);
 
   const deleteUser = async () => {
     try {
       await axios.delete(`http://localhost:8000/api/doors/${id_door}`);
+      onDeleteSuccess(); 
     } catch (error) {
       console.log(error);
     }
@@ -313,7 +315,7 @@ export function ButtonDelete({id_door}: any) {
   );
 }
 
-export function ButtonTambahPintu() {
+export function ButtonTambahPintu({onAddSuccess}: any) {
   const [isOpen, setIsOpen] = useState(false);
   const [doorName, setDoorName] = useState("");
   const [doorDescription, setDoorDescription] = useState("");
@@ -340,6 +342,7 @@ export function ButtonTambahPintu() {
         setDoorDescription("");
         setSelectedUsers([]);
         setDoorStatus("close");
+        onAddSuccess();
         closeModal();
         alert('Data berhasil disimpan!');
       }

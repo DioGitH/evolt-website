@@ -59,7 +59,7 @@ function LogTable({ itemsPerPage }: any) {
       </div>
 
       <div className="flex justify-end mr-5 mt-0">
-        <ButtonTambahPintu />
+        <ButtonTambahPintu onAddSuccess={() => fetchDoors(currentPage)} />
       </div>
 
       <div className="mx-5 mt-2 mb-5 text-center bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.25)] rounded-md overflow-hidden">
@@ -95,8 +95,8 @@ function LogTable({ itemsPerPage }: any) {
                         user={listUser}
                         detailId={detailId}
                       /> */}
-                      <ButtonEdit id_door={door.id_door}/>
-                      <ButtonDelete id_door={door.id_door}/>
+                      <ButtonEdit id_door={door.id_door} onUpdateSuccess={() => fetchDoors(currentPage)} />
+                      <ButtonDelete id_door={door.id_door} onDeleteSuccess={() => fetchDoors(currentPage)} />
                     </div>
                   </td>
                 </tr>
