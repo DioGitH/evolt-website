@@ -37,6 +37,13 @@ class DoorController extends Controller
             'door_status' => $request->door_status,
         ]);
 
+        $selectUsers = $request->id_user;
+        
+        foreach($selectUsers as $userId){
+            $door->users()->attach($userId);
+        }
+
+
         //return response
         return new DoorResource(true, 'Data Door Berhasil Ditambahkan!', $door);
     }

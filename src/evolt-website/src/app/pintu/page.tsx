@@ -11,57 +11,6 @@ import {
 import DetailPintu from "@/components/detailPintu";
 import axios from "axios";
 
-const dummy = [
-  {
-    itemId: 1,
-    namaPintu: "PintuKu",
-    listUser: ["Maulidio", "Farhan"],
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 1,
-  },
-  {
-    itemId: 2,
-    namaPintu: "PintuPintu",
-    listUser: ["Raden", "Farhan"],
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 2,
-  },
-  {
-    itemId: 3,
-    namaPintu: "PintuNya",
-    listUser: ["Maulidio", "Trisinus"],
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 3,
-  },
-  {
-    itemId: 4,
-    namaPintu: "PintuMu",
-    listUser: ["Nopal", "Raden"],
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 4,
-  },
-  {
-    itemId: 5,
-    namaPintu: "PintuAjaib",
-    listUser: ["Nopal", "Farhan"],
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 5,
-  },
-  {
-    itemId: 6,
-    namaPintu: "PintuAjaib",
-    listUser: ["Nopal", "Farhan"],
-    deskripsi:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate interdum finibus.",
-    detailId: 5,
-  },
-];
-
 export default function Dashboard() {
 
   return (
@@ -142,7 +91,7 @@ function LogTable({ itemsPerPage }: any) {
                   <td>
                     <div className="flex justify-center gap-4">
                       {/* <DetailPintu
-                        pintu={namaPintu}
+                        pintu={door.door_name}
                         user={listUser}
                         detailId={detailId}
                       /> */}

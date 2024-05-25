@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition, Menu } from "@headlessui/react";
 import { ListUser } from "./dataUser";
 import axios from "axios";
@@ -238,6 +238,12 @@ export function ButtonTambahPintu(props: any) {
   const [doorName, setDoorName] = useState("");
   const [doorDescription, setDoorDescription] = useState("");
   const [doorStatus, setDoorStatus] = useState("close");
+  const [users, setUsers] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState([]);
+
+  const handleCheckboxChange = (selectedUsers:any) => {
+    setSelectedUsers(selectedUsers);
+  }
 
   const saveDoor = async(e:any) =>{
     e.preventDefault();
@@ -245,15 +251,28 @@ export function ButtonTambahPintu(props: any) {
       const response = await axios.post('http://localhost:8000/api/doors',{
         door_name: doorName,
         door_description: doorDescription,
-        door_status: doorStatus
+        door_status: doorStatus,
+        id_user: selectedUsers,
       })
 
       if (response.data.success) {
         setDoorName("");
         setDoorDescription("");
+        setSelectedUsers([]);
         setDoorStatus("close");
         closeModal();
         alert('Data berhasil disimpan!');
+      }
+    } catch(error){
+      console.log(error);
+    }
+  }
+
+  const getUsers = async()=>{
+    try{
+      const response = await axios.get('http://localhost:8000/api/users');
+      if (response.data.success){
+        setUsers(response.data.data);
       }
     } catch(error){
       console.log(error);
@@ -267,6 +286,10 @@ export function ButtonTambahPintu(props: any) {
   function openModal() {
     setIsOpen(true);
   }
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <>
@@ -356,7 +379,7 @@ export function ButtonTambahPintu(props: any) {
                       >
                         User Akses
                       </label>
-                      <ListUser />
+                      <ListUser users={users} selectedUsers={selectedUsers} onCheckboxChange={handleCheckboxChange}/>
                     </div>
                     <div className="flex justify-center">
                       <button
