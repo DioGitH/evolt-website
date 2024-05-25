@@ -189,8 +189,21 @@ export function ButtonEdit({id_door}:any) {
     </>
   );
 }
-export function ButtonDelete(props: any) {
+export function ButtonDelete({id_door}: any) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const deleteUser = async () => {
+    try {
+      await axios.delete(`http://localhost:8000/api/doors/${id_door}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleDelete(){
+    deleteUser();
+    closeModal();
+  }
 
   function closeModal() {
     setIsOpen(false);
@@ -269,7 +282,8 @@ export function ButtonDelete(props: any) {
                         <button
                           type="button"
                           className="inline-flex justify-center rounded-md bg-palette-2 px-8 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 m-3"
-                          onClick={closeModal}
+                          onClick={handleDelete}
+                          
                           style={{
                             boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.6)",
                           }}

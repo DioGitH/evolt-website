@@ -88,10 +88,11 @@ class DoorController extends Controller
         return new DoorResource(true, 'Data Door Berhasil Diubah!', $door);
     }
 
-    public function destroy(Door $door)
+    public function destroy($id)
     {
 
-        //delete post
+        $door = Door::findOrFail($id);
+        // $door->users()->detach();
         $door->delete();
 
         //return response

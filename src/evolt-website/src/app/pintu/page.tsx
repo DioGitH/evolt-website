@@ -96,7 +96,7 @@ function LogTable({ itemsPerPage }: any) {
                         detailId={detailId}
                       /> */}
                       <ButtonEdit id_door={door.id_door}/>
-                      <ButtonDelete />
+                      <ButtonDelete id_door={door.id_door}/>
                     </div>
                   </td>
                 </tr>
