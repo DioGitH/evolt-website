@@ -129,13 +129,14 @@ function LogTable({ data, itemsPerPage }: any) {
               <th>USERNAME</th>
               <th>EMAIL</th>
               <th>PIN</th>
+              <th>ROLE</th>
               <th>AKSI</th>
             </tr>
           </thead>
           <tbody className="">
             {getCurrentPageData().map(
               (
-                { id_user, username, email, pin, detailId, photo_profile,additionalDetailId }: any,
+                { id_user, username, email, pin, detailId, photo_profile, role }: any,
                 index: any
               ) => (
                 <tr
@@ -150,6 +151,7 @@ function LogTable({ data, itemsPerPage }: any) {
                   <td>{username}</td>
                   <td>{email}</td>
                   <td>{pin}</td>
+                  <td>{role.role_name}</td>
                   <td>
                     <div className="flex justify-center gap-4">
                       <DetailUser

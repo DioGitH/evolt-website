@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = User::all();
+        $user = User::with('role')->get();
 
         return new PostResource(true, 'List Data User', $user);
     }
@@ -26,6 +26,7 @@ class UserController extends Controller
             'email' => 'required',
             'pin' => 'required',
             'photo_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'id_role' => 'required',
         ]);
 
         //check if validation fails
@@ -43,6 +44,7 @@ class UserController extends Controller
             'email' => $request->email,
             'pin' => $request->pin,
             'photo_profile' => $photo_profile->hashName(),
+            'id_role' => $request->id_role,
         ]);
 
         //return response
@@ -82,6 +84,7 @@ class UserController extends Controller
             'username' => 'required',
             'email' => 'required',
             'pin' => 'required',
+            'id_role' => 'required',
         ]);
 
         //check if validation fails
@@ -105,6 +108,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'pin' => $request->pin,
                 'photo_profile' => $photo_profile->hashName(),
+                'id_role' => $request->id_role,
             ]);
 
         } else {
@@ -114,6 +118,7 @@ class UserController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'pin' => $request->pin,
+                'id_role' => $request->id_role,
             ]);
         }
 
