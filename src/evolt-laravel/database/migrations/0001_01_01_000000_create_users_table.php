@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('pin');
             $table->string('photo_profile');
+            $table->integer('id_role');
             $table->rememberToken();
             $table->timestamps();
         });
