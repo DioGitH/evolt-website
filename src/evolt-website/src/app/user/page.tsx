@@ -161,6 +161,7 @@ function LogTable({ data, itemsPerPage }: any) {
                         pin={pin}
                         detailId={detailId}
                         photo_profile={photo_profile}
+                        role_name={role.role_name}
                       />
                       <EditUser idUser={id_user}/>
                       <DeleteUser idUser={id_user}/>

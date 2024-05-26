@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-export default function DetailModal({ itemId, email, username, pin, photo_profile }: any) {
+export default function DetailModal({ itemId, email, username, pin, photo_profile, role_name }: any) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -64,7 +64,7 @@ export default function DetailModal({ itemId, email, username, pin, photo_profil
                         className="image max-w-48 h-fit"
                       />
                     </div>
-                    <TextDetail email={email} username={username} pin={pin} />
+                    <TextDetail email={email} username={username} pin={pin} role={role_name} />
                     <div className="grid justify-center"></div>
                   </div>
 
@@ -87,12 +87,13 @@ export default function DetailModal({ itemId, email, username, pin, photo_profil
   );
 }
 
-export function TextDetail({ email, username, pin }: any) {
+export function TextDetail({ email, username, pin, role }: any) {
   return (
     <div className="grid">
       <div className="font-semibold">{email}</div>
       <div className="font-semibold">{username}</div>
       <div className="font-semibold">{pin}</div>
+      <div className="font-semibold">{role}</div>
     </div>
   );
 }
