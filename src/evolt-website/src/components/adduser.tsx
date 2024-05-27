@@ -209,7 +209,7 @@ export default function AddUserModal({onAddSuccess}:any) {
                             required
                           >
                             <option value={3}>Reguler User</option>
-                            {roleId == {1} && <option value="1">Provider</option>}
+                            {roleId == 1 && <option value={1}>Provider</option>}
                             <option value={2}>Admin</option>
                           </select>
                         </div>
