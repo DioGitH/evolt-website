@@ -4,8 +4,7 @@ import PasswordInput from "./passwordInput";
 import axios from "axios";
 // import Router from 'next/router';
 
-export default function AddUserModal() {
-
+export default function AddUserModal({onAddSuccess}:any) {
   const [roleId, setRoleId] = useState('');
 
   useEffect(() => {
@@ -13,7 +12,7 @@ export default function AddUserModal() {
 
     setRoleId(roleStatus ?? '');
   }, []);
-
+  
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -28,7 +27,7 @@ export default function AddUserModal() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [pin, setPin] = useState('');
-  const [idRole, setIdRole] = useState('');
+  const [idRole, setIdRole] = useState(3);
   const [photoProfile, setPhotoProfile] = useState('');
 
   //state validation
@@ -74,7 +73,14 @@ export default function AddUserModal() {
           //redirect
           // Router.push('/user')
           // closeModal()
-          window.location.reload()
+          // window.location.reload()
+          setUsername('');
+          setEmail('');
+          setIdRole(3);
+          setPin('');
+          setPhotoProfile('');
+          onAddSuccess();
+          closeModal();
 
       })
       .catch((error) => {
@@ -202,9 +208,9 @@ export default function AddUserModal() {
                             onChange={(e) => setIdRole(e.target.value)}
                             required
                           >
-                            {roleId == '1' && <option value="1">Provider</option>}
-                            <option value="2">Admin</option>
-                            <option value="3">Reguler User</option>
+                            <option value={3}>Reguler User</option>
+                            {roleId == {1} && <option value="1">Provider</option>}
+                            <option value={2}>Admin</option>
                           </select>
                         </div>
                         {/* {validation.pin && (
