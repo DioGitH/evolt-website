@@ -28,5 +28,8 @@ steps:
   #     - '--command=sudo mysql -u root < /var/www/html/evolt/data.sql'
   #   dir: '/var/www/html/evolt'  # Specify the directory where your source code is cloned
 
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 # Optionally, you can specify the timeout for the entire build process
 timeout: '1200s'
