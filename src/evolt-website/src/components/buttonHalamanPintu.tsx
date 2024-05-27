@@ -59,7 +59,7 @@ export function ButtonEdit({id_door, onUpdateSuccess}:any) {
         setDoorStatus("close");
         onUpdateSuccess();
         closeModal();
-        alert('Data berhasil disimpan!');
+        // alert('Data berhasil disimpan!');
       }
     } catch (error) {
       console.log(error);
@@ -344,7 +344,7 @@ export function ButtonTambahPintu({onAddSuccess}: any) {
         setDoorStatus("close");
         onAddSuccess();
         closeModal();
-        alert('Data berhasil disimpan!');
+        // alert('Data berhasil disimpan!');
       }
     } catch(error){
       console.log(error);

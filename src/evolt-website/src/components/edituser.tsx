@@ -22,6 +22,7 @@ export default function EditUserModal({idUser}: any) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [pin, setPin] = useState('');
+  const [idRole, setIdRole] = useState('');
   const [photoProfile, setPhotoProfile] = useState('');
 
   function closeModal() {
@@ -33,6 +34,7 @@ export default function EditUserModal({idUser}: any) {
     setUsername(user.username);
     setEmail(user.email);
     setPin(user.pin);
+    setIdRole(user.id_role);
     setPhotoProfile(user.photo_profile);
     setIsOpen(true);
   }
@@ -71,6 +73,7 @@ export default function EditUserModal({idUser}: any) {
       formData.append('username', username);
       formData.append('email', email);
       formData.append('pin', pin);
+      formData.append('id_role', idRole);
       formData.append('photo_profile', photoProfile);
       formData.append('_method', 'PUT');
       
@@ -218,6 +221,26 @@ export default function EditUserModal({idUser}: any) {
                         </div> */}
                         <div className="max-w-screen mx-auto mb-2">
                           <PasswordInput pin={pin} setPin={setPin} />
+                        </div>
+                        <div className="max-w-screen mx-auto mb-2">
+                          <label
+                            htmlFor="role"
+                            className="block mb-1 text-sm font-medium text-gray-700 text-left"
+                          >
+                            ROLE
+                          </label>
+                          <select
+                            id="role"
+                            name="role"
+                            className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
+                            value={idRole}
+                            onChange={(e) => setIdRole(e.target.value)}
+                            required
+                          >
+                            <option value="1">Provider</option>
+                            <option value="2">Admin</option>
+                            <option value="3">Reguler User</option>
+                          </select>
                         </div>
                       </div>
                     </div>
