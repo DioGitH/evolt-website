@@ -16,9 +16,9 @@ class UserSeeder extends Seeder
         //
         $users = [
             [
-                'username' => 'Developer 1',
+                'username' => 'Provider 1',
                 'email' => 'mydevone@gmail.com',
-                'pin' => '13467',
+                'pin' => '134675',
                 'photo_profile' => 'ho0qPHlfCi9xtgnJ2SUuGjh0PwIssQHMdAd1Icpa.png',
                 'id_role' => 1
             ],
