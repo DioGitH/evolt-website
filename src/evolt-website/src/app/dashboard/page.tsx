@@ -1,6 +1,6 @@
 "use client";
 import DetailModal from "@/components/detailModal";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const timestamp = Date.now();
 const formatDt = Intl.DateTimeFormat("en-US", {
@@ -99,6 +99,17 @@ const dummy = [
 ];
 
 export default function Dashboard() {
+
+  useEffect(() => {
+    const loginStatus = localStorage.getItem('isLogin');
+
+    const isLogin = loginStatus == 'true';
+
+    if (!isLogin) {
+        window.location.href = '/';
+    }
+  }, []);
+
   return (
     <div>
       {/* Dashboard */}

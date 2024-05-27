@@ -1,6 +1,19 @@
+"use client"
 import LoginForm from "@/components/loginform"
+import { useEffect } from 'react';
 
 export default function LoginPage(){
+
+    useEffect(() => {
+        const loginStatus = localStorage.getItem('isLogin');
+
+        const isLogin = loginStatus == 'true';
+
+        if (isLogin) {
+            window.location.href = '/dashboard';
+        }
+    }, []);
+
     return(
         <div>
             <div className="container mx-auto bg-palette-1">

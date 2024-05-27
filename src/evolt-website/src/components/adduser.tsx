@@ -1,10 +1,19 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import PasswordInput from "./passwordInput";
 import axios from "axios";
 // import Router from 'next/router';
 
 export default function AddUserModal() {
+
+  const [roleId, setRoleId] = useState('');
+
+  useEffect(() => {
+    const roleStatus = localStorage.getItem('idRole');
+
+    setRoleId(roleStatus ?? '');
+  }, []);
+
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -193,7 +202,7 @@ export default function AddUserModal() {
                             onChange={(e) => setIdRole(e.target.value)}
                             required
                           >
-                            <option value="1">Provider</option>
+                            {roleId == '1' && <option value="1">Provider</option>}
                             <option value="2">Admin</option>
                             <option value="3">Reguler User</option>
                           </select>

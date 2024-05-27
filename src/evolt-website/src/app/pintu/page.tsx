@@ -13,6 +13,16 @@ import axios from "axios";
 
 export default function Dashboard() {
 
+  useEffect(() => {
+    const loginStatus = localStorage.getItem('isLogin');
+
+    const isLogin = loginStatus == 'true';
+
+    if (!isLogin) {
+        window.location.href = '/';
+    }
+  }, []);
+
   return (
     <div>
       <div className="grid h-fit">
@@ -27,6 +37,15 @@ export default function Dashboard() {
 }
 
 function LogTable({ itemsPerPage }: any) {
+
+  const [roleId, setRoleId] = useState('');
+
+  useEffect(() => {
+    const roleStatus = localStorage.getItem('idRole');
+
+    setRoleId(roleStatus ?? '');
+  }, []);
+
   const [doors, setDoors] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -58,9 +77,11 @@ function LogTable({ itemsPerPage }: any) {
         Data Pintu
       </div>
 
-      <div className="flex justify-end mr-5 mt-0">
-        <ButtonTambahPintu onAddSuccess={() => fetchDoors(currentPage)} />
-      </div>
+      {roleId == '1' && 
+        <div className="flex justify-end mr-5 mt-0">
+          <ButtonTambahPintu onAddSuccess={() => fetchDoors(currentPage)} />
+        </div>  
+      }
 
       <div className="mx-5 mt-2 mb-5 text-center bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.25)] rounded-md overflow-hidden">
         <table className="table-fixed w-full h-auto ">

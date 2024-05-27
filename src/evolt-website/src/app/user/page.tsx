@@ -4,7 +4,7 @@ import DeleteUser from "@/components/deleteuser";
 import DetailUser from "@/components/detailUser";
 import EditUser from "@/components/edituser";
 import Navbar from "@/components/navbar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 async function getServerSideProps() {
@@ -62,6 +62,16 @@ const dummy = [
 
 export default async function Dashboard() {
 
+  useEffect(() => {
+    const loginStatus = localStorage.getItem('isLogin');
+
+    const isLogin = loginStatus == 'true';
+
+    if (!isLogin) {
+        window.location.href = '/';
+    }
+  }, []);
+
   const userData = await getServerSideProps();
 
   return (
@@ -78,6 +88,7 @@ export default async function Dashboard() {
 }
 
 function LogTable({ data, itemsPerPage }: any) {
+
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / itemsPerPage);
 

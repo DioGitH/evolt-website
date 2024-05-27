@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function LoginForm(){
+
     const [username, setUsername] = useState('');
     const [pin, setPin] = useState('');
 
@@ -21,6 +22,10 @@ export default function LoginForm(){
         //send data to server
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/login`, formData);
+
+            localStorage.setItem('isLogin', response.data.isLogin);
+            localStorage.setItem('idRole', response.data.idRole);
+
             window.location.href = '/dashboard'
         } catch (error) {
             if (error.response.status == 401) {

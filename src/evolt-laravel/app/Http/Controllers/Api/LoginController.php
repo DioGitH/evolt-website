@@ -26,7 +26,11 @@ class LoginController extends Controller
             if ($user['id_role'] == 3) {
                 return response()->json(['message' => 'User Tidak Memiliki Akses'], 401);
             }
-            return response()->json(['message' => 'Berhasil Login'], 200);
+            return response()->json([
+                'message' => 'Berhasil Login',
+                'isLogin' => true,
+                'idRole' => $user->id_role,
+            ], 200);
         } else {
             return response()->json(['message' => 'User Tidak Ditemukan'], 404);
         }
