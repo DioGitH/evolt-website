@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import ConfirmEdit from "@/components/confirmEditUser";
 import React, { useRef } from "react";
 import PasswordInput from "./passwordInput";
@@ -15,6 +15,14 @@ async function getServerSideProps(id_user: any) {
 }
 
 export default function EditUserModal({idUser, onEditSuccess}: any) {
+  const [roleId, setRoleId] = useState('');
+
+  useEffect(() => {
+    const roleStatus = localStorage.getItem('idRole');
+
+    setRoleId(roleStatus ?? '');
+  }, []);
+
   let [isOpen, setIsOpen] = useState(false);
   const [photoSrc, setPhotoSrc] = useState('/assets/img/userEditIcon.svg');
 
@@ -243,9 +251,9 @@ export default function EditUserModal({idUser, onEditSuccess}: any) {
                             onChange={(e) => setIdRole(e.target.value)}
                             required
                           >
-                            <option value="1">Provider</option>
-                            <option value="2">Admin</option>
-                            <option value="3">Reguler User</option>
+                            <option value={3}>Reguler User</option>
+                            {roleId == 1 && <option value={1}>Provider</option>}
+                            <option value={2}>Admin</option>
                           </select>
                         </div>
                       </div>
