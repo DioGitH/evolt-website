@@ -52,7 +52,7 @@ function LogTable({ itemsPerPage }: any) {
 
   const fetchDoors = async (page:any) =>{
     try{
-      const response = await fetch(`http://localhost:8000/api/doors?page=${page}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors?page=${page}`);
       const result = await response.json();
       setDoors(result.data.data);
       setTotalPages(result.data.last_page);

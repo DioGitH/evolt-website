@@ -13,7 +13,7 @@ export function ButtonEdit({id_door, onUpdateSuccess}:any) {
 
   const getDoorById = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/doors/get/${id_door}`);
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors/get/${id_door}`);
       if (response.data.success) {
         const { id_door, door_name, door_description, door_status, users } = response.data.data;
         setDoorName(door_name);
@@ -29,7 +29,7 @@ export function ButtonEdit({id_door, onUpdateSuccess}:any) {
 
   const getUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/users');
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users`);
       if (response.data.success) {
         setUsers(response.data.data);
       }
@@ -45,7 +45,7 @@ export function ButtonEdit({id_door, onUpdateSuccess}:any) {
   const updateDoor = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:8000/api/doors/${id_door}`, {
+      const response = await axios.put(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors/${id_door}`, {
         door_name: doorName,
         door_description: doorDescription,
         door_status: doorStatus,
@@ -195,7 +195,7 @@ export function ButtonDelete({id_door, onDeleteSuccess}: any) {
 
   const deleteUser = async () => {
     try {
-      await axios.delete(`http://localhost:8000/api/doors/${id_door}`);
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors/${id_door}`);
       onDeleteSuccess(); 
     } catch (error) {
       console.log(error);
@@ -330,7 +330,7 @@ export function ButtonTambahPintu({onAddSuccess}: any) {
   const saveDoor = async(e:any) =>{
     e.preventDefault();
     try{
-      const response = await axios.post('http://localhost:8000/api/doors',{
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors`,{
         door_name: doorName,
         door_description: doorDescription,
         door_status: doorStatus,
@@ -353,7 +353,7 @@ export function ButtonTambahPintu({onAddSuccess}: any) {
 
   const getUsers = async()=>{
     try{
-      const response = await axios.get('http://localhost:8000/api/users');
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users`);
       if (response.data.success){
         setUsers(response.data.data);
       }
