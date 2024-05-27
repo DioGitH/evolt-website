@@ -4,7 +4,7 @@ import DeleteUser from "@/components/deleteuser";
 import DetailUser from "@/components/detailUser";
 import EditUser from "@/components/edituser";
 import Navbar from "@/components/navbar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 async function getServerSideProps() {
@@ -16,53 +16,34 @@ async function getServerSideProps() {
   return users
 }
 
-const timestamp = Date.now();
-const formatDt = Intl.DateTimeFormat("en-US", {
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-  hour: "2-digit",
-  minute: "2-digit",
-}).format(timestamp);
+// const timestamp = Date.now();
+// const formatDt = Intl.DateTimeFormat("en-US", {
+//   year: "numeric",
+//   month: "2-digit",
+//   day: "2-digit",
+//   hour: "2-digit",
+//   minute: "2-digit",
+// }).format(timestamp);
 
-const dummy = [
-  {
-    id: 1,
-    username: "Maulidio",
-    email: "maulidio@example.com",
-    pin: "1234",
-    detailId: 1,
-    additionalDetailId: 101,
-  },
-  {
-    id: 2,
-    username: "Raden",
-    email: "Raden@example.com",
-    pin: "5678",
-    detailId: 2,
-    additionalDetailId: 102,
-  },
-  {
-    id: 3,
-    username: "Maulidio",
-    email: "maulidio@example.com",
-    pin: "1234",
-    detailId: 1,
-    additionalDetailId: 103,
-  },
-  {
-    id: 4,
-    username: "Raden",
-    email: "Raden@example.com",
-    pin: "5678",
-    detailId: 2,
-    additionalDetailId: 104,
-  },
-];
+export default function Dashboard() {
+  const [userData, setUserData] = useState([]);
+  // const [loading, setLoading] = useState(true);
 
-export default async function Dashboard() {
+  const getData = async () => {
+    try {
+      const req = await axios.get(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users`);
+      const data = req.data.data;
+      setUserData(data);
+    } catch (error) {
+      console.error("Failed to fetch data", error);
+    }
+  };
+  
+  useEffect(() => {
+    getData();
+  }, []);
 
-  const userData = await getServerSideProps();
+  // const userData = await getServerSideProps();
 
   return (
     <div>
