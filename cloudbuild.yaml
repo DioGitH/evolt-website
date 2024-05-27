@@ -4,7 +4,7 @@ steps:
     args:
       - 'compute'
       - 'ssh'
-      - 'evolt-server'  # Replace with the name of your Compute Engine VM instance
+      - 'evolt-server-x'  # Replace with the name of your Compute Engine VM instance
       - '--zone=asia-southeast2-a'  # Replace with the zone of your Compute Engine VM instance
       - '--command=sudo apt-get update && sudo apt-get install -y mysql-server php-mysql && sudo systemctl restart apache2'
 
@@ -13,7 +13,7 @@ steps:
     args:
       - 'compute'
       - 'ssh'
-      - 'evolt-server'  # Replace with the name of your Compute Engine VM instance
+      - 'evolt-server-x'  # Replace with the name of your Compute Engine VM instance
       - '--zone=asia-southeast2-a'  # Replace with the zone of your Compute Engine VM instance
       - '--command=cd /var/www/html/evolt && git pull origin main'
     dir: '/var/www/html/evolt'  # Specify the directory where your source code is cloned
