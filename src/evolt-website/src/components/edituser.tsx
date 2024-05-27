@@ -14,7 +14,7 @@ async function getServerSideProps(id_user: any) {
   return users
 }
 
-export default function EditUserModal({idUser}: any) {
+export default function EditUserModal({idUser, onEditSuccess}: any) {
   let [isOpen, setIsOpen] = useState(false);
   const [photoSrc, setPhotoSrc] = useState('/assets/img/userEditIcon.svg');
 
@@ -84,7 +84,13 @@ export default function EditUserModal({idUser}: any) {
           //redirect
           // Router.push('/user')
           // closeModal()
-          window.location.reload()
+          setUsername('');
+          setEmail('');
+          setIdRole('');
+          setPin('');
+          setPhotoProfile('');
+          onEditSuccess();
+          closeModal();
 
       })
       .catch((error) => {

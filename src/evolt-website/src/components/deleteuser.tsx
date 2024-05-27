@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import axios from "axios";
 
-export default function DeleteUserModal({idUser}: any) {
+export default function DeleteUserModal({idUser, onDeleteSuccess}: any) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -19,7 +19,8 @@ export default function DeleteUserModal({idUser}: any) {
     await axios.delete(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users/${idUser}`);
 
     //refresh data
-    window.location.reload();
+    onDeleteSuccess();
+    closeModal();
 
 }
 
