@@ -16,7 +16,7 @@ class ImageController extends Controller
         //define validation rules
         $validator = Validator::make($request->all(), [
             'image_name' => 'required',
-            'image_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_file' => 'required|image|mimes:jpg',
         ]);
 
         //check if validation fails
@@ -27,7 +27,9 @@ class ImageController extends Controller
         //upload image_file
         $image_name = $request->image_name;
         $image_file = $request->file('image_file');
-        $image_file->storeAs('public/users', $image_name);
+
+        $image_name = $image_name . '.jpg';
+        $image_file->storeAs('public/images', $image_name);
 
         //create image
         Image::create([
