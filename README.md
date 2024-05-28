@@ -8,4 +8,4 @@ TI - 3C | Kelompok 404
 - Raden Rizki (2141720064)
 - Trisinus Gulo (2141720035)
 
-Website Provide dan Admin guna pengelolaa IoT Smart Door Lock - Proyek Terintegrasi 2024 
+Website Provide dan Admin untuk Pengelolaa IoT Smart Door Lock - Proyek Terintegrasi 2024 
