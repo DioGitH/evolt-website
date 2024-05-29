@@ -27,9 +27,9 @@ class DoorController extends Controller
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'door_name'     => 'required',
-            'door_description'     => 'required',
-            'door_status' => 'required',
+            'door_name'         => 'required',
+            'door_description'  => 'required',
+            'door_status'       => 'required',
         ]);
 
         //check if validation fails
@@ -39,13 +39,13 @@ class DoorController extends Controller
 
         //create post
         $door = Door::create([
-            'door_name'     => $request->door_name,
-            'door_description'   => $request->door_description,
-            'door_status' => $request->door_status,
+            'door_name'         => $request->door_name,
+            'door_description'  => $request->door_description,
+            'door_status'       => $request->door_status,
         ]);
 
         $selectUsers = $request->id_user;
-        
+
         foreach($selectUsers as $userId){
             $door->users()->attach($userId);
         }
@@ -65,8 +65,8 @@ class DoorController extends Controller
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'door_name'     => 'required',
-            'door_description'     => 'required',
+            // 'door_name'     => 'required',
+            // 'door_description'     => 'required',
             'door_status' => 'required',
         ]);
 
@@ -75,11 +75,18 @@ class DoorController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $door->update([
-            'door_name'     => $request->door_name,
-            'door_description'   => $request->door_description,
-            'door_status' => $request->door_status,
-        ]);
+        if ($request->door_name && $request->door_description) {
+            $door->update([
+                'door_name'         => $request->door_name,
+                'door_description'  => $request->door_description,
+                'door_status'       => $request->door_status,
+            ]);
+        } else {
+            $door->update([
+                'door_status' => $request->door_status,
+            ]);
+        }
+
 
         $userUpdated = $request->id_user;
         $door->users()->sync($userUpdated);
