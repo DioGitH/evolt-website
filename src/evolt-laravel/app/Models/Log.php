@@ -12,7 +12,7 @@ class Log extends Model
     protected $primaryKey = 'id_log';
     protected $fillable = [
         'log_status',
-        'log_time',
+        // 'log_time',
         'door_name',
         'username',
         'image_name',
