@@ -35,6 +35,9 @@ class ImageController extends Controller
         $imageName = $request->input('image_name') . '.jpg';
         $imagePath = 'public/images/' . $imageName;
 
+        echo "Image Name: " . $imageName . "\n";
+        echo "Image Path: " . $imagePath . "\n";
+
         // Save the image to the storage
         Storage::put($imagePath, $imageData);
 
