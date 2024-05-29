@@ -44,6 +44,10 @@ class ImageController extends Controller
         ]);
 
         // Return a success response
-        return new PostResource(true, 'Data Image Berhasil Ditambahkan!', null);
+        // return new PostResource(true, 'Data Image Berhasil Ditambahkan!', null);
+        return response()->json([
+            'success' => true,
+            'message' => 'Gambar Berhasil Disimpan',
+        ], 200);
     }
 }
