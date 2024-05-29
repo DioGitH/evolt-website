@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('/users', UserController::class);
 Route::post('/login', [LoginController::class, 'login']);
+Route::post('/login/mobile', [LoginController::class, 'loginMobile']);
 Route::apiResource('/doors', DoorController::class);
 Route::get('/doors/get/{id}', [DoorController::class, 'getById']);
 Route::post('/image', [ImageController::class, 'store']);
