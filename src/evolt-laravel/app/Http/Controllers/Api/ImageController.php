@@ -53,4 +53,14 @@ class ImageController extends Controller
             'message' => 'Gambar Berhasil Disimpan',
         ], 200);
     }
+
+    public function destroy($image_name)
+    {
+
+        $door = Image::where('image_name', $image_name . '.jpg')->first();
+        $door->delete();
+
+        //return response
+        return new PostResource(true, 'Data Image Berhasil Dihapus!', null);
+    }
 }
