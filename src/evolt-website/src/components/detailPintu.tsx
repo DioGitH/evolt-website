@@ -118,20 +118,18 @@ export function TextDetail({ user, door_name, door_desc }: any) {
       <div className="grid">
         <div className="font-semibold">{door_name}</div>
         <div className="font-semibold">{door_desc}</div>
-      
-
       </div>
       <div className="grid">
-        <div className="">
-          User Terdaftar
+        <div className="font-semibold">User Terdaftar</div>
+        <div className="overflow-y-auto h-40 space-y-2 bg-palette-1 text-palette-3 rounded text-left">
+          {user.map((item: any, index: any) => (
+            <div key={index} className="p-1">
+              {item.username}
+            </div>
+          ))}
         </div>
-        {user.map((item: any, index: any) => (
-          <div key={index} className="font-semibold">
-            {item.username}
-            <br />
-          </div>
-        ))}
       </div>
     </div>
   );
 }
+
