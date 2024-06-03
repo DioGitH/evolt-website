@@ -111,11 +111,9 @@ function LogTable({ itemsPerPage }: any) {
                   <td>{door.door_status}</td>
                   <td>
                     <div className="flex justify-center gap-4">
-                      {/* <DetailPintu
-                        pintu={door.door_name}
-                        user={listUser}
-                        detailId={detailId}
-                      /> */}
+                      <DetailPintu
+                        id_door={door.id_door}
+                      />
                       <ButtonEdit id_door={door.id_door} onUpdateSuccess={() => fetchDoors(currentPage)} />
                       <ButtonDelete id_door={door.id_door} onDeleteSuccess={() => fetchDoors(currentPage)} />
                     </div>
