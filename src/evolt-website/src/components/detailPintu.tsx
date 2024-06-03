@@ -1,8 +1,14 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import axios from "axios";
 
-export default function DetailPintu({ itemId, user, pintu }: any) {
+export default function DetailPintu({ id_door }: any) {
   let [isOpen, setIsOpen] = useState(false);
+  const [doorName, setDoorName] = useState("");
+  const [doorDescription, setDoorDescription] = useState("");
+  const [selectedUsers, setSelectedUsers] = useState([]);
+
+
 
   function closeModal() {
     setIsOpen(false);
@@ -11,6 +17,25 @@ export default function DetailPintu({ itemId, user, pintu }: any) {
   function openModal() {
     setIsOpen(true);
   }
+
+  const getDoorById = async () => {
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors/get/${id_door}`);
+      if (response.data.success) {
+        const { id_door, door_name, door_description, door_status, users } = response.data.data;
+        setDoorName(door_name);
+        setDoorDescription(door_description);
+        setSelectedUsers(users);
+        // console.log(selected_users);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    getDoorById();
+  }, [isOpen]);
 
   return (
     <>
@@ -53,7 +78,7 @@ export default function DetailPintu({ itemId, user, pintu }: any) {
                     as="h3"
                     className="text-lg font-medium leading-6 text-palette-2 w-full"
                   >
-                    <div>Detail {pintu}</div>
+                    <div>Detail {doorName}</div>
                   </Dialog.Title>
 
                   <div className="grid justify-center text-center h-fit p-5 m-4 rounded-md text-palette-3">
@@ -64,7 +89,7 @@ export default function DetailPintu({ itemId, user, pintu }: any) {
                         className="image max-w-48 h-fit"
                       /> */}
                     </div>
-                    <TextDetail pintu={pintu} user={user} />
+                    <TextDetail door_name={doorName} door_desc={doorDescription} user={selectedUsers} />
                     <div className="grid justify-center"></div>
                   </div>
 
@@ -87,21 +112,26 @@ export default function DetailPintu({ itemId, user, pintu }: any) {
   );
 }
 
-export function TextDetail({ user, pintu }: any) {
+export function TextDetail({ user, door_name, door_desc }: any) {
   return (
-    // <div className="grid">
-    //   {/* <div className="font-semibold">{pintu}</div> */}
-    //   {/* <div className="font-semibold">{user}</div>
-    //    */}
+    <div>
+      <div className="grid">
+        <div className="font-semibold">{door_name}</div>
+        <div className="font-semibold">{door_desc}</div>
+      
 
-    // </div>
-    <div className="grid">
-      {user.map((item: any, index: any) => (
-        <div key={index} className="font-semibold">
-          {item}
-          <br />
+      </div>
+      <div className="grid">
+        <div className="">
+          User Terdaftar
         </div>
-      ))}
+        {user.map((item: any, index: any) => (
+          <div key={index} className="font-semibold">
+            {item.username}
+            <br />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
