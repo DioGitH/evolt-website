@@ -44,10 +44,10 @@ export function ListUser({users, selectedUsers, onCheckboxChange}: any) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none max-h-40 overflow-y-auto">
           <div className="py-1">
             <ul className="">
-              {users.map((user:any, index:any)=>(
+              {users.map((user: any, index: any) => (
                 <li key={index} className="w-full ">
                   <div className="flex items-center ps-3">
                     <input
@@ -67,10 +67,10 @@ export function ListUser({users, selectedUsers, onCheckboxChange}: any) {
                   </div>
                 </li>
               ))}
-              
             </ul>
           </div>
         </Menu.Items>
+
       </Transition>
     </Menu>
   );

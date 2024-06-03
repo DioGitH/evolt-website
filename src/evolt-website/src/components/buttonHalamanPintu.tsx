@@ -77,7 +77,7 @@ export function ButtonEdit({id_door, onUpdateSuccess}:any) {
   useEffect(() => {
     getUsers();
     getDoorById();
-  }, [id_door]);
+  }, [isOpen]);
 
   return (
     <>
