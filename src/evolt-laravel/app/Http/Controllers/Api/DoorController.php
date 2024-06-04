@@ -64,16 +64,16 @@ class DoorController extends Controller
     public function update(Request $request, Door $door)
     {
         //define validation rules
-        $validator = Validator::make($request->all(), [
-            // 'door_name'     => 'required',
-            // 'door_description'     => 'required',
-            'door_status' => 'required',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     // 'door_name'     => 'required',
+        //     // 'door_description'     => 'required',
+        //     'door_status' => 'required',
+        // ]);
 
-        //check if validation fails
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
+        // //check if validation fails
+        // if ($validator->fails()) {
+        //     return response()->json($validator->errors(), 422);
+        // }
 
         if ($request->door_name && $request->door_description) {
             $door->update([
