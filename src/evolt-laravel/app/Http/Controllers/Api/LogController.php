@@ -15,11 +15,19 @@ use Illuminate\Support\Facades\Storage;
 
 class LogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $doors = Log::orderBy('created_at', 'desc')->paginate(5);
+        $username = $request->query('username');
 
-        return new PostResource(true, "Data Log", $doors);
+        $logs = Log::orderBy('created_at', 'desc');
+
+        if ($username) {
+            $logs->where('username', 'like', '%' . $username . '%');
+        }
+
+        $data = $logs->paginate(5);
+
+        return new PostResource(true, "Data Log", $data);
     }
 
     public function store(Request $request)

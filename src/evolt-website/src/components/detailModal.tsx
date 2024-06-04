@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-export default function DetailModal({ itemId, time, username, pintu }: any) {
+export default function DetailModal({ itemId, time, username, pintu, imageName }: any) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -61,7 +61,7 @@ export default function DetailModal({ itemId, time, username, pintu }: any) {
                   <div className="grid justify-center text-center h-fit p-5 m-4 rounded-md text-palette-3">
                     <div className="image w-full rounded-lg overflow-hidden mb-5">
                       <img
-                        src="/assets/img/dummyDetail.jpeg"
+                        src={`${process.env.NEXT_PUBLIC_API_BACKEND}/storage/images/${imageName}`}
                         alt=""
                         className="image max-w-48 h-fit"
                       />
