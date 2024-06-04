@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Storage;
 
 class LogController extends Controller
 {
+    public function index()
+    {
+        $doors = Log::paginate(5);
+
+        return new PostResource(true, "Data Log", $doors);
+    }
+
     public function store(Request $request)
     {
         //define validation rules
