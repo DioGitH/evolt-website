@@ -22,6 +22,8 @@ class LogController extends Controller
         return new PostResource(true, "Data Log", $doors);
     }
 
+    
+
     public function store(Request $request)
     {
         //define validation rules

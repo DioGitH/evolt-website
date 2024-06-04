@@ -1,104 +1,32 @@
 "use client";
 import DetailModal from "@/components/detailModal";
 import React, { useState, useEffect } from "react";
-
-const timestamp = Date.now();
-const formatDt = Intl.DateTimeFormat("en-US", {
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-  hour: "2-digit",
-  minute: "2-digit",
-}).format(timestamp);
-
-const dummy = [
-  {
-    itemId: 1,
-    time: formatDt,
-    username: "Maulidio",
-    pintu: "PintuKu",
-    detailId: 1,
-  },
-  {
-    itemId: 2,
-    time: formatDt,
-    username: "Maulidio",
-    pintu: "PintuKu",
-    detailId: 2,
-  },
-  {
-    itemId: 3,
-    time: formatDt,
-    username: "Maulidio",
-    pintu: "PintuKu",
-    detailId: 3,
-  },
-  {
-    itemId: 4,
-    time: formatDt,
-    username: "Maulidio",
-    pintu: "PintuKu",
-    detailId: 4,
-  },
-  {
-    itemId: 5,
-    time: formatDt,
-    username: "Maulidio",
-    pintu: "PintuKu",
-    detailId: 1,
-  },
-  {
-    itemId: 6,
-    time: formatDt,
-    username: "Maulidio",
-    pintu: "PintuKu",
-    detailId: 2,
-  },
-  {
-    itemId: 7,
-    time: formatDt,
-    username: "Maulidio",
-    pintu: "PintuKu",
-    detailId: 3,
-  },
-  {
-    itemId: 8,
-    time: formatDt,
-    username: "Maulidio",
-    pintu: "PintuKu",
-    detailId: 4,
-  },
-  {
-    itemId: 9,
-    time: formatDt,
-    username: "Trisinus",
-    pintu: "PintuPintu",
-    detailId: 1,
-  },
-  {
-    itemId: 10,
-    time: formatDt,
-    username: "Raden",
-    pintu: "PintuNya",
-    detailId: 2,
-  },
-  {
-    itemId: 11,
-    time: formatDt,
-    username: "Farhan",
-    pintu: "PintuMu",
-    detailId: 3,
-  },
-  {
-    itemId: 12,
-    time: formatDt,
-    username: "Nopal",
-    pintu: "PintuAjaib",
-    detailId: 4,
-  },
-];
+import { format } from 'date-fns';
 
 export default function Dashboard() {
+  const [totalDoors, setTotalDoors] = useState(0);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalLogs, setTotallogs] = useState(0);
+
+  const fetchAll = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors`);
+      const response2 = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users`);
+      const response3 = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/log`);
+
+      const result = await response.json();
+      const result2 = await response2.json();
+      const result3 = await response3.json();
+      setTotalDoors(result.data.total);
+      setTotalUsers(result2.data.length);
+      setTotallogs(result3.data.total);
+      // setLogs(result3.data.data);
+      // setTotalPages(result3.data.last_page);
+      // setCurrentPage(result3.data.current_page);
+    } catch (error) {
+      console.error("Failed ", error);
+    }
+  }
 
   useEffect(() => {
     const loginStatus = localStorage.getItem('isLogin');
@@ -109,6 +37,10 @@ export default function Dashboard() {
         window.location.href = '/';
     }
   }, []);
+
+  useEffect(()=>{
+    fetchAll();
+  },[]);
 
   return (
     <div>
@@ -127,7 +59,7 @@ export default function Dashboard() {
             <div className="grid grid-cols-3 gap-5 h-fit w-full ml-5 mr-5 mt-5">
               <CardInformation
                 nameVar="Doors"
-                jumlah={dummy.length}
+                jumlah={totalDoors}
                 svg='<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="logo text-palette-3 group-hover:text-palette-1" viewBox="0 0 16 16">
                                                 <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
                                                 <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z" />
@@ -135,7 +67,7 @@ export default function Dashboard() {
               />
               <CardInformation
                 nameVar="Users"
-                jumlah={dummy.length}
+                jumlah={totalUsers}
                 svg='<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                                                 </svg>
@@ -143,7 +75,7 @@ export default function Dashboard() {
               />
               <CardInformation
                 nameVar="Logs"
-                jumlah={dummy.length}
+                jumlah={totalLogs}
                 svg='<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                                                 </svg>
@@ -152,13 +84,13 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        <LogTable data={dummy} itemsPerPage={5} />
+        <LogTable />
       </div>
     </div>
   );
 }
 
-function LogTable({ itemsPerPage }: any) {
+function LogTable() {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [logs, setLogs] = useState([]);
@@ -243,30 +175,34 @@ function LogTable({ itemsPerPage }: any) {
               (
                 { id_log, log_status, door_name, username, image_name, created_at, updated_at }: any,
                 index: any
-              ) => (
-                <tr
-                  key={id_log}
-                  className={
-                    index % 2 === 0
-                      ? "bg-[#332D39] bg-opacity-20"
-                      : "bg-[#FFFFFF]"
-                  }
-                >
-                  <td>{id_log}</td>
-                  <td>{created_at}</td>
-                  <td>{username}</td>
-                  <td>{door_name}</td>
-                  <td>
-                    <DetailModal
-                      itemId={id_log}
-                      time={created_at}
-                      username={username}
-                      pintu={door_name}
-                      detailId={id_log}
-                    />
-                  </td>
-                </tr>
-              )
+              ) => {
+                const formattedDate = format(new Date(created_at), 'dd-MM-yyyy HH:mm');
+                return(
+                  <tr
+                    key={id_log}
+                    className={
+                      index % 2 === 0
+                        ? "bg-[#332D39] bg-opacity-20"
+                        : "bg-[#FFFFFF]"
+                    }
+                  >
+                    <td>{id_log}</td>
+                    <td>{formattedDate}</td>
+                    <td>{username}</td>
+                    <td>{door_name}</td>
+                    <td>
+                      <DetailModal
+                        itemId={id_log}
+                        time={formattedDate}
+                        username={username}
+                        pintu={door_name}
+                        detailId={id_log}
+                        imageName={image_name}
+                      />
+                    </td>
+                  </tr>
+                )
+              }
             )}
           </tbody>
         </table>
