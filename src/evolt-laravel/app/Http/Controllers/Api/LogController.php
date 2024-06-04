@@ -17,7 +17,7 @@ class LogController extends Controller
 {
     public function index()
     {
-        $doors = Log::paginate(5);
+        $doors = Log::orderBy('created_at', 'desc')->paginate(5);
 
         return new PostResource(true, "Data Log", $doors);
     }
