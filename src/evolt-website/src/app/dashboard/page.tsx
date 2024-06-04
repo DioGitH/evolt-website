@@ -94,14 +94,15 @@ function LogTable() {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [logs, setLogs] = useState([]);
+  const [username, setUsername] = useState("");
 
   const goToPage = (page: any) => {
-    fetchLog(page);
+    fetchLog(username, page);
   };
 
-  const fetchLog = async (page: any) => {
+  const fetchLog = async (username: any, page: any) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/log?page=${page}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/log?username=${username}&page=${page}`);
       const result = await response.json();
       setLogs(result.data.data);
       setTotalPages(result.data.last_page);
@@ -111,9 +112,13 @@ function LogTable() {
     }
   }
 
-  useEffect(()=>{
-    fetchLog(currentPage);
+  useEffect(() => {
+    fetchLog(username, currentPage);
   }, []);
+
+  useEffect(()=>{
+    fetchLog(username, currentPage);
+  }, [username]);
 
   return (
     <div className="text-center text-palette-1 mt-5  ml-5 mr-5 bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.20)] rounded-md">
@@ -122,7 +127,7 @@ function LogTable() {
       </div>
 
       <div className="grid justify-start ml-5 mt-2">
-        <form className="flex items-center max-w-md mx-auto">
+        <form className="flex items-center max-w-md mx-auto" onSubmit={(e) => {e.preventDefault()}}>
           <label htmlFor="simple-search" className="sr-only">
             Search
           </label>
@@ -132,12 +137,15 @@ function LogTable() {
               id="simple-search"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search by username..."
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
-          <button
+          {/* <button
             type="submit"
             className="p-2.5 ms-2 text-sm font-medium text-white bg-pallete-4 rounded-lg border "
+
           >
             <svg
               className="w-4 h-4"
@@ -155,7 +163,7 @@ function LogTable() {
               />
             </svg>
             <span className="sr-only">Search</span>
-          </button>
+          </button> */}
         </form>
       </div>
 
