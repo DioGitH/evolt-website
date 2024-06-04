@@ -158,19 +158,31 @@ export default function Dashboard() {
   );
 }
 
-function LogTable({ data, itemsPerPage }: any) {
+function LogTable({ itemsPerPage }: any) {
+  const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-
-  const getCurrentPageData = () => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return data.slice(startIndex, endIndex);
-  };
+  const [logs, setLogs] = useState([]);
 
   const goToPage = (page: any) => {
-    setCurrentPage(page);
+    fetchLog(page);
   };
+
+  const fetchLog = async (page: any) => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/log?page=${page}`);
+      const result = await response.json();
+      setLogs(result.data.data);
+      setTotalPages(result.data.last_page);
+      setCurrentPage(result.data.current_page);
+    } catch (error) {
+      console.error("Failed ", error);
+    }
+  }
+
+  useEffect(()=>{
+    fetchLog(currentPage);
+  }, []);
+
   return (
     <div className="text-center text-palette-1 mt-5  ml-5 mr-5 bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.20)] rounded-md">
       <div className="h-fit w-full pt-2 pb-1 text-2xl font-medium">
@@ -227,30 +239,30 @@ function LogTable({ data, itemsPerPage }: any) {
             </tr>
           </thead>
           <tbody className="">
-            {getCurrentPageData().map(
+            {logs.map(
               (
-                { itemId, time, username, pintu, detailId }: any,
+                { id_log, log_status, door_name, username, image_name, created_at, updated_at }: any,
                 index: any
               ) => (
                 <tr
-                  key={itemId}
+                  key={id_log}
                   className={
                     index % 2 === 0
                       ? "bg-[#332D39] bg-opacity-20"
                       : "bg-[#FFFFFF]"
                   }
                 >
-                  <td>{itemId}</td>
-                  <td>{time}</td>
+                  <td>{id_log}</td>
+                  <td>{created_at}</td>
                   <td>{username}</td>
-                  <td>{pintu}</td>
+                  <td>{door_name}</td>
                   <td>
                     <DetailModal
-                      itemId={itemId}
-                      time={time}
+                      itemId={id_log}
+                      time={created_at}
                       username={username}
-                      pintu={pintu}
-                      detailId={detailId}
+                      pintu={door_name}
+                      detailId={id_log}
                     />
                   </td>
                 </tr>
