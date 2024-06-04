@@ -1,10 +1,10 @@
 "use client";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard", current: true },
+  { name: "Dashboard", href: "/dashboard", current: false },
   { name: "Kelola User", href: "/user", current: false },
   { name: "Kelola Pintu", href: "/pintu", current: false },
 ];
@@ -20,6 +20,20 @@ function endSession() {
 }
 
 export default function Navbar() {
+  const [username, setUsername] = useState("");
+  const [imageUser, setImageUser] = useState("");
+
+  const fetchUser = async (idUser: any) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users/${idUser}`);
+    const result = await response.json();
+    setUsername(result.data.username);
+    setImageUser(result.data.photo_profile);
+  }
+
+  useEffect(()=> {
+    const idLogin = localStorage.getItem('idRole');
+    fetchUser(idLogin);
+  },[]);
 
   return (
     <Disclosure as="nav" className="navbar bg-palette-1">
@@ -77,7 +91,7 @@ export default function Navbar() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={`${process.env.NEXT_PUBLIC_API_BACKEND}/storage/users/${imageUser}`}
                         alt=""
                       />
                     </Menu.Button>
@@ -91,15 +105,19 @@ export default function Navbar() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gradient-to-b from-pallete-4 to-palette-3 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        <div className="block px-4 py-2 text-sm text-palette-3 font-semibold">{username}</div>
+                      </Menu.Item>
                       <Menu.Item>
                         {({ active }: any) => (
                           <a
                             onClick={endSession}
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              "block px-4 py-2 text-sm text-pallete-4 bg-palette-3 font-bold"
                             )}
+                            style={{cursor:'pointer'}}
                           >
                             Sign out
                           </a>
