@@ -7,6 +7,7 @@ export default function Dashboard() {
   const [totalDoors, setTotalDoors] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalLogs, setTotallogs] = useState(0);
+  const [user, setUser] = useState("");
 
   const fetchAll = async () => {
     try {
@@ -28,8 +29,16 @@ export default function Dashboard() {
     }
   }
 
+  const fetchUser = async (idUser:any) =>{
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users/${idUser}`);
+    const result = await response.json();
+    setUser(result.data.username);
+  }
+
   useEffect(() => {
     const loginStatus = localStorage.getItem('isLogin');
+    const idLogin = localStorage.getItem('idRole');
+    fetchUser(idLogin);
 
     const isLogin = loginStatus == 'true';
 
@@ -50,7 +59,7 @@ export default function Dashboard() {
         <div className="z-10 text-5xl text-palette-3 mt-10 ml-5 h-fit w-fit">
           Dashboard
           <hr className="border-t-2 border-pallete-4 my-1" />
-          <div className="text-3xl text-palette-3 h-fit w-fit">Hi, User</div>
+          <div className="text-3xl text-palette-3 h-fit w-fit">Hi, {user}</div>
         </div>
 
         <div className="grid h-fit">
