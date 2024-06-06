@@ -103,7 +103,7 @@ class LogController extends Controller
 
     }
 
-    public function dashboard() {
+    // public function dashboard() {
 
-    }
+    // }
 }
