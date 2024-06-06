@@ -23,10 +23,13 @@ export default function LoginForm(){
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/login`, formData);
 
+            console.log(response.data)
+
             localStorage.setItem('isLogin', response.data.isLogin);
             localStorage.setItem('idRole', response.data.idRole);
+            localStorage.setItem('idUser', response.data.idUser)
 
-            window.location.href = '/dashboard'
+            // window.location.href = '/dashboard'
         } catch (error) {
             if (error.response.status == 401) {
                 alert('User Tidak Memiliki Akses')
