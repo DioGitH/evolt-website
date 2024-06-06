@@ -81,15 +81,14 @@ class DoorController extends Controller
                 'door_description'  => $request->door_description,
                 'door_status'       => $request->door_status,
             ]);
+
+            $userUpdated = $request->id_user;
+            $door->users()->sync($userUpdated);
         } else {
             $door->update([
                 'door_status' => $request->door_status,
             ]);
         }
-
-
-        $userUpdated = $request->id_user;
-        $door->users()->sync($userUpdated);
 
         //return response
         return new DoorResource(true, 'Data Door Berhasil Diubah!', $door);

@@ -102,4 +102,8 @@ class LogController extends Controller
         }
 
     }
+
+    public function dashboard() {
+
+    }
 }
