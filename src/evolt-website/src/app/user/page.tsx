@@ -99,7 +99,6 @@ function LogTable({ data, itemsPerPage, onUserAdded, onUserDeleted, onUserEdited
               <th className="py-3">ID</th>
               <th>USERNAME</th>
               <th>EMAIL</th>
-              <th>PIN</th>
               <th>ROLE</th>
               <th>AKSI</th>
             </tr>
@@ -110,7 +109,6 @@ function LogTable({ data, itemsPerPage, onUserAdded, onUserDeleted, onUserEdited
                 <td>{id_user}</td>
                 <td>{username}</td>
                 <td>{email}</td>
-                <td>{pin}</td>
                 <td>{role.role_name}</td>
                 <td>
                   <div className="flex justify-center gap-4">
