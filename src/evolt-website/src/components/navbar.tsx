@@ -31,7 +31,7 @@ export default function Navbar() {
   }
 
   useEffect(()=> {
-    const idLogin = localStorage.getItem('idUser');
+    const idLogin = localStorage.getItem('idRole');
     fetchUser(idLogin);
   },[]);
 

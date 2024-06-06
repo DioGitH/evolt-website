@@ -30,7 +30,7 @@ class LoginController extends Controller
                 'message' => 'Berhasil Login',
                 'isLogin' => true,
                 'idRole' => $user->id_role,
-                'idUser' => $user->id_user
+                'idUser' => $user->id_user,
             ], 200);
         } else {
             return response()->json(['message' => 'User Tidak Ditemukan'], 404);
