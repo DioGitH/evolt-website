@@ -1,7 +1,14 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-export default function DetailModal({ itemId, email, username, pin, photo_profile, role_name }: any) {
+export default function DetailModal({
+  itemId,
+  email,
+  username,
+  pin,
+  photo_profile,
+  role_name,
+}: any) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -17,9 +24,9 @@ export default function DetailModal({ itemId, email, username, pin, photo_profil
       <button
         type="button"
         onClick={openModal}
-        className="flex items-center text-xs text-white bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-32"
+        className="flex items-center justify-center text-xs text-white bg-pallete-4 rounded px-4 py-1 my-1.5 text-palette-32"
       >
-        <img className="h w-auto m-1" src="/assets/img/detailButton.svg" />
+        {/* <img className="w-auto m-1" src="/assets/img/detailButton.svg" /> */}
         <span className="sr-only"></span>Detail
       </button>
 
@@ -64,7 +71,12 @@ export default function DetailModal({ itemId, email, username, pin, photo_profil
                         className="image max-w-48 h-fit"
                       />
                     </div>
-                    <TextDetail email={email} username={username} pin={pin} role={role_name} />
+                    <TextDetail
+                      email={email}
+                      username={username}
+                      pin={pin}
+                      role={role_name}
+                    />
                     <div className="grid justify-center"></div>
                   </div>
 

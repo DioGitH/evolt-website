@@ -3,7 +3,7 @@ import { Dialog, Transition, Menu } from "@headlessui/react";
 import { ListUser } from "./dataUser";
 import axios from "axios";
 
-export function ButtonEdit({id_door, onUpdateSuccess}:any) {
+export function ButtonEdit({ id_door, onUpdateSuccess }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const [doorName, setDoorName] = useState("");
   const [doorDescription, setDoorDescription] = useState("");
@@ -13,44 +13,52 @@ export function ButtonEdit({id_door, onUpdateSuccess}:any) {
 
   const getDoorById = async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors/get/${id_door}`);
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors/get/${id_door}`
+      );
       if (response.data.success) {
-        const { id_door, door_name, door_description, door_status, users } = response.data.data;
+        const { id_door, door_name, door_description, door_status, users } =
+          response.data.data;
         setDoorName(door_name);
         setDoorDescription(door_description);
         setDoorStatus(door_status);
-        setSelectedUsers(users.map(user=> user.id_user));
+        setSelectedUsers(users.map((user) => user.id_user));
         // console.log(selected_users);
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const getUsers = async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users`);
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_BACKEND}/api/users`
+      );
       if (response.data.success) {
         setUsers(response.data.data);
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const handleCheckboxChange = (selectedUsers: any) => {
     setSelectedUsers(selectedUsers);
-  }
+  };
 
   const updateDoor = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors/${id_door}`, {
-        door_name: doorName,
-        door_description: doorDescription,
-        door_status: doorStatus,
-        id_user: selectedUsers,
-      })
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors/${id_door}`,
+        {
+          door_name: doorName,
+          door_description: doorDescription,
+          door_status: doorStatus,
+          id_user: selectedUsers,
+        }
+      );
 
       if (response.data.success) {
         setDoorName("");
@@ -64,7 +72,7 @@ export function ButtonEdit({id_door, onUpdateSuccess}:any) {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   function closeModal() {
     setIsOpen(false);
@@ -92,7 +100,7 @@ export function ButtonEdit({id_door, onUpdateSuccess}:any) {
         onClick={openModal}
         className="text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
       >
-        <img className="h w-auto" src="/assets/img/editButton.svg" />
+        {/* <img className="h w-auto" src="/assets/img/editButton.svg" /> */}
         Edit
       </button>
 
@@ -168,7 +176,11 @@ export function ButtonEdit({id_door, onUpdateSuccess}:any) {
                       >
                         User Akses
                       </label>
-                      <ListUser users={users} selectedUsers={selectedUsers} onCheckboxChange={handleCheckboxChange} />
+                      <ListUser
+                        users={users}
+                        selectedUsers={selectedUsers}
+                        onCheckboxChange={handleCheckboxChange}
+                      />
                     </div>
 
                     <div className="flex justify-center">
@@ -190,19 +202,21 @@ export function ButtonEdit({id_door, onUpdateSuccess}:any) {
     </>
   );
 }
-export function ButtonDelete({id_door, onDeleteSuccess}: any) {
+export function ButtonDelete({ id_door, onDeleteSuccess }: any) {
   const [isOpen, setIsOpen] = useState(false);
 
   const deleteUser = async () => {
     try {
-      await axios.delete(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors/${id_door}`);
-      onDeleteSuccess(); 
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors/${id_door}`
+      );
+      onDeleteSuccess();
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  function handleDelete(){
+  function handleDelete() {
     deleteUser();
     closeModal();
   }
@@ -228,11 +242,11 @@ export function ButtonDelete({id_door, onDeleteSuccess}: any) {
         }}
       >
         <div>
-          <img
+          {/* <img
             className="h w-auto"
             src="/assets/img/deleteButton.svg"
             alt="Delete Icon"
-          />
+          /> */}
         </div>
         <div>Delete</div>
       </button>
@@ -285,7 +299,6 @@ export function ButtonDelete({id_door, onDeleteSuccess}: any) {
                           type="button"
                           className="inline-flex justify-center rounded-md bg-palette-2 px-8 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 m-3"
                           onClick={handleDelete}
-                          
                           style={{
                             boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.6)",
                           }}
@@ -315,7 +328,7 @@ export function ButtonDelete({id_door, onDeleteSuccess}: any) {
   );
 }
 
-export function ButtonTambahPintu({onAddSuccess}: any) {
+export function ButtonTambahPintu({ onAddSuccess }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const [doorName, setDoorName] = useState("");
   const [doorDescription, setDoorDescription] = useState("");
@@ -323,19 +336,22 @@ export function ButtonTambahPintu({onAddSuccess}: any) {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
 
-  const handleCheckboxChange = (selectedUsers:any) => {
+  const handleCheckboxChange = (selectedUsers: any) => {
     setSelectedUsers(selectedUsers);
-  }
+  };
 
-  const saveDoor = async(e:any) =>{
+  const saveDoor = async (e: any) => {
     e.preventDefault();
-    try{
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors`,{
-        door_name: doorName,
-        door_description: doorDescription,
-        door_status: doorStatus,
-        id_user: selectedUsers,
-      })
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors`,
+        {
+          door_name: doorName,
+          door_description: doorDescription,
+          door_status: doorStatus,
+          id_user: selectedUsers,
+        }
+      );
 
       if (response.data.success) {
         setDoorName("");
@@ -346,21 +362,23 @@ export function ButtonTambahPintu({onAddSuccess}: any) {
         closeModal();
         // alert('Data berhasil disimpan!');
       }
-    } catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const getUsers = async()=>{
-    try{
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users`);
-      if (response.data.success){
+  const getUsers = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_BACKEND}/api/users`
+      );
+      if (response.data.success) {
         setUsers(response.data.data);
       }
-    } catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   function closeModal() {
     setIsOpen(false);
@@ -435,7 +453,7 @@ export function ButtonTambahPintu({onAddSuccess}: any) {
                         id="namapintu"
                         name="namapintu"
                         value={doorName}
-                        onChange={(e)=> setDoorName(e.target.value)}
+                        onChange={(e) => setDoorName(e.target.value)}
                         className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
                       />
                     </div>
@@ -462,7 +480,11 @@ export function ButtonTambahPintu({onAddSuccess}: any) {
                       >
                         User Akses
                       </label>
-                      <ListUser users={users} selectedUsers={selectedUsers} onCheckboxChange={handleCheckboxChange}/>
+                      <ListUser
+                        users={users}
+                        selectedUsers={selectedUsers}
+                        onCheckboxChange={handleCheckboxChange}
+                      />
                     </div>
                     <div className="flex justify-center">
                       <button

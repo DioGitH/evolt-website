@@ -6,32 +6,33 @@ import PasswordInput from "./passwordInput";
 import axios from "axios";
 
 async function getServerSideProps(id_user: any) {
-
   //http request
-  const req  = await axios.get(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users/${id_user}`)
-  const users  = await req.data.data
+  const req = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_BACKEND}/api/users/${id_user}`
+  );
+  const users = await req.data.data;
 
-  return users
+  return users;
 }
 
-export default function EditUserModal({idUser, onEditSuccess}: any) {
-  const [roleId, setRoleId] = useState('');
+export default function EditUserModal({ idUser, onEditSuccess }: any) {
+  const [roleId, setRoleId] = useState("");
 
   useEffect(() => {
-    const roleStatus = localStorage.getItem('idRole');
+    const roleStatus = localStorage.getItem("idRole");
 
-    setRoleId(roleStatus ?? '');
+    setRoleId(roleStatus ?? "");
   }, []);
 
   let [isOpen, setIsOpen] = useState(false);
-  const [photoSrc, setPhotoSrc] = useState('/assets/img/userEditIcon.svg');
+  const [photoSrc, setPhotoSrc] = useState("/assets/img/userEditIcon.svg");
 
   //state
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [pin, setPin] = useState('');
-  const [idRole, setIdRole] = useState('');
-  const [photoProfile, setPhotoProfile] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [pin, setPin] = useState("");
+  const [idRole, setIdRole] = useState("");
+  const [photoProfile, setPhotoProfile] = useState("");
 
   function closeModal() {
     setIsOpen(false);
@@ -52,61 +53,59 @@ export default function EditUserModal({idUser, onEditSuccess}: any) {
 
   //function "handleFileChange"
   const handleFileChange = (e: any) => {
+    //define variable for get value image data
+    const imageData = e.target.files[0];
 
-      //define variable for get value image data
-      const imageData = e.target.files[0]
+    //check validation file
+    if (!imageData.type.match("image.*")) {
+      //set state "image" to null
+      setPhotoProfile("");
 
-      //check validation file
-      if (!imageData.type.match('image.*')) {
+      return;
+    }
 
-          //set state "image" to null
-          setPhotoProfile('');
-
-          return
-      }
-
-      //assign file to state "image"
-      setPhotoProfile(imageData);
-      setPhotoSrc(URL.createObjectURL(imageData));
-  }
+    //assign file to state "image"
+    setPhotoProfile(imageData);
+    setPhotoSrc(URL.createObjectURL(imageData));
+  };
 
   //method "updateUser"
   const updateUser = async (e: any) => {
-      e.preventDefault();
+    e.preventDefault();
 
-      //define formData
-      const formData = new FormData();
+    //define formData
+    const formData = new FormData();
 
-      //append data to "formData"
-      formData.append('username', username);
-      formData.append('email', email);
-      formData.append('pin', pin);
-      formData.append('id_role', idRole);
-      formData.append('photo_profile', photoProfile);
-      formData.append('_method', 'PUT');
-      
-      //send data to server
-      await axios.post(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users/${idUser}`, formData)
+    //append data to "formData"
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("pin", pin);
+    formData.append("id_role", idRole);
+    formData.append("photo_profile", photoProfile);
+    formData.append("_method", "PUT");
+
+    //send data to server
+    await axios
+      .post(
+        `${process.env.NEXT_PUBLIC_API_BACKEND}/api/users/${idUser}`,
+        formData
+      )
       .then(() => {
-
-          //redirect
-          // Router.push('/user')
-          // closeModal()
-          setUsername('');
-          setEmail('');
-          setIdRole('');
-          setPin('');
-          setPhotoProfile('');
-          onEditSuccess();
-          closeModal();
-
+        //redirect
+        // Router.push('/user')
+        // closeModal()
+        setUsername("");
+        setEmail("");
+        setIdRole("");
+        setPin("");
+        setPhotoProfile("");
+        onEditSuccess();
+        closeModal();
       })
       .catch((error) => {
-
-          //assign validation on state
-          setValidation(error.response);
-      })
-      
+        //assign validation on state
+        setValidation(error.response);
+      });
   };
 
   const fileInputRef = useRef(null);
@@ -118,17 +117,17 @@ export default function EditUserModal({idUser, onEditSuccess}: any) {
   return (
     <>
       <button
-        style={{
-          display: "flex",
-          gap: 4,
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
+        // style={{
+        //   display: "flex",
+        //   gap: 4,
+        //   alignItems: "center",
+        //   justifyContent: "space-between",
+        // }}
         type="button"
         onClick={openModal}
-        className="text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
+        className="flex items-center justify-center text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
       >
-        <img className="h w-auto m-1" src="/assets/img/editButton.svg" />
+        {/* <img className="h w-auto m-1" src="/assets/img/editButton.svg" /> */}
         <span className="sr-only">Edit</span> Edit
       </button>
 
@@ -195,7 +194,8 @@ export default function EditUserModal({idUser, onEditSuccess}: any) {
                             name="username"
                             className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
                             value={username}
-                            onChange={(e) => setUsername(e.target.value)} placeholder="Masukkan Username"
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Masukkan Username"
                             required
                           />
                         </div>
@@ -213,7 +213,8 @@ export default function EditUserModal({idUser, onEditSuccess}: any) {
                             name="email"
                             className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)} placeholder="Masukkan Email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Masukkan Email"
                             required
                           />
                         </div>
