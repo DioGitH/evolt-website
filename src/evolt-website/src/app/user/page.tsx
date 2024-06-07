@@ -8,9 +8,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 // Fungsi untuk mendapatkan data dari server
-const getData = async (setUserData:any) => {
+const getData = async (
+  setUserData: React.Dispatch<React.SetStateAction<any[]>>
+) => {
   try {
-    const req = await axios.get(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users`);
+    const req = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_BACKEND}/api/users`
+    );
     const data = req.data.data;
     setUserData(data);
   } catch (error) {
@@ -19,17 +23,16 @@ const getData = async (setUserData:any) => {
 };
 
 export default function Dashboard() {
-
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState<any[]>([]);
 
   useEffect(() => {
     getData(setUserData);
-    const loginStatus = localStorage.getItem('isLogin');
+    const loginStatus = localStorage.getItem("isLogin");
 
-    const isLogin = loginStatus == 'true';
+    const isLogin = loginStatus === "true";
 
     if (!isLogin) {
-        window.location.href = '/';
+      window.location.href = "/";
     }
   }, []);
 
@@ -63,8 +66,19 @@ export default function Dashboard() {
   );
 }
 
-function LogTable({ data, itemsPerPage, onUserAdded, onUserDeleted, onUserEdited }:any) {
-
+function LogTable({
+  data,
+  itemsPerPage,
+  onUserAdded,
+  onUserDeleted,
+  onUserEdited,
+}: {
+  data: any[];
+  itemsPerPage: number;
+  onUserAdded: () => void;
+  onUserDeleted: () => void;
+  onUserEdited: () => void;
+}) {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
@@ -74,7 +88,7 @@ function LogTable({ data, itemsPerPage, onUserAdded, onUserDeleted, onUserEdited
     return data.slice(startIndex, endIndex);
   };
 
-  const goToPage = (page:any) => {
+  const goToPage = (page: number) => {
     setCurrentPage(page);
   };
 
@@ -85,7 +99,7 @@ function LogTable({ data, itemsPerPage, onUserAdded, onUserDeleted, onUserEdited
       </div>
 
       <div className="grid justify-between ml-5 mt-2">
-        <form className="flex items-center max-w-md justify-between flex">
+        <form className="flex items-center max-w-md justify-between">
           {/* Search Form */}
         </form>
       </div>
@@ -104,29 +118,52 @@ function LogTable({ data, itemsPerPage, onUserAdded, onUserDeleted, onUserEdited
             </tr>
           </thead>
           <tbody>
-            {getCurrentPageData().map(({ id_user, username, email, pin, detailId, photo_profile, role }: any, index:any) => (
-              <tr key={id_user} className={index % 2 === 0 ? "bg-[#332D39] bg-opacity-20" : "bg-[#FFFFFF]"}>
-                <td>{id_user}</td>
-                <td>{username}</td>
-                <td>{email}</td>
-                <td>{role.role_name}</td>
-                <td>
-                  <div className="flex justify-center gap-4">
-                    <DetailUser
-                      itemId={id_user}
-                      email={email}
-                      username={username}
-                      pin={pin}
-                      detailId={detailId}
-                      photo_profile={photo_profile}
-                      role_name={role.role_name}
-                    />
-                    <EditUser idUser={id_user} onEditSuccess={onUserEdited} />
-                    <DeleteUser idUser={id_user} onDeleteSuccess={onUserDeleted} />
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {getCurrentPageData().map(
+              (
+                {
+                  id_user,
+                  username,
+                  email,
+                  pin,
+                  detailId,
+                  photo_profile,
+                  role,
+                }: any,
+                index: any
+              ) => (
+                <tr
+                  key={id_user}
+                  className={
+                    index % 2 === 0
+                      ? "bg-[#332D39] bg-opacity-20"
+                      : "bg-[#FFFFFF]"
+                  }
+                >
+                  <td>{id_user}</td>
+                  <td>{username}</td>
+                  <td>{email}</td>
+                  <td>{role.role_name}</td>
+                  <td>
+                    <div className="flex justify-center gap-4">
+                      <DetailUser
+                        itemId={id_user}
+                        email={email}
+                        username={username}
+                        pin={pin}
+                        detailId={detailId}
+                        photo_profile={photo_profile}
+                        role_name={role.role_name}
+                      />
+                      <EditUser idUser={id_user} onEditSuccess={onUserEdited} />
+                      <DeleteUser
+                        idUser={id_user}
+                        onDeleteSuccess={onUserDeleted}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
       </div>
@@ -157,10 +194,13 @@ function LogTable({ data, itemsPerPage, onUserAdded, onUserDeleted, onUserEdited
             </span>
           </button>
           <p className="block font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
-            Page <strong className="text-gray-900">{currentPage}</strong> of <strong className="text-gray-900">{totalPages}</strong>
+            Page <strong className="text-gray-900">{currentPage}</strong> of{" "}
+            <strong className="text-gray-900">{totalPages}</strong>
           </p>
           <button
-            onClick={() => goToPage(currentPage < totalPages ? currentPage + 1 : totalPages)}
+            onClick={() =>
+              goToPage(currentPage < totalPages ? currentPage + 1 : totalPages)
+            }
             disabled={currentPage === totalPages}
             className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg border border-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button"
