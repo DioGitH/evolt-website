@@ -25,6 +25,7 @@ export default function LoginForm(){
 
             localStorage.setItem('isLogin', response.data.isLogin);
             localStorage.setItem('idRole', response.data.idRole);
+            localStorage.setItem('idUser', response.data.idUser)
 
             window.location.href = '/dashboard'
         } catch (error) {

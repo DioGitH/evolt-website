@@ -113,7 +113,6 @@ function LogTable({
               <th className="py-3">ID</th>
               <th>USERNAME</th>
               <th>EMAIL</th>
-              <th>PIN</th>
               <th>ROLE</th>
               <th>AKSI</th>
             </tr>
@@ -129,8 +128,8 @@ function LogTable({
                   detailId,
                   photo_profile,
                   role,
-                },
-                index
+                }: any,
+                index: any
               ) => (
                 <tr
                   key={id_user}
@@ -143,10 +142,9 @@ function LogTable({
                   <td>{id_user}</td>
                   <td>{username}</td>
                   <td>{email}</td>
-                  <td>{pin}</td>
-                  <td>{role?.role_name}</td>
+                  <td>{role.role_name}</td>
                   <td>
-                    <div className="flex justify-center gap-1">
+                    <div className="flex justify-center gap-4">
                       <DetailUser
                         itemId={id_user}
                         email={email}
@@ -154,7 +152,7 @@ function LogTable({
                         pin={pin}
                         detailId={detailId}
                         photo_profile={photo_profile}
-                        role_name={role?.role_name}
+                        role_name={role.role_name}
                       />
                       <EditUser idUser={id_user} onEditSuccess={onUserEdited} />
                       <DeleteUser
