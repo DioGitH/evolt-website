@@ -181,6 +181,7 @@ function LogTable() {
           <thead className="tes bg-palette-2 text-palette-3">
             <tr>
               <th className="py-3">ID</th>
+              <th>STATUS</th>
               <th>TIME</th>
               <th>USERNAME</th>
               <th>PINTU</th>
@@ -204,6 +205,7 @@ function LogTable() {
                     }
                   >
                     <td>{id_log}</td>
+                    <td>{log_status}</td>
                     <td>{formattedDate}</td>
                     <td>{username}</td>
                     <td>{door_name}</td>
