@@ -37,7 +37,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     const loginStatus = localStorage.getItem('isLogin');
-    const idLogin = localStorage.getItem('idRole');
+    const idLogin = localStorage.getItem('idUser');
     fetchUser(idLogin);
 
     const isLogin = loginStatus == 'true';

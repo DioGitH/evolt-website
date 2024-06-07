@@ -12,14 +12,13 @@ import DetailPintu from "@/components/detailPintu";
 import axios from "axios";
 
 export default function Dashboard() {
-
   useEffect(() => {
-    const loginStatus = localStorage.getItem('isLogin');
+    const loginStatus = localStorage.getItem("isLogin");
 
-    const isLogin = loginStatus == 'true';
+    const isLogin = loginStatus == "true";
 
     if (!isLogin) {
-        window.location.href = '/';
+      window.location.href = "/";
     }
   }, []);
 
@@ -37,31 +36,31 @@ export default function Dashboard() {
 }
 
 function LogTable({ itemsPerPage }: any) {
-
-  const [roleId, setRoleId] = useState('');
+  const [roleId, setRoleId] = useState("");
 
   useEffect(() => {
-    const roleStatus = localStorage.getItem('idRole');
+    const roleStatus = localStorage.getItem("idRole");
 
-    setRoleId(roleStatus ?? '');
+    setRoleId(roleStatus ?? "");
   }, []);
 
   const [doors, setDoors] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const fetchDoors = async (page:any) =>{
-    try{
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors?page=${page}`);
+  const fetchDoors = async (page: any) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors?page=${page}`
+      );
       const result = await response.json();
       setDoors(result.data.data);
       setTotalPages(result.data.last_page);
       setCurrentPage(result.data.current_page);
-    } catch (error){
+    } catch (error) {
       console.error("Failed ", error);
     }
-
-  }
+  };
 
   const goToPage = (page: any) => {
     fetchDoors(page);
@@ -77,11 +76,11 @@ function LogTable({ itemsPerPage }: any) {
         Data Pintu
       </div>
 
-      {roleId == '1' && 
+      {roleId == "1" && (
         <div className="flex justify-end mr-5 mt-0">
           <ButtonTambahPintu onAddSuccess={() => fetchDoors(currentPage)} />
-        </div>  
-      }
+        </div>
+      )}
 
       <div className="mx-5 mt-2 mb-5 text-center bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.25)] rounded-md overflow-hidden">
         <table className="table-fixed w-full h-auto ">
@@ -95,32 +94,34 @@ function LogTable({ itemsPerPage }: any) {
             </tr>
           </thead>
           <tbody className="">
-            {doors.map(
-              (door:any, index) => (
-                <tr
-                  key={door.id}
-                  className={
-                    index % 2 === 0
-                      ? "bg-[#332D39] bg-opacity-20"
-                      : "bg-[#FFFFFF]"
-                  }
-                >
-                  <td>{door.id_door}</td>
-                  <td>{door.door_name}</td>
-                  <td>{door.door_description}</td>
-                  <td>{door.door_status}</td>
-                  <td>
-                    <div className="flex justify-center gap-4">
-                      <DetailPintu
-                        id_door={door.id_door}
-                      />
-                      <ButtonEdit id_door={door.id_door} onUpdateSuccess={() => fetchDoors(currentPage)} />
-                      <ButtonDelete id_door={door.id_door} onDeleteSuccess={() => fetchDoors(currentPage)} />
-                    </div>
-                  </td>
-                </tr>
-              )
-            )}
+            {doors.map((door: any, index) => (
+              <tr
+                key={door.id}
+                className={
+                  index % 2 === 0
+                    ? "bg-[#332D39] bg-opacity-20"
+                    : "bg-[#FFFFFF]"
+                }
+              >
+                <td>{door.id_door}</td>
+                <td>{door.door_name}</td>
+                <td>{door.door_description}</td>
+                <td>{door.door_status}</td>
+                <td>
+                  <div className="flex justify-center gap-4">
+                    <DetailPintu id_door={door.id_door} />
+                    <ButtonEdit
+                      id_door={door.id_door}
+                      onUpdateSuccess={() => fetchDoors(currentPage)}
+                    />
+                    <ButtonDelete
+                      id_door={door.id_door}
+                      onDeleteSuccess={() => fetchDoors(currentPage)}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

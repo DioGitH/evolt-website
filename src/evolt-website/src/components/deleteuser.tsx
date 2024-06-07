@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import axios from "axios";
 
-export default function DeleteUserModal({idUser, onDeleteSuccess}: any) {
+export default function DeleteUserModal({ idUser, onDeleteSuccess }: any) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -14,30 +14,30 @@ export default function DeleteUserModal({idUser, onDeleteSuccess}: any) {
   }
 
   const deleteUser = async () => {
-
     //sending
-    await axios.delete(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users/${idUser}`);
+    await axios.delete(
+      `${process.env.NEXT_PUBLIC_API_BACKEND}/api/users/${idUser}`
+    );
 
     //refresh data
     onDeleteSuccess();
     closeModal();
-
-}
+  };
 
   return (
     <>
       <button
-        style={{
-          display: "flex",
-          gap: 4,
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
+        // style={{
+        //   display: "flex",
+        //   gap: 4,
+        //   alignItems: "center",
+        //   justifyContent: "space-between",
+        // }}
         type="button"
         onClick={openModal}
-        className="text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
+        className="flex items-center justify-center text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
       >
-        <img className="h w-auto m-1" src="/assets/img/deleteButton.svg" />
+        {/* <img className="h w-auto m-1" src="/assets/img/deleteButton.svg" /> */}
         <span className="sr-only"></span>Delete
       </button>
 

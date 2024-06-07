@@ -44,7 +44,7 @@ export default function DetailPintu({ id_door }: any) {
         onClick={openModal}
         className="flex items-center text-xs text-white bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-32"
       >
-        <img className="h w-auto m-1" src="/assets/img/detailButton.svg" />
+        {/* <img className="h w-auto m-1" src="/assets/img/detailButton.svg" /> */}
         <span className="sr-only"></span>Detail
       </button>
 
