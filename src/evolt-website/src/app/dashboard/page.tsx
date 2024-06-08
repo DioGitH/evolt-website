@@ -2,6 +2,9 @@
 import DetailModal from "@/components/detailModal";
 import React, { useState, useEffect } from "react";
 import { format } from 'date-fns';
+// import { DatePicker } from "@nextui-org/date-picker";
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
 
 export default function Dashboard() {
   const [totalDoors, setTotalDoors] = useState(0);
@@ -98,14 +101,39 @@ function LogTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [logs, setLogs] = useState([]);
   const [username, setUsername] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const today = new Date();
 
   const goToPage = (page: any) => {
-    fetchLog(username, page);
+    fetchLog(username, startDate, endDate, page);
   };
 
-  const fetchLog = async (username: any, page: any) => {
+  const changeFormatDate = (date) => {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() returns month from 0-11
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
+  const fetchLog = async (username: any, startDate:any, endDate:any, page: any) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/log?username=${username}&page=${page}`);
+
+      let url = `${process.env.NEXT_PUBLIC_API_BACKEND}/api/log?page=${page}`;
+
+      // Append parameters if they are not null or empty
+      if (username) {
+        url += `&username=${username}`;
+      }
+      if (startDate) {
+        url += `&startDate=${changeFormatDate(startDate)}`;
+      }
+      if (endDate) {
+        url += `&endDate=${changeFormatDate(endDate)}`;
+      }
+
+      const response = await fetch(url);
       const result = await response.json();
       setLogs(result.data.data);
       setTotalPages(result.data.last_page);
@@ -117,49 +145,77 @@ function LogTable() {
 
   const handleSubmit = (e:any) => {
     e.preventDefault();
-    fetchLog(username, currentPage);
-    setUsername("");
+    fetchLog(username, startDate, endDate, currentPage);
 
   };
 
   const handleReset = () => {
-    fetchLog(username, currentPage);
+    setUsername("");
+    setStartDate(null);
+    setEndDate(null);
+    fetchLog("", null, null, currentPage);
+  };
+
+  const handleFilterDate = (e:any) =>{
+    e.preventDefault();
+    fetchLog(username, startDate, endDate, currentPage);
   };
 
   useEffect(() => {
-    fetchLog(username, currentPage);
+    fetchLog(username, startDate, endDate, currentPage);
   }, []);
 
   return (
-    <div className="text-center text-palette-1 mt-5  ml-5 mr-5 bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.20)] rounded-md">
+    <div className="text-center text-palette-1 mt-5 ml-5 mr-5 bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.20)] rounded-md">
       <div className="h-fit w-full pt-2 pb-1 text-2xl font-medium">
         Log Aktivitas
       </div>
 
-      <div className="grid justify-start ml-5 mt-2">
-        <div className="flex items-center max-w-md mx-auto">
-          <form className="flex" onSubmit={handleSubmit}>
-            <label htmlFor="simple-search" className="sr-only">
-              Search
-            </label>
-            <div className="relative lg:w-72 sm:w-32">
-              <input
-                type="text"
-                id="simple-search"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search by username..."
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="p-2.5 ms-2 text-sm font-medium text-white bg-pallete-4 rounded-lg border "
-
+      <div className="flex justify-between items-center ml-5 mt-2 mr-5">
+        <form className="flex" onSubmit={handleSubmit}>
+          <label htmlFor="simple-search" className="sr-only">
+            Search
+          </label>
+          <div className="relative lg:w-72 sm:w-32">
+            <input
+              type="text"
+              id="simple-search"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search by username..."
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="p-2.5 ml-2 text-sm font-medium text-white bg-pallete-4 rounded-lg border"
+          >
+            <svg
+              className="w-4 h-4"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
             >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+            <span className="sr-only">Search</span>
+          </button>
+          <button
+            type="button"
+            className="p-2.5 ml-2 text-sm font-medium text-white bg-pallete-4 rounded-lg border"
+            onClick={handleReset}
+          >
+            <div className="flex">
               <svg
-                className="w-4 h-4"
+                className="w-4 h-4 text-gray-800 dark:text-white"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -170,30 +226,62 @@ function LogTable() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                  d="M17.651 7.65a7.131 7.131 0 0 0-12.68 3.15M18.001 4v4h-4m-7.652 8.35a7.13 7.13 0 0 0 12.68-3.15M6 20v-4h4"
                 />
-              </svg>
-              <span className="sr-only">Search</span>
-            </button>
-          </form>
-          <button
-            type="button"
-            className="p-2.5 ms-2 text-sm font-medium text-white bg-pallete-4 rounded-lg border "
-            onClick={handleReset}
-
-          >
-            <div className="flex">
-              <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.651 7.65a7.131 7.131 0 0 0-12.68 3.15M18.001 4v4h-4m-7.652 8.35a7.13 7.13 0 0 0 12.68-3.15M6 20v-4h4" />
               </svg>
               &nbsp;Reset
               <span className="sr-only">Reset</span>
             </div>
           </button>
-          <form>
-            
-          </form>
-        </div>
+        </form>
+        <form className="flex items-center" onSubmit={handleFilterDate}>
+          <DatePicker
+            selected={startDate}
+            onChange={(date: any) => {
+              setStartDate(date);
+            }}
+            selectsStart
+            startDate={startDate}
+            endDate={endDate}
+            maxDate={today}
+            placeholderText="Start Date"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ml-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+          <DatePicker
+            selected={endDate}
+            onChange={(date: any) => {
+              setEndDate(date);
+            }}
+            selectsEnd
+            startDate={startDate}
+            endDate={endDate}
+            minDate={startDate}
+            maxDate={today}
+            placeholderText="End Date"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ml-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+          <button
+            type="submit"
+            className="p-2.5 ml-2 text-sm font-medium text-white bg-pallete-4 rounded-lg border"
+          >
+            <svg
+              className="w-4 h-4"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+            <span className="sr-only">Search</span>
+          </button>
+        </form>
       </div>
 
       <div className="mx-5 mt-2 mb-5 text-center bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.25)] rounded-md overflow-hidden">
@@ -215,7 +303,7 @@ function LogTable() {
                 index: any
               ) => {
                 const formattedDate = format(new Date(created_at), 'dd-MM-yyyy HH:mm');
-                return(
+                return (
                   <tr
                     key={id_log}
                     className={
@@ -240,7 +328,7 @@ function LogTable() {
                       />
                     </td>
                   </tr>
-                )
+                );
               }
             )}
           </tbody>
