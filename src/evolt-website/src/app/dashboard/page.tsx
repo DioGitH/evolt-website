@@ -9,21 +9,15 @@ export default function Dashboard() {
   const [totalLogs, setTotallogs] = useState(0);
   const [user, setUser] = useState("");
 
-  const fetchAll = async () => {
+  const fetchCount = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors`);
-      const response2 = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users`);
-      const response3 = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/log`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/dashboard/get/data`);
 
       const result = await response.json();
-      const result2 = await response2.json();
-      const result3 = await response3.json();
-      setTotalDoors(result.data.total);
-      setTotalUsers(result2.data.length);
-      setTotallogs(result3.data.total);
-      // setLogs(result3.data.data);
-      // setTotalPages(result3.data.last_page);
-      // setCurrentPage(result3.data.current_page);
+
+      setTotalDoors(result.data.doors_count);
+      setTotalUsers(result.data.users_count);
+      setTotallogs(result.data.logs_count);
     } catch (error) {
       console.error("Failed ", error);
     }
@@ -48,7 +42,7 @@ export default function Dashboard() {
   }, []);
 
   useEffect(()=>{
-    fetchAll();
+    fetchCount();
   },[]);
 
   return (
@@ -121,13 +115,20 @@ function LogTable() {
     }
   }
 
+  const handleSubmit = (e:any) => {
+    e.preventDefault();
+    fetchLog(username, currentPage);
+    setUsername("");
+
+  };
+
+  const handleReset = () => {
+    fetchLog(username, currentPage);
+  };
+
   useEffect(() => {
     fetchLog(username, currentPage);
   }, []);
-
-  useEffect(()=>{
-    fetchLog(username, currentPage);
-  }, [username]);
 
   return (
     <div className="text-center text-palette-1 mt-5  ml-5 mr-5 bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.20)] rounded-md">
@@ -136,44 +137,63 @@ function LogTable() {
       </div>
 
       <div className="grid justify-start ml-5 mt-2">
-        <form className="flex items-center max-w-md mx-auto" onSubmit={(e) => {e.preventDefault()}}>
-          <label htmlFor="simple-search" className="sr-only">
-            Search
-          </label>
-          <div className="relative lg:w-72 sm:w-32">
-            <input
-              type="text"
-              id="simple-search"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search by username..."
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          {/* <button
-            type="submit"
+        <div className="flex items-center max-w-md mx-auto">
+          <form className="flex" onSubmit={handleSubmit}>
+            <label htmlFor="simple-search" className="sr-only">
+              Search
+            </label>
+            <div className="relative lg:w-72 sm:w-32">
+              <input
+                type="text"
+                id="simple-search"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Search by username..."
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="p-2.5 ms-2 text-sm font-medium text-white bg-pallete-4 rounded-lg border "
+
+            >
+              <svg
+                className="w-4 h-4"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+              <span className="sr-only">Search</span>
+            </button>
+          </form>
+          <button
+            type="button"
             className="p-2.5 ms-2 text-sm font-medium text-white bg-pallete-4 rounded-lg border "
+            onClick={handleReset}
 
           >
-            <svg
-              className="w-4 h-4"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
-            <span className="sr-only">Search</span>
-          </button> */}
-        </form>
+            <div className="flex">
+              <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.651 7.65a7.131 7.131 0 0 0-12.68 3.15M18.001 4v4h-4m-7.652 8.35a7.13 7.13 0 0 0 12.68-3.15M6 20v-4h4" />
+              </svg>
+              &nbsp;Reset
+              <span className="sr-only">Reset</span>
+            </div>
+          </button>
+          <form>
+            
+          </form>
+        </div>
       </div>
 
       <div className="mx-5 mt-2 mb-5 text-center bg-palette-3 drop-shadow-[1px_2px_2px_rgba(0,0,0,0.25)] rounded-md overflow-hidden">

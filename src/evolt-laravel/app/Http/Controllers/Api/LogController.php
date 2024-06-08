@@ -18,12 +18,27 @@ class LogController extends Controller
     public function index(Request $request)
     {
         $username = $request->query('username');
+        $startDate = $request->query('startDate');
+        $endDate = $request->query('endDate');
 
         $logs = Log::orderBy('created_at', 'desc');
 
         if ($username) {
             $logs->where('username', 'like', '%' . $username . '%');
         }
+
+        if ($startDate && $endDate) {
+            $startDateFormat = \Carbon\Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
+            $endDateFormat = \Carbon\Carbon::createFromFormat('d-m-Y', $endDate)->endOfDay();
+            $logs->whereBetween('created_at', [$startDateFormat, $endDateFormat]);
+        } elseif ($startDate) {
+            $startDateFormat = \Carbon\Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
+            $logs->where('created_at', '>=', $startDateFormat);
+        } elseif ($endDate) {
+            $endDateFormat = \Carbon\Carbon::createFromFormat('d-m-Y', $endDate)->endOfDay();
+            $logs->where('created_at', '<=', $endDateFormat);
+        }
+
 
         $data = $logs->paginate(5);
 
