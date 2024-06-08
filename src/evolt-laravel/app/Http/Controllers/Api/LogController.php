@@ -103,7 +103,17 @@ class LogController extends Controller
 
     }
 
-    // public function dashboard() {
+    public function dashboard() {
+        $doors = Door::count();
+        $users = User::count();
+        $logs = Log::count();
 
-    // }
+        $data = [
+            'doors_count' => $doors,
+            'users_count' => $users,
+            'logs_count' => $logs,
+        ];
+
+        return new PostResource(true, "Data Log", $data);
+    }
 }
