@@ -9,21 +9,15 @@ export default function Dashboard() {
   const [totalLogs, setTotallogs] = useState(0);
   const [user, setUser] = useState("");
 
-  const fetchAll = async () => {
+  const fetchCount = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/doors`);
-      const response2 = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/users`);
-      const response3 = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/log`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/dashboard/get/data`);
 
       const result = await response.json();
-      const result2 = await response2.json();
-      const result3 = await response3.json();
-      setTotalDoors(result.data.total);
-      setTotalUsers(result2.data.length);
-      setTotallogs(result3.data.total);
-      // setLogs(result3.data.data);
-      // setTotalPages(result3.data.last_page);
-      // setCurrentPage(result3.data.current_page);
+
+      setTotalDoors(result.data.doors_count);
+      setTotalUsers(result.data.users_count);
+      setTotallogs(result.data.logs_count);
     } catch (error) {
       console.error("Failed ", error);
     }
@@ -48,7 +42,7 @@ export default function Dashboard() {
   }, []);
 
   useEffect(()=>{
-    fetchAll();
+    fetchCount();
   },[]);
 
   return (
