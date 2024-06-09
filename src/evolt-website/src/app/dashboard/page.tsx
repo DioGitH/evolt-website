@@ -110,7 +110,7 @@ function LogTable() {
     fetchLog(username, startDate, endDate, page);
   };
 
-  const changeFormatDate = (date) => {
+  const changeFormatDate = (date:any) => {
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() returns month from 0-11
     const year = date.getFullYear();
