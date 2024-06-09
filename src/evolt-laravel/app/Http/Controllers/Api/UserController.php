@@ -83,13 +83,19 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required',
             'email' => 'required',
-            'pin' => 'required',
+            // 'pin' => 'required',
             'id_role' => 'required',
         ]);
 
         //check if validation fails
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
+        }
+
+        if ($request->pin) {
+            $user->update([
+                'pin' => $request->pin,
+            ]);
         }
 
         //check if photo_profile is not empty
@@ -106,7 +112,7 @@ class UserController extends Controller
             $user->update([
                 'username' => $request->username,
                 'email' => $request->email,
-                'pin' => $request->pin,
+                // 'pin' => $request->pin,
                 'photo_profile' => $photo_profile->hashName(),
                 'id_role' => $request->id_role,
             ]);
@@ -117,7 +123,7 @@ class UserController extends Controller
             $user->update([
                 'username' => $request->username,
                 'email' => $request->email,
-                'pin' => $request->pin,
+                // 'pin' => $request->pin,
                 'id_role' => $request->id_role,
             ]);
         }
