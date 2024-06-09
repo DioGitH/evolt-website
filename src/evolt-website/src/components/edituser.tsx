@@ -42,7 +42,7 @@ export default function EditUserModal({ idUser, onEditSuccess }: any) {
     const user = await getServerSideProps(idUser);
     setUsername(user.username);
     setEmail(user.email);
-    setPin(user.pin);
+    // setPin(user.pin);
     setIdRole(user.id_role);
     setPhotoProfile(user.photo_profile);
     setIsOpen(true);
