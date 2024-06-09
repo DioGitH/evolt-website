@@ -11,7 +11,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
+// use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class LogController extends Controller
 {
@@ -67,7 +68,7 @@ class LogController extends Controller
         $log_status = 'Gagal Masuk';
         $image_name = $request->image_name . '.jpg';
 
-        $user = User::where('pin', $request->pin)->first();
+        $user = User::where('pin', Hash::make($request->pin))->first();
 
         if ($user) {
             $username = $user->username;

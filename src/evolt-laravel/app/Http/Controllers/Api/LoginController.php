@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -19,7 +20,7 @@ class LoginController extends Controller
 
         $user = User::with('role')
             ->where('username', $input['username'])
-            ->where('pin', $input['pin'])
+            ->where('pin', Hash::make($input['pin']))
             ->first();
 
         if ($user) {
@@ -47,7 +48,7 @@ class LoginController extends Controller
 
         $user = User::with('role')
             ->where('username', $input['username'])
-            ->where('pin', $input['pin'])
+            ->where('pin', Hash::make($input['pin']))
             ->first();
 
         if ($user) {

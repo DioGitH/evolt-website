@@ -8,12 +8,15 @@ use Illuminate\Http\Request;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function index()
     {
         $user = User::with('role')->get();
+
+        $user->makeHidden('pin');
 
         return new PostResource(true, 'List Data User', $user);
     }
@@ -42,7 +45,7 @@ class UserController extends Controller
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
-            'pin' => $request->pin,
+            'pin' => Hash::make($request->pin),
             'photo_profile' => $photo_profile->hashName(),
             'id_role' => $request->id_role,
         ]);
@@ -54,6 +57,7 @@ class UserController extends Controller
     public function show($id_user)
     {
         $user = User::where('id_user', $id_user)->first();
+        $user->makeHidden('pin');
 
         //return single User as a resource
         if ($user) {
@@ -94,7 +98,7 @@ class UserController extends Controller
 
         if ($request->pin) {
             $user->update([
-                'pin' => $request->pin,
+                'pin' => Hash::make($request->pin),
             ]);
         }
 
