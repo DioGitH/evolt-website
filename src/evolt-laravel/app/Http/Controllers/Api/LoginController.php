@@ -20,10 +20,9 @@ class LoginController extends Controller
 
         $user = User::with('role')
             ->where('username', $input['username'])
-            ->where('pin', Hash::make($input['pin']))
             ->first();
 
-        if ($user) {
+        if ($user && Hash::check($input['pin'], $user->pin)) {
             if ($user['id_role'] == 3) {
                 return response()->json(['message' => 'User Tidak Memiliki Akses'], 401);
             }
@@ -48,10 +47,9 @@ class LoginController extends Controller
 
         $user = User::with('role')
             ->where('username', $input['username'])
-            ->where('pin', Hash::make($input['pin']))
             ->first();
 
-        if ($user) {
+        if ($user && Hash::check($input['pin'], $user->pin)) {
             return response()->json([
                 'message' => 'Berhasil Login',
                 'isLogin' => true,
