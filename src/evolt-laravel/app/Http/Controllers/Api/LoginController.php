@@ -54,7 +54,7 @@ class LoginController extends Controller
             return response()->json([
                 'message' => 'Berhasil Login',
                 'isLogin' => true,
-                'idRole' => $user->id_role,
+                'user' => $user,
             ], 200);
         } else {
             return response()->json(['message' => 'User Tidak Ditemukan'], 404);
