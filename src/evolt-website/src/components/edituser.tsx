@@ -108,11 +108,16 @@ export default function EditUserModal({ idUser, onEditSuccess }: any) {
       });
   };
 
-  const fileInputRef = useRef(null);
+  // const fileInputRef = useRef(null);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageClick = () => {
-    fileInputRef.current.click();
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
+
 
   return (
     <>
@@ -253,7 +258,7 @@ export default function EditUserModal({ idUser, onEditSuccess }: any) {
                             required
                           >
                             <option value={3}>Reguler User</option>
-                            {roleId == 1 && <option value={1}>Provider</option>}
+                            {Number(roleId) == 1 && <option value={1}>Provider</option>}
                             <option value={2}>Admin</option>
                           </select>
                         </div>

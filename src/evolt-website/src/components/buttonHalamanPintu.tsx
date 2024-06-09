@@ -22,7 +22,7 @@ export function ButtonEdit({ id_door, onUpdateSuccess }: any) {
         setDoorName(door_name);
         setDoorDescription(door_description);
         setDoorStatus(door_status);
-        setSelectedUsers(users.map((user) => user.id_user));
+        setSelectedUsers(users.map((user:any) => user.id_user));
         // console.log(selected_users);
       }
     } catch (error) {
