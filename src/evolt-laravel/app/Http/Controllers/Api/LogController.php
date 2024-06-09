@@ -75,21 +75,21 @@ class LogController extends Controller
         //     $id_user = $user->id_user;
         // }
 
-        // $user = User::all()->filter(function ($user) use ($request) {
-        //     return Hash::check($request->pin, $user->pin);
-        // })->first();
-
-        // if ($user) {
-        //     $username = $user->username;
-        //     $id_user = $user->id_user;
-        // }
-
-        $user = User::whereRaw('BINARY `pin` = ?', [$request->pin])->first();
+        $user = User::all()->filter(function ($user) use ($request) {
+            return Hash::check($request->pin, $user->pin);
+        })->first();
 
         if ($user) {
             $username = $user->username;
             $id_user = $user->id_user;
         }
+
+        // $user = User::whereRaw('BINARY `pin` = ?', [$request->pin])->first();
+
+        // if ($user) {
+        //     $username = $user->username;
+        //     $id_user = $user->id_user;
+        // }
 
         $door = Door::where('id_door', $request->id_pintu)->first();
 
