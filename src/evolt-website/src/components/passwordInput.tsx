@@ -37,8 +37,7 @@ const PasswordInput = ({ pin, setPin }: any) => {
           onChange={handleInputChange}
           className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
           maxLength={6}
-          placeholder="Masukkan Pin"
-          required
+          placeholder="Masukkan Pin (Opsional)"
         />
 
         <button
