@@ -63,7 +63,7 @@ export default function AddUserModal({onAddSuccess}:any) {
       formData.append('username', username);
       formData.append('email', email);
       formData.append('pin', pin);
-      formData.append('id_role', idRole);
+      formData.append('id_role', idRole.toString());
       formData.append('photo_profile', photoProfile);
       
       //send data to server

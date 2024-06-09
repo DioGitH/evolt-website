@@ -48,7 +48,10 @@ export default function Dashboard() {
   }, []);
 
   useEffect(()=>{
-    fetchAll();
+    const act = setInterval(()=>{
+      fetchAll();
+    }, 1000);
+    return () => clearInterval(act);
   },[]);
 
   return (
