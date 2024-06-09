@@ -45,6 +45,10 @@ export default function Dashboard() {
   }, []);
 
   useEffect(()=>{
+    // const act = setInterval(()=>{
+    //   fetchAll();
+    // }, 1000);
+    // return () => clearInterval(act);
     fetchCount();
   },[]);
 

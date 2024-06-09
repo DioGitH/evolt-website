@@ -13,7 +13,7 @@ export function ListUser({users, selectedUsers, onCheckboxChange}: any) {
     const { checked } = event.target;
     const updatedSelectedUsers = checked
       ? [...localSelectedUsers, userId]
-      : localSelectedUsers.filter(id => id !== userId);
+      : localSelectedUsers.filter((id:any) => id !== userId);
 
     setLocalSelectedUsers(updatedSelectedUsers);
     onCheckboxChange(updatedSelectedUsers);

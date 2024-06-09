@@ -27,7 +27,7 @@ export default function AddUserModal({onAddSuccess}:any) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [pin, setPin] = useState('');
-  const [idRole, setIdRole] = useState(3);
+  const [idRole, setIdRole] = useState<number>(3);
   const [photoProfile, setPhotoProfile] = useState('');
 
   //state validation
@@ -63,7 +63,7 @@ export default function AddUserModal({onAddSuccess}:any) {
       formData.append('username', username);
       formData.append('email', email);
       formData.append('pin', pin);
-      formData.append('id_role', idRole);
+      formData.append('id_role', idRole.toString());
       formData.append('photo_profile', photoProfile);
       
       //send data to server
@@ -205,11 +205,11 @@ export default function AddUserModal({onAddSuccess}:any) {
                             name="role"
                             className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
                             value={idRole}
-                            onChange={(e) => setIdRole(e.target.value)}
+                            onChange={(e) => setIdRole(Number(e.target.value))}
                             required
                           >
                             <option value={3}>Reguler User</option>
-                            {roleId == 1 && <option value={1}>Provider</option>}
+                            {Number(roleId) === 1 && <option value={1}>Provider</option>}
                             <option value={2}>Admin</option>
                           </select>
                         </div>
