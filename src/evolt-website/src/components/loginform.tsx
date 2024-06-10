@@ -3,7 +3,7 @@
 import PasswordInput from "./passwordInput";
 import { useState } from "react";
 import axios from "axios";
-import LoginError from "./loginErrorModal";
+import ShowError from "./loginErrorModal";
 
 export default function LoginForm(){
 
@@ -94,7 +94,7 @@ export default function LoginForm(){
                                     Login
                                 </>
                             )}
-                            {showLoginError && <LoginError onClose={() => setShowLoginError(false)} />}
+                            {showLoginError && <ShowError onClose={() => setShowLoginError(false)} text="Username atau Password salah, silahkan coba lagi!!" />}
                         </button>
                     </div>
                 </form>

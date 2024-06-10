@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState, useEffect } from "react";
 import PasswordInput from "./passwordInput";
 import axios from "axios";
+import ShowError from "./loginErrorModal";
 // import Router from 'next/router';
 
 export default function AddUserModal({onAddSuccess}:any) {
@@ -31,6 +32,7 @@ export default function AddUserModal({onAddSuccess}:any) {
   const [photoProfile, setPhotoProfile] = useState('');
   const [isPinValid, setIsPinValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   //state validation
   const [validation, setValidation] = useState({});
@@ -89,10 +91,12 @@ export default function AddUserModal({onAddSuccess}:any) {
 
       })
       .catch((error) => {
-        alert(error.response.data.message)
+        // alert(error.response.data.message)
 
           //assign validation on state
-          setValidation(error.response);
+          setValidation(error.response.data.message);
+          setShowError(true);
+          setIsLoading(false);
       })
       
   };
@@ -270,6 +274,7 @@ export default function AddUserModal({onAddSuccess}:any) {
                               Simpan
                             </>
                           )}
+                          {showError && <ShowError onClose={() => setShowError(false)} text={validation} />}
                       </button>
                     </div>
                     )} 

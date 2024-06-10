@@ -4,6 +4,7 @@ import ConfirmEdit from "@/components/confirmEditUser";
 import React, { useRef } from "react";
 import PasswordInput from "./passwordInput";
 import axios from "axios";
+import ShowError from "./loginErrorModal";
 
 async function getServerSideProps(id_user: any) {
   //http request
@@ -35,6 +36,7 @@ export default function EditUserModal({ idUser, onEditSuccess }: any) {
   const [photoProfile, setPhotoProfile] = useState("");
   const [isPinValid, setIsPinValid] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
@@ -107,9 +109,12 @@ export default function EditUserModal({ idUser, onEditSuccess }: any) {
         closeModal();
       })
       .catch((error) => {
-        alert(error.response.data.message)
+        // alert(error.response.data.message)
         //assign validation on state
-        setValidation(error.response);
+        setValidation(error.response.data.message);
+        setPin("");
+        setShowError(true);
+        setIsLoading(false);
       });
   };
 
@@ -299,6 +304,7 @@ export default function EditUserModal({ idUser, onEditSuccess }: any) {
                               Simpan
                             </>
                           )}
+                          {showError && <ShowError onClose={() => setShowError(false)} text={validation} />}
                       </button>
                     </div>
                     )} 

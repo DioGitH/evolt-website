@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
-export default function LoginError( {onClose}:any) {
+export default function ShowError( {onClose, text}:any) {
 
     return (
         <Transition show={true} as={Fragment}>
@@ -40,7 +40,7 @@ export default function LoginError( {onClose}:any) {
                                             </Dialog.Title>
                                             <div className="mt-2">
                                                 <p className="text-sm text-gray-500">
-                                                    Username atau password salah silahkan coba lagi!!
+                                                    {text}
                                                 </p>
                                             </div>
                                         </div>
