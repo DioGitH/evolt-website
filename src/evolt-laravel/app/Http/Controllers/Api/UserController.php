@@ -41,6 +41,26 @@ class UserController extends Controller
         $photo_profile = $request->file('photo_profile');
         $photo_profile->storeAs('public/users', $photo_profile->hashName());
 
+        $tempUser = User::where('username', $request->username);
+
+        if ($tempUser) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Username sudah digunakan',
+            ], 409);
+        }
+
+        $tempUser = User::all()->filter(function ($user) use ($request) {
+            return Hash::check($request->pin, $user->pin);
+        })->first();
+
+        if ($tempUser) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Pin sudah digunakan',
+            ], 409);
+        }
+
         //create post
         $user = User::create([
             'username' => $request->username,
@@ -94,6 +114,26 @@ class UserController extends Controller
         //check if validation fails
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
+        }
+
+        $tempUser = User::where('username', $request->username);
+
+        if ($tempUser) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Username sudah digunakan',
+            ], 409);
+        }
+
+        $tempUser = User::all()->filter(function ($user) use ($request) {
+            return Hash::check($request->pin, $user->pin);
+        })->first();
+
+        if ($tempUser) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Pin sudah digunakan',
+            ], 409);
         }
 
         if ($request->pin) {
