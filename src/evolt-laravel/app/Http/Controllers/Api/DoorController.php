@@ -107,7 +107,7 @@ class DoorController extends Controller
 
     public function getDoorName($id_user) {
         $doors = Door::whereHas('users', function ($query) use ($id_user) {
-            $query->where('users.id', $id_user);
+            $query->where('users.id_user', $id_user);
         })->get(['id_door', 'door_name']);
 
         return new DoorResource(true, "Data Pintu", $doors);
