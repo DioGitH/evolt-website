@@ -41,7 +41,7 @@ class UserController extends Controller
         $photo_profile = $request->file('photo_profile');
         $photo_profile->storeAs('public/users', $photo_profile->hashName());
 
-        $tempUser = User::where('username', $request->username);
+        $tempUser = User::where('username', $request->username)->first();
 
         if ($tempUser) {
             return response()->json([
@@ -116,7 +116,7 @@ class UserController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $tempUser = User::where('username', $request->username);
+        $tempUser = User::where('username', $request->username)->first();
 
         if ($tempUser) {
             return response()->json([
