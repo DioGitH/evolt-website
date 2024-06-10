@@ -120,7 +120,7 @@ class UserController extends Controller
 
         $tempUser = User::where('username', $request->username)->first();
 
-        if ($tempUser) {
+        if ($tempUser && $tempUser->username != $user->username) {
             return response()->json([
                 'success' => false,
                 'message' => 'Username sudah digunakan',
