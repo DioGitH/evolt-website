@@ -70,6 +70,8 @@ class UserController extends Controller
             'id_role' => $request->id_role,
         ]);
 
+        $user->makeHidden('pin');
+
         //return response
         return new PostResource(true, 'Data User Berhasil Ditambahkan!', $user);
     }
@@ -171,6 +173,8 @@ class UserController extends Controller
                 'id_role' => $request->id_role,
             ]);
         }
+
+        $user->makeHidden('pin');
 
         //return response
         return new PostResource(true, 'Data User Berhasil Diubah!', $user);

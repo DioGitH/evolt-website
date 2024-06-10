@@ -84,6 +84,7 @@ export default function AddUserModal({onAddSuccess}:any) {
 
       })
       .catch((error) => {
+        alert(error.response.data.message)
 
           //assign validation on state
           setValidation(error.response);
