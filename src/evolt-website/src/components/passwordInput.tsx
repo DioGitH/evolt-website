@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-const PasswordInput = ({ pin, setPin }: any) => {
+const PasswordInput = ({ pin, setPin, message, isPinValid, setIsPinValid }: any) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const defaultPin = isPinValid;
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -14,9 +15,14 @@ const PasswordInput = ({ pin, setPin }: any) => {
     // Mengatur state password hanya jika nilai input numerik
     setPin(numericValue);
 
-    // Memotong nilai input menjadi 6 karakter jika lebih dari 6
-    if (numericValue.length > 6) {
-      setPin(numericValue.slice(0, 6));
+    if (numericValue.length == 0) {
+      setIsPinValid(defaultPin);
+    } else if (numericValue.length < 6) {
+      setIsPinValid(false);
+    } else if (numericValue.length >= 6) {
+      setIsPinValid(true);
+    }else if (numericValue.length > 10) {
+      setPin(numericValue.slice(0, 10));
     }
   };
 
@@ -26,7 +32,7 @@ const PasswordInput = ({ pin, setPin }: any) => {
         htmlFor="pin"
         className="block mb-1 text-sm font-medium text-gray-700 text-left"
       >
-        PIN
+        PIN {message}
       </label>
       <div className="relative">
         <input
@@ -36,8 +42,8 @@ const PasswordInput = ({ pin, setPin }: any) => {
           value={pin}
           onChange={handleInputChange}
           className="w-full bg-palette-2 text-white-800 border border-gray-300 rounded-md p-1 focus:outline-none focus:ring focus:ring-palette-4 shadow-inner"
-          maxLength={6}
-          placeholder="Masukkan Pin (Opsional)"
+          maxLength={10}
+          placeholder="Masukkan Pin"
         />
 
         <button

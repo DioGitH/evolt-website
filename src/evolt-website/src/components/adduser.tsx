@@ -29,6 +29,7 @@ export default function AddUserModal({onAddSuccess}:any) {
   const [pin, setPin] = useState('');
   const [idRole, setIdRole] = useState<number>(3);
   const [photoProfile, setPhotoProfile] = useState('');
+  const [isPinValid, setIsPinValid] = useState(false);
 
   //state validation
   const [validation, setValidation] = useState({});
@@ -191,7 +192,7 @@ export default function AddUserModal({onAddSuccess}:any) {
                         )} */}
 
                         <div className="max-w-screen mx-auto mb-2">
-                          <PasswordInput pin={pin} setPin={setPin} />
+                          <PasswordInput pin={pin} setPin={setPin} isPinValid={false} setIsPinValid={setIsPinValid}/>
                         </div>
 
                         <div className="max-w-screen mx-auto mb-2">
@@ -244,8 +245,9 @@ export default function AddUserModal({onAddSuccess}:any) {
                         )} */}
                       </div>
                     </div>
-
-                    <div className="flex justify-center">
+                    
+                    {isPinValid == true && (
+                      <div className="flex justify-center">
                       <button
                         type="submit"
                         className="inline-flex justify-center rounded-md bg-pallete-4 px-4 py-2 text-sm font-medium text-palette-3 hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -254,6 +256,18 @@ export default function AddUserModal({onAddSuccess}:any) {
                         Simpan
                       </button>
                     </div>
+                    )} 
+                    {isPinValid == false && (
+                      <div className="flex justify-center">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md bg-pallete-4 px-4 py-2 text-sm font-medium text-palette-3 bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        style={{ boxShadow: "3px 3px 5px rgba(0, 0, 0, 0.6)", cursor: "wait" }}
+                      >
+                        Simpan
+                      </button>
+                    </div>
+                    )}
                   </form>
                 </Dialog.Panel>
               </Transition.Child>
