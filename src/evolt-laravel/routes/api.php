@@ -13,7 +13,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/login/mobile', [LoginController::class, 'loginMobile']);
 Route::apiResource('/doors', DoorController::class);
 Route::get('/doors/get/{id}', [DoorController::class, 'getById']);
-Route::get('/doorname', [DoorController::class, 'getDoorName']);
+Route::get('/doorname/{id_user}', [DoorController::class, 'getDoorName']);
 Route::post('/image', [ImageController::class, 'store']);
 Route::delete('/image/{image_name}', [ImageController::class, 'destroy']);
 Route::apiResource('/log', LogController::class);

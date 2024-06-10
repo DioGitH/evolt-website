@@ -105,8 +105,10 @@ class DoorController extends Controller
         return new DoorResource(true, 'Data Door Berhasil Dihapus!', null);
     }
 
-    public function getDoorName() {
-        $doors = Door::select('id_door', 'door_name')->get();
+    public function getDoorName($id_user) {
+        $doors = Door::with(['users' => function($query) use ($id_user) {
+            $query->where('id_user', $id_user);
+        }])->get();
 
         return new DoorResource(true, "Data Pintu", $doors);
     }
