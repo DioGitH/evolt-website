@@ -103,6 +103,7 @@ export default function EditUserModal({ idUser, onEditSuccess }: any) {
         closeModal();
       })
       .catch((error) => {
+        alert(error.response.data.message)
         //assign validation on state
         setValidation(error.response);
       });
