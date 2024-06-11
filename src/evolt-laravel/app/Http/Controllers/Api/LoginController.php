@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Door;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -51,11 +52,17 @@ class LoginController extends Controller
 
         if ($user && Hash::check($input['pin'], $user->pin)) {
             $user->makeHidden('pin');
+            $user_id = $user->id_user;
+
+            $doors = Door::whereHas('users', function ($query) use ($user_id) {
+                $query->where('users.id_user', $user_id);
+            })->get(['id_door', 'door_name']);
 
             return response()->json([
                 'message' => 'Berhasil Login',
                 'isLogin' => true,
                 'user' => $user,
+                'doors' => $doors
             ], 200);
         } else {
             return response()->json(['message' => 'User Tidak Ditemukan'], 404);
