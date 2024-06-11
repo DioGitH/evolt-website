@@ -148,4 +148,31 @@ class LogController extends Controller
 
         return new PostResource(true, "Data Log", $data);
     }
+
+    public function storeMobile(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'id_pintu' => 'required',
+            'id_user' => 'required',
+        ]);
+
+        $user = User::where('id_user', $request->id_user)->first();
+        $door = Door::where('id_door', $request->id_door)->first();
+
+        $username = $user->username;
+        $door_name = $door->door_name;
+        $log_status = 'Berhasil Masuk';
+        $image_name = $user->image_name;
+
+        Log::create([
+            'username' => $username,
+            'door_name' => $door_name,
+            'log_status' => $log_status,
+            'image_name' => $image_name,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Berhasil Membuka',
+        ], 200);
+    }
 }

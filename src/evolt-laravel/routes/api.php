@@ -17,6 +17,7 @@ Route::get('/doorname/{id_user}', [DoorController::class, 'getDoorName']);
 Route::post('/image', [ImageController::class, 'store']);
 Route::delete('/image/{image_name}', [ImageController::class, 'destroy']);
 Route::apiResource('/log', LogController::class);
+Route::post('/log/mobile', [LogController::class, 'storeMobile']);
 Route::get('/dashboard/get/data', [LogController::class, 'dashboard']);
 // Route::get('/log', [ImageController::class, 'dashboard']);
 
