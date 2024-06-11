@@ -6,7 +6,7 @@ use Google\Cloud\BigQuery\BigQueryClient;
 
 $user = "root";
 $password = "404_SOLID";
-$database = "smart-door-lock";
+$database = "smart_door_lock";
 $table = "logs";
 
 try {
