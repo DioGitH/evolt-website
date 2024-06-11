@@ -1,6 +1,6 @@
 <?php
 
-require 'vendor/autoload.php'; // Load Composer's autoloader
+require '../evolt-laravel/vendor/autoload.php'; // Load Composer's autoloader
 
 use Google\Cloud\BigQuery\BigQueryClient;
 
