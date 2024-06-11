@@ -13,6 +13,7 @@ use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Validator;
 // use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class LogController extends Controller
 {
@@ -147,5 +148,43 @@ class LogController extends Controller
         ];
 
         return new PostResource(true, "Data Log", $data);
+    }
+
+    public function storeMobile(Request $request) {
+
+        $request->validate([
+            'id_pintu' => 'required|string',
+            'id_user' => 'required|string',
+        ]);
+
+        $input = $request->only('id_pintu', 'id_user');
+
+        $user = User::where('id_user', $input['id_user'])->first();
+        $door = Door::where('id_door', $input['id_pintu'])->first();
+
+        $username = $user->username;
+        $door_name = $door->door_name;
+        $log_status = 'Berhasil Masuk';
+        $image_name = $user->photo_profile;
+
+        $image_path = 'public/images/' . $image_name;
+        $image_user = 'public/users/' . $image_name;
+
+        if (!Storage::exists($image_path)) {
+            $image_content = Storage::get($image_user);
+            Storage::put($image_path, $image_content);
+        }
+
+        Log::create([
+            'username' => $username,
+            'door_name' => $door_name,
+            'log_status' => $log_status,
+            'image_name' => $image_name,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Berhasil Membuka',
+        ], 200);
     }
 }
