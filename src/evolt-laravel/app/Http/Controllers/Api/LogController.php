@@ -156,7 +156,7 @@ class LogController extends Controller
         ]);
 
         $user = User::where('id_user', $request->id_user)->first();
-        $door = Door::where('id_door', $request->id_door)->first();
+        $door = Door::where('id_door', $request->id_pintu)->first();
 
         $username = $user->username;
         $door_name = $door->door_name;
