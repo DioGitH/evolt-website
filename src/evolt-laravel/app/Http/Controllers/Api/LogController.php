@@ -161,7 +161,7 @@ class LogController extends Controller
         $username = $user->username;
         $door_name = $door->door_name;
         $log_status = 'Berhasil Masuk';
-        $image_name = $user->image_name;
+        $image_name = $user->photo_profile;
 
         Log::create([
             'username' => $username,
