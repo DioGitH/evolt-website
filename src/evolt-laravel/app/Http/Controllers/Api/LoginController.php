@@ -50,6 +50,8 @@ class LoginController extends Controller
             ->first();
 
         if ($user && Hash::check($input['pin'], $user->pin)) {
+            $user->makeHidden('pin');
+
             return response()->json([
                 'message' => 'Berhasil Login',
                 'isLogin' => true,
