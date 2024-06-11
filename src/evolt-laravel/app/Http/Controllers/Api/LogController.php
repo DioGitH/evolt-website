@@ -159,11 +159,7 @@ class LogController extends Controller
 
         $input = $request->only('id_pintu', 'id_user');
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Berhasil Membuka',
-            'input' => $input,
-        ], 200);
+        return response($input);
 
         $user = User::where('id_user', $input['id_user'])->first();
         $door = Door::where('id_door', $input['id_pintu'])->first();
