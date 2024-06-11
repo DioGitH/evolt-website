@@ -4,10 +4,10 @@ require 'vendor/autoload.php'; // Load Composer's autoloader
 
 use Google\Cloud\BigQuery\BigQueryClient;
 
-$user = "xxx";
-$password = "xxx";
-$database = "xxx";
-$table = "xxx";
+$user = "root";
+$password = "404_SOLID";
+$database = "smart-door-lock";
+$table = "logs";
 
 try {
     $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
@@ -21,11 +21,11 @@ try {
         echo "Data berhasil diambil dari MySQL!<br>";
 
         // Set BigQuery parameters
-        $projectId = 'xxx';
-        $datasetId = 'xxx';
-        $bigQueryTable = 'xxx'; // Pastikan tabel ini bukan tabel eksternal
+        $projectId = 'project-kelompok-404';
+        $datasetId = 'project-kelompok-404.smart_door_lock';
+        $bigQueryTable = 'project-kelompok-404.smart_door_lock.logs'; // Pastikan tabel ini bukan tabel eksternal
 
-        putenv('GOOGLE_APPLICATION_CREDENTIALS=/var/www/html/file_dari_service_account.json');
+        putenv('GOOGLE_APPLICATION_CREDENTIALS=/var/www/html/evolt/src/evolt-cloud/project-kelompok-404-1c8b616e9203.json');
 
         $bigQuery = new BigQueryClient([
             'projectId' => $projectId,
@@ -38,9 +38,13 @@ try {
         $rows = [];
         foreach ($data as $row) {
             $rows[] = ['data' => [
-                'Temperature' => $row['temperature'],
-                'Humidity' => $row['humidity'],
-                'Kelembapan' => $row['lembab'],
+                'Id_log' => $row['id_log'],
+                'Log_status' => $row['log_status'],
+                'Door_name' => $row['door_name'],
+                'Username' => $row['username'],
+                'Image_name' => $row['image_name'],
+                'Created_at' => $row['created_at'],
+                'Updated_at' => $row['updated_at'],
             ]];
         }
 
