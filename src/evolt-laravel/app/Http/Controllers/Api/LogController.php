@@ -151,13 +151,16 @@ class LogController extends Controller
     }
 
     public function storeMobile(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'id_pintu' => 'required',
-            'id_user' => 'required',
+
+        $request->validate([
+            'id_pintu' => 'required|string',
+            'id_user' => 'required|string',
         ]);
 
-        $user = User::where('id_user', $request->id_user)->first();
-        $door = Door::where('id_door', $request->id_pintu)->first();
+        $input = $request->only('id_pintu', 'id_user');
+
+        $user = User::where('id_user', $input['id_user'])->first();
+        $door = Door::where('id_door', $input['id_pintu'])->first();
 
         $username = $user->username;
         $door_name = $door->door_name;
