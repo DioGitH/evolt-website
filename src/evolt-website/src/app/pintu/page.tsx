@@ -1,3 +1,4 @@
+// src/pages/dashboard.js
 "use client";
 import DetailModal from "@/components/detailModal";
 import DeletePintu from "@/components/deleteuser";
@@ -9,6 +10,7 @@ import {
   ButtonTambahPintu,
 } from "@/components/buttonHalamanPintu";
 import DetailPintu from "@/components/detailPintu";
+import VideoModal from "@/components/VideoModal"; // Pastikan untuk mengimpor VideoModal
 import axios from "axios";
 
 export default function Dashboard() {
@@ -118,6 +120,7 @@ function LogTable({ itemsPerPage }: any) {
                       id_door={door.id_door}
                       onDeleteSuccess={() => fetchDoors(currentPage)}
                     />
+                    <VideoModal videoUrl="https://8f25-114-6-41-75.ngrok-free.app/mjpeg/1" />
                   </div>
                 </td>
               </tr>
