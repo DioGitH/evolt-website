@@ -12,16 +12,16 @@ export default function VideoModal({ videoUrl }:any) {
     setIsOpen(true);
   }
 
-  function openNewTab(url:any) {
-    window.open(url, '_blank')!.focus();
-  }
+  // function openNewTab(url:any) {
+  //   window.open(url, '_blank')!.focus();
+  // }
   
 
   return (
     <>
       <button
         type="button"
-        onClick={()=>openNewTab(videoUrl)}
+        onClick={openModal}
         className="flex items-center justify-center text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
       >
         Kamera
