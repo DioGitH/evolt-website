@@ -79,7 +79,9 @@ function LogTable({ itemsPerPage }: any) {
       </div>
 
       {roleId == "1" && (
-        <div className="flex justify-end mr-5 mt-0">
+        <div className="flex justify-end mr-5 mt-0 gap-3">
+          <VideoModal videoUrl="http://192.168.72.72" />
+          
           <ButtonTambahPintu onAddSuccess={() => fetchDoors(currentPage)} />
         </div>
       )}
@@ -120,7 +122,6 @@ function LogTable({ itemsPerPage }: any) {
                       id_door={door.id_door}
                       onDeleteSuccess={() => fetchDoors(currentPage)}
                     />
-                    <VideoModal videoUrl="https://8f25-114-6-41-75.ngrok-free.app/mjpeg/1" />
                   </div>
                 </td>
               </tr>

@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-export default function VideoModal({ videoUrl }) {
+export default function VideoModal({ videoUrl }:any) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -12,11 +12,16 @@ export default function VideoModal({ videoUrl }) {
     setIsOpen(true);
   }
 
+  function openNewTab(url:any) {
+    window.open(url, '_blank')!.focus();
+  }
+  
+
   return (
     <>
       <button
         type="button"
-        onClick={openModal}
+        onClick={()=>openNewTab(videoUrl)}
         className="flex items-center justify-center text-xs bg-pallete-4 rounded px-3 py-1 my-1.5 text-palette-3"
       >
         Kamera
