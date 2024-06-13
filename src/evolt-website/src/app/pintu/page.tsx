@@ -80,7 +80,7 @@ function LogTable({ itemsPerPage }: any) {
 
       {roleId == "1" && (
         <div className="flex justify-end mr-5 mt-0 gap-3">
-          <VideoModal videoUrl="https://2b74-114-6-41-75.ngrok-free.app/mjpeg/1" />
+          <VideoModal videoUrl="https://aa64-114-6-41-75.ngrok-free.app/mjpeg/1" />
           
           <ButtonTambahPintu onAddSuccess={() => fetchDoors(currentPage)} />
         </div>

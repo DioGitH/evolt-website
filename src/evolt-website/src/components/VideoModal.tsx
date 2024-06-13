@@ -52,14 +52,14 @@ export default function VideoModal({ videoUrl }:any) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-md p-8 align-middle shadow-xl transition-all bg-palette-3">
+                <Dialog.Panel className="w-[60%] max-w-4xl transform overflow-hidden rounded-md p-8 align-middle shadow-xl transition-all bg-palette-3">
                   <button
                     onClick={closeModal}
                     className="absolute top-0 right-0 m-4 text-red-700 hover:text-red-900"
                   >
                     X
                   </button>
-                  <div className="relative pt-[30%] "> {/* 1:1 Aspect Ratio */}
+                  <div className="relative pt-[70%] "> {/* 1:1 Aspect Ratio */}
                     <iframe
                       className="absolute top-0 left-0 w-full h-full"
                       src={videoUrl}
